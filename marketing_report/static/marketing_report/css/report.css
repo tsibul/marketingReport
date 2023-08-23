@@ -1,0 +1,23 @@
+.report-content{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.report-block{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    min-width: 360px;
+    min-height: 360px;
+    border: 1px solid #293D32;
+    border-radius: 10px;
+    padding: 12px;
+    text-decoration: none;
+}
+
+.big-plus{
+    font-size: 250px;
+    text-align: center;
+    font-weight: 100;
+    opacity: 0.5;
+}
