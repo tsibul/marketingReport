@@ -1,0 +1,23 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #151E19;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.auth-needed {
+    margin-top: 18vh;
+    display: flex;
+    justify-content: center
+}
+
+.container {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+.full-content {
+    background-color: #EFE7DC;
+
+}
