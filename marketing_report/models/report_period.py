@@ -1,5 +1,7 @@
 import datetime
 import calendar
+import json
+
 from django.db import models
 
 
@@ -95,3 +97,11 @@ class ReportPeriod(models.Model):
             self.date_begin = datetime.date(self.date_begin.year + n, 1, 1)
             self.date_end = datetime.date(self.date_begin.year, 12, 31)
             self.name = str(self.date_begin.year)
+
+
+def json_periods():
+    period_dict = {}
+    for period in ReportPeriod.calculable_list():
+        period_dict.update({period.value: str(period.label)})
+    return json.dumps(period_dict)
+
