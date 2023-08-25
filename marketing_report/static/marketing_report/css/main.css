@@ -19,7 +19,7 @@
 
 .full-content {
     background-color: #EFE7DC;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px);
 }
 
 .top-label {
@@ -54,15 +54,26 @@
     border-radius: 10px;
     font-size: 16px;
     background-color: transparent;
+    cursor: pointer;
+    color: #EFE7DC;
 }
 
 .btn-save{
     background-color: #293D32;
     border-color: #293D32;
-    color: #EFE7DC;
 }
 
 .btn-save:hover{
     color: #293D32;
+    background-color: transparent;
+}
+
+.btn-close{
+    background-color: #86A0AC;
+    border-color:#86A0AC;
+}
+
+.btn-close:hover{
+    color: #86A0AC;
     background-color: transparent;
 }
