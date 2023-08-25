@@ -33,19 +33,19 @@
                         <button type="button" class="btn btn-save">Создать отчет</button>
                     </div>
                 </div>
-                <a href="#" class="report-block" id="report-2">
+                <div onclick="newReport(this, 0)" class="report-block report-block-hoverable" id="report-2">
                     <p class="report-heading">Отчет по клиентам</p>
                     <p class="big-plus">+</p>
-                </a>
-                <div class="report-block" id="report-101">
+                </div>
+                <div class="report-block" id="report-1001">
                     <p class="report-heading">Отчет по товарам</p>
-                    <label for="report-101" class="top-label">тип отчета</label>
-                    <select class="form-select" id="report-select-101">
-                        <option>ABC&nbsp;—&nbsp;анализ</option>
-                        <option>Группы&nbsp;товара</option>
-                        <option>Товарная&nbsp;матрица</option>
-                    </select> <label for="period-101" class="top-label">период</label>
-                    <select class="form-select" id="period-select-101">
+                    <label for="report-1001" class="top-label">тип отчета</label>
+                    <select class="form-select" id="report-select-1001">
+                        {% for report in goods_reports %}
+                            <option value="{{ report.code }}">{{ report.description }}</option>
+                        {% endfor %}
+                    </select> <label for="period-1001" class="top-label">период</label>
+                    <select class="form-select" id="period-select-1001">
                         {% for period in periods %}
                             <option value="{{ period.value }}">{{ period.label }}</option>
                         {% endfor %}
@@ -54,8 +54,8 @@
                         <div>c&nbsp;<input type="date" class="form-input"></div>
                         <div>&nbsp;до&nbsp;<input type="date" class="form-input"></div>
                     </div>
-                    <label for="parameter-select-101" class="top-label">показатель</label>
-                    <select class="form-select" id="parameter-select-101">
+                    <label for="parameter-select-1001" class="top-label">показатель</label>
+                    <select class="form-select" id="parameter-select-1001">
                         {% for argument in money_arguments %}
                             <option value="{{ argument.code }}">{{ argument.description }}</option>
                         {% endfor %}
@@ -64,26 +64,27 @@
                         <button type="button" class="btn btn-save">Создать отчет</button>
                     </div>
                 </div>
-                <a href="#" class="report-block" id="report-102">
+                <div onclick="newReport(this, 10000)" class="report-block report-block-hoverable" id="report-1002">
                     <p class="report-heading">Отчет по товарам</p>
                     <p class="big-plus">+</p>
-                </a>
+                </div>
             </section>
         </div>
 
     </div>
 
     <div hidden id="technical-data">
+        <div id="periods">{{ json_period }}</div>
         <div id="json-cst-reports">{{ json_cst_reports }}</div>
         <div id="json-goods-reports">{{ json_goods_reports }}</div>
         <div id="json-money-arguments">{{ json_money_arguments }}</div>
         <div id="json-time-arguments">{{ json_time_arguments }}</div>
         <div class="report-block" id="report-0">
             <p class="report-heading">Отчет по клиентам</p>
-            <label for="report-0" class="top-label">тип отчета</label>
+            <label for="report-select-0" class="top-label">тип отчета</label>
             <select class="form-select" id="report-select-0">
             </select>
-            <label for="period-0" class="top-label">период</label>
+            <label for="period-select-0" class="top-label">период</label>
             <select class="form-select" id="period-select-0">
             </select>
             <div class="date-row">
@@ -97,10 +98,30 @@
                 {% endfor %}
             </select>
             <div class="button-block">
-                <button type="button" class="btn btn-close">Закрыть</button>
+                <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
                 <button type="button" class="btn btn-save">Создать отчет</button>
             </div>
         </div>
+        <div class="report-block" id="report-10000">
+            <p class="report-heading">Отчет по товарам</p>
+            <label for="report-select-10000" class="top-label">тип отчета</label>
+            <select class="form-select" id="report-select-10000">
+            </select> <label for="period-select-10000" class="top-label">период</label>
+            <select class="form-select" id="period-select-10000">
+            </select>
+            <div class="date-row">
+                <div>c&nbsp;<input type="date" class="form-input"></div>
+                <div>&nbsp;до&nbsp;<input type="date" class="form-input"></div>
+            </div>
+            <label for="parameter-select-10000" class="top-label">показатель</label>
+            <select class="form-select" id="parameter-select-10000">
+            </select>
+            <div class="button-block">
+                <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
+                <button type="button" class="btn btn-save">Создать отчет</button>
+            </div>
+        </div>
+
     </div>
     <script src="{% static 'marketing_report/js/report.js' %}"></script>
 {% endblock %}
