@@ -1,3 +1,5 @@
+
+
 // add report block
 function newReport(thisObj, reportType) {
     const oldId = changeReportBlockId(thisObj);
@@ -51,9 +53,21 @@ function addReportList(newNode, reportType){
     });
 }
 
+function changeArgumentList(){
+
+}
+
 // remove report block
 function reportRemove(thisObj) {
-    thisObj.parentElement.parentElement.remove();
+    const parentObj = thisObj.parentElement.parentElement;
+    parentObj.innerHTML = '';
+    parentObj.style.border = 'none';
+    parentObj.style.padding = '0';
+    parentObj.style.margin = '0';
+    parentObj.style.minWidth = '0';
+    parentObj.style.width = '0';
+    setTimeout(function (){parentObj.remove();},295)
+//    thisObj.parentElement.parentElement.remove();
 }
 
 // parse json
