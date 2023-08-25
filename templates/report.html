@@ -6,33 +6,71 @@
         <div class="container">
             <section class="report-content">
                 <div class="report-block" id="report-1">
-                    <p>Отчет по клиентам</p>
-                    <label for="report-1">тип отчета</label>
+                    <p class="report-heading">Отчет по клиентам</p>
+                    <label for="report-1" class="top-label">тип отчета</label>
                     <select class="form-select" id="report-select-1">
                         <option>ABC&nbsp;—&nbsp;анализ</option>
                         <option>Миграции клиентов</option>
                         <option>Типы&nbsp;и&nbsp;география</option>
                         <option>Виды&nbsp;клиентов</option>
                     </select>
+                    <label for="period-1" class="top-label">период</label>
+                    <select class="form-select" id="period-select-1">
+                        {% for period in periods %}
+                            <option value="{{ period.value }}">{{ period.label }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="date-row">
+                        <div>c&nbsp;<input type="date" class="form-input"></div>
+                        <div>&nbsp;до&nbsp;<input type="date" class="form-input"></div>
+                    </div>
+                    <label for="parameter-select-1" class="top-label">показатель</label>
+                    <select class="form-select" id="parameter-select-1">
+                        <option>Выручка&nbsp;без&nbsp;НДС</option>
+                        <option>Прибыль</option>
+                        <option>Выручка&nbsp;с&nbsp;НДС</option>
+                        <option>Количество&nbsp;продаж</option>
+                    </select>
+                    <div class="button-block">
+                        <button type="button" class="btn btn-save">Создать отчет</button>
+                    </div>
 
                 </div>
                 <a href="#" class="report-block" id="report-2">
-                    <p>Отчет по клиентам</p>
+                    <p class="report-heading">Отчет по клиентам</p>
                     <p class="big-plus">+</p>
 
                 </a>
-                <div class="report-block" id="report-3">
-                    <p>Отчет по товарам</p>
-                    <label for="report-3">тип отчета</label>
-                    <select class="form-select" id="report-select-3">
+                <div class="report-block" id="report-101">
+                    <p class="report-heading">Отчет по товарам</p>
+                    <label for="report-101" class="top-label">тип отчета</label>
+                    <select class="form-select" id="report-select-101">
                         <option>ABC&nbsp;—&nbsp;анализ</option>
                         <option>Группы&nbsp;товара</option>
                         <option>Товарная&nbsp;матрица</option>
+                    </select> <label for="period-101" class="top-label">период</label>
+                    <select class="form-select" id="period-select-101">
+                        {% for period in periods %}
+                            <option value="{{ period.value }}">{{ period.label }}</option>
+                        {% endfor %}
                     </select>
-
+                    <div class="date-row">
+                        <div>c&nbsp;<input type="date" class="form-input"></div>
+                        <div>&nbsp;до&nbsp;<input type="date" class="form-input"></div>
+                    </div>
+                    <label for="parameter-select-101" class="top-label">показатель</label>
+                    <select class="form-select" id="parameter-select-101">
+                        <option>Выручка&nbsp;без&nbsp;НДС</option>
+                        <option>Прибыль</option>
+                        <option>Выручка&nbsp;с&nbsp;НДС</option>
+                        <option>Количество&nbsp;продаж</option>
+                    </select>
+                    <div class="button-block">
+                        <button type="button" class="btn btn-save">Создать отчет</button>
+                    </div>
                 </div>
-                <a href="#" class="report-block" id="report-4">
-                    <p>Отчет по товарам</p>
+                <a href="#" class="report-block" id="report-102">
+                    <p class="report-heading">Отчет по товарам</p>
                     <p class="big-plus">+</p>
 
                 </a>
@@ -40,5 +78,5 @@
         </div>
 
     </div>
-
+<script src="{% static 'marketing_report/js/report.js' %}"></script>
 {% endblock %}

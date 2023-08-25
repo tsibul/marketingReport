@@ -19,5 +19,49 @@
 
 .full-content {
     background-color: #EFE7DC;
+}
 
+.top-label {
+    margin-top: 6px;
+}
+
+.form-select {
+    margin-bottom: 6px;
+    border: 1px solid #293D32;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 6px;
+    background-color: #EFE7DC
+}
+
+.form-input {
+    margin: 10px 0;
+    border: 1px solid #293D32;
+    border-radius: 10px;
+    padding: 8px 4px;
+    background-color: #EFE7DC
+}
+
+.report-heading{
+    font-weight: 800;
+    margin-bottom: 2px;
+}
+
+.btn{
+    border: 1px solid;
+    padding: 8px;
+    border-radius: 10px;
+    font-size: 16px;
+    background-color: transparent;
+}
+
+.btn-save{
+    background-color: #293D32;
+    border-color: #293D32;
+    color: #EFE7DC;
+}
+
+.btn-save:hover{
+    color: #293D32;
+    background-color: transparent;
 }

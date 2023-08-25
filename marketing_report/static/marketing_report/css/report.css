@@ -21,3 +21,15 @@
     font-weight: 100;
     opacity: 0.5;
 }
+
+.date-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.button-block{
+    display: flex;
+    justify-content: flex-end;
+    margin: 10px 0;
+    gap: 8px;
+}
