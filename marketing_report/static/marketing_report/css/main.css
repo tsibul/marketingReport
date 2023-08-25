@@ -19,6 +19,7 @@
 
 .full-content {
     background-color: #EFE7DC;
+    height: calc(100vh - 70px);
 }
 
 .top-label {
