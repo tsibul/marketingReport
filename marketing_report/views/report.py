@@ -4,6 +4,7 @@ from marketing_report.models.report_classes import *
 from marketing_report.models.argument_classes import *
 
 
+
 def reports(request):
     periods = ReportPeriod.calculable_list()
     cst_reports = cst_report_list()
@@ -13,9 +14,10 @@ def reports(request):
     money_arguments = money_argument_list()
     json_money_arguments = json_money_argument_list()
     json_time_arguments = json_time_argument_list()
+    json_period = json_periods()
 
     context = {'periods': periods, 'cst_reports': cst_reports, 'goods_reports': goods_reports,
                'json_goods_reports': json_goods_reports, 'json_cst_reports': json_cst_reports,
                'money_arguments': money_arguments, 'json_money_arguments': json_money_arguments,
-               'json_time_arguments': json_time_arguments}
+               'json_time_arguments': json_time_arguments, 'json_period': json_period}
     return render(request, 'report.html', context)
