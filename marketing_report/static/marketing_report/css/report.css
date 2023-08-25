@@ -15,6 +15,22 @@
     text-decoration: none;
 }
 
+.report-block-hoverable{
+    cursor: pointer;
+}
+
+.report-block-hoverable:hover p{
+    color: #EFE7DC;
+    opacity: 1;
+}
+
+
+.report-block-hoverable:hover{
+    background-color: #293D32;
+}
+
+
+
 .big-plus{
     font-size: 250px;
     text-align: center;
