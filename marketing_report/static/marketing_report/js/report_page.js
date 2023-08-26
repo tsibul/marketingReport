@@ -1,12 +1,27 @@
-
 // add report block
 function newReport(thisObj, reportType) {
     const oldId = changeReportBlockId(thisObj);
-    const newNode = addReportBlock(reportType, oldId);
-    thisObj.parentNode.insertBefore(newNode, thisObj);
-    addPeriodList(newNode);
-    addReportList(newNode, reportType);
+    const tempNode = temporaryNode();
+    thisObj.parentNode.insertBefore(tempNode, thisObj);
+    setTimeout(function () {
+        tempNode.style.width = '360px';
+    }, 0);
+    setTimeout(function () {
+        tempNode.remove();
+        const newNode = addReportBlock(reportType, oldId);
+        newNode.style.minWidth = '360px';
+        thisObj.parentNode.insertBefore(newNode, thisObj);
+        addPeriodList(newNode);
+        addReportList(newNode, reportType);
+    }, 300);
 
+
+    function temporaryNode() {
+        const tempNode = document.createElement('div')
+        tempNode.id = 'temp-node';
+        tempNode.className = 'temp-block';
+        return tempNode;
+    }
 
     function changeReportBlockId(thisObj) {
         // add 1 to id for block "add report"
@@ -26,6 +41,8 @@ function newReport(thisObj, reportType) {
         newNode.querySelectorAll('[for$="' + reportType + '"]').forEach(function (element) {
             element.setAttribute('for', element.getAttribute('for').replace(reportType, oldId));
         });
+        newNode.style.minWidth = '0';
+        newNode.style.width = '0';
         return newNode;
     }
 
@@ -54,10 +71,10 @@ function newReport(thisObj, reportType) {
 }
 
 // change argument list
-function changeArgumentList(thisObj){
+function changeArgumentList(thisObj) {
     const parentObj = thisObj.parentElement;
     let newOptions;
-    if(thisObj.value === 'MIG'){
+    if (thisObj.value === 'MIG') {
         newOptions = timeArguments();
         parentObj.querySelector('[for^="parameter-select"]').textContent = 'время жизни';
     } else {
@@ -67,7 +84,7 @@ function changeArgumentList(thisObj){
     const argumentSelect = parentObj.querySelector('[id^="parameter-select"]');
     argumentSelect.replaceChildren();
     let newOption;
-    newOptions.forEach(function (argument){
+    newOptions.forEach(function (argument) {
         newOption = document.createElement('option');
         newOption.value = argument['code'];
         newOption.textContent = argument['description'];
@@ -85,11 +102,13 @@ function reportRemove(thisObj) {
     parentObj.style.margin = '0';
     parentObj.style.minWidth = '0';
     parentObj.style.width = '0';
-    setTimeout(function (){parentObj.remove();},295)
+    setTimeout(function () {
+        parentObj.remove();
+    }, 295)
 }
 
 // build report
-function buildReport(thisObj){
+function buildReport(thisObj) {
     const parentObj = thisObj.parentElement.parentElement;
     const blockId = parentObj.id.split('-').pop();
     const reportNo = parseInt(blockId) < 10000 ? '0' : '10000';
@@ -99,9 +118,9 @@ function buildReport(thisObj){
     const dateBegin = dates[0].value;
     const dateEnd = dates[1].value;
     const argument = parentObj.querySelector('[id^="parameter-select"]').value;
-    if((dateBegin !== '') && (dateEnd !== '')){
+    if ((dateBegin !== '') && (dateEnd !== '')) {
 
-    } else if(dateBegin === ''){
+    } else if (dateBegin === '') {
         dates[0].focus();
     } else {
         dates[1].focus();

@@ -16,6 +16,15 @@
     transition: all 0.3s ease-out;
 }
 
+.temp-block{
+    margin: 20px;
+    width: 0px;
+    min-height: 360px;
+    border: 1px solid #293D32;
+    border-radius: 10px;
+    transition: width 0.3s ease-out;
+}
+
 .report-block-hoverable{
     cursor: pointer;
 }
