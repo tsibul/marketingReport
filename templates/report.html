@@ -8,7 +8,7 @@
                 <div class="report-block" id="report-1">
                     <p class="report-heading">Отчет по клиентам</p>
                     <label for="report-1" class="top-label">тип отчета</label>
-                    <select class="form-select" id="report-select-1">
+                    <select class="form-select" id="report-select-1" onchange="changeArgumentList(this)">
                         {% for report in cst_reports %}
                             <option value="{{ report.code }}">{{ report.description }}</option>
                         {% endfor %}

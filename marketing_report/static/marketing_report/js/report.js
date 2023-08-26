@@ -53,8 +53,26 @@ function addReportList(newNode, reportType){
     });
 }
 
-function changeArgumentList(){
-
+function changeArgumentList(thisObj){
+    const parentObj = thisObj.parentElement;
+    let newOptions;
+    if(thisObj.value === 'MIG'){
+        newOptions = timeArguments();
+        parentObj.querySelector('[for^="parameter-select"]').textContent = 'время жизни';
+    } else {
+        newOptions = moneyArguments();
+        parentObj.querySelector('[for^="parameter-select"]').textContent = 'показатель';
+    }
+    const argumentSelect = parentObj.querySelector('[id^="parameter-select"]');
+    argumentSelect.replaceChildren();
+    let newOption;
+    newOptions.forEach(function (argument){
+        newOption = document.createElement('option');
+        newOption.value = argument['code'];
+        newOption.textContent = argument['description'];
+        argumentSelect.appendChild(newOption);
+    });
+    parentObj.querySelector('[for^="parameter-select"]');
 }
 
 // remove report block
@@ -67,7 +85,6 @@ function reportRemove(thisObj) {
     parentObj.style.minWidth = '0';
     parentObj.style.width = '0';
     setTimeout(function (){parentObj.remove();},295)
-//    thisObj.parentElement.parentElement.remove();
 }
 
 // parse json
