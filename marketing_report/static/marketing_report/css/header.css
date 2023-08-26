@@ -21,7 +21,7 @@
     border: 1px solid transparent;
     border-radius: 10px;
     margin: 4px;
-    transition: all 0.3s;
+    transition: all 0.3s ease-out;
 }
 
 .menu-item:hover {
@@ -30,5 +30,5 @@
 }
 
 .active{
-    font-weight: 800;
+    font-weight: 900;
 }
