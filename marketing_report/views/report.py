@@ -1,8 +1,8 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from marketing_report.models.report_period import *
 from marketing_report.models.report_classes import *
 from marketing_report.models.argument_classes import *
-
 
 
 def reports(request):
@@ -22,3 +22,7 @@ def reports(request):
                'money_arguments': money_arguments, 'json_money_arguments': json_money_arguments,
                'json_time_arguments': json_time_arguments, 'json_period': json_period, 'navi': navi}
     return render(request, 'report.html', context)
+
+
+def json_report(request, report_no, report_type, period, date_begin, date_end, argument):
+    return JsonResponse('', safe=False)
