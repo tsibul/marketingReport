@@ -22,8 +22,10 @@
         <menu class="menu">
             <div class="menu-left">
                 {% if request.user.is_authenticated %}
-                    <a href="#" class="menu-item">Главная</a>
-                    <a href="{% url 'marketing_report:reports' %}" class="menu-item">Отчеты</a>
+                    <a href="{% url 'marketing_report:main' %}"
+                       class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
+                    <a href="{% url 'marketing_report:reports' %}"
+                       class="menu-item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
                     <a href="#" class="menu-item">Настройки</a>
                     <a href="#" class="menu-item">Импорт</a>
                 {% else %}
