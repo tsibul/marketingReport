@@ -30,7 +30,7 @@
                         {% endfor %}
                     </select>
                     <div class="button-block">
-                        <button type="button" class="btn btn-save">Создать отчет</button>
+                        <button type="button" class="btn btn-save"  onclick="buildReport(this)">Создать отчет</button>
                     </div>
                 </div>
                 <div onclick="newReport(this, 0)" class="report-block report-block-hoverable" id="report-2">
@@ -61,7 +61,7 @@
                         {% endfor %}
                     </select>
                     <div class="button-block">
-                        <button type="button" class="btn btn-save">Создать отчет</button>
+                        <button type="button" class="btn btn-save"  onclick="buildReport(this)">Создать отчет</button>
                     </div>
                 </div>
                 <div onclick="newReport(this, 10000)" class="report-block report-block-hoverable" id="report-1002">
@@ -99,7 +99,7 @@
             </select>
             <div class="button-block">
                 <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
-                <button type="button" class="btn btn-save">Создать отчет</button>
+                <button type="button" class="btn btn-save"  onclick="buildReport(this)">Создать отчет</button>
             </div>
         </div>
         <div class="report-block" id="report-10000">
@@ -118,10 +118,11 @@
             </select>
             <div class="button-block">
                 <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
-                <button type="button" class="btn btn-save">Создать отчет</button>
+                <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
         </div>
 
     </div>
-    <script src="{% static 'marketing_report/js/report.js' %}"></script>
+    <script src="{% static 'marketing_report/js/report_page.js' %}"></script>
+    <script src="{% static 'marketing_report/js/reports.js' %}"></script>
 {% endblock %}
