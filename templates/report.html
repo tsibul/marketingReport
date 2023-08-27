@@ -137,6 +137,9 @@
                 </div>
                 <label for="parameter-select-10000" class="top-label">показатель</label>
                 <select class="form-select" id="parameter-select-10000">
+                    {% for argument in money_arguments %}
+                        <option value="{{ argument.code }}">{{ argument.description }}</option>
+                    {% endfor %}
                 </select>
             </div>
             <div class="button-block">
