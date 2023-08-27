@@ -121,9 +121,7 @@ function buildReport(thisObj) {
     const dateEnd = dates[1].value;
     const argument = parentObj.querySelector('[id^="parameter-select"]').value;
     if (dateBegin !== '' && dateEnd !== '' && dateBegin < dateEnd) {
-        parentObj.style.minWidth = '740px';
-        parentObj.style.maxWidth = '1500px';
-        parentObj.querySelector('.report-heading').textContent = reportTitle;
+        emptyReportBlockBig();
     } else if (dateBegin === '') {
         dates[0].focus();
     } else {
@@ -135,5 +133,32 @@ function buildReport(thisObj) {
             return el['code'] === reportType
         });
         return element['description']
+    }
+
+    function emptyReportBlockBig() {
+        parentObj.style.minWidth = '1160px';
+        parentObj.style.maxWidth = '1500px';
+        const reportHeading = parentObj.querySelector('.report-heading')
+        reportHeading.textContent = reportTitle;
+        const dateRow = parentObj.querySelector('.date-row').cloneNode(true);
+        const reportSelector = parentObj.querySelector('[id^="report-select"]').cloneNode(true);
+        reportSelector.value = parentObj.querySelector('[id^="report-select"]').value;
+        reportSelector.style.display = 'none';
+        const periodSelector = parentObj.querySelector('[id^="period-select"]').cloneNode(true);
+        periodSelector.value = parentObj.querySelector('[id^="period-select"]').value;
+        periodSelector.style.marginBottom = '0';
+        const argumentSelector = parentObj.querySelector('[id^="parameter-select"]').cloneNode(true);
+        argumentSelector.value = parentObj.querySelector('[id^="parameter-select"]').value;
+        argumentSelector.style.marginBottom = '0';
+        const periodText = document.createElement('label');
+        periodText.textContent = ' детализация ';
+        periodText.setAttribute('for', periodSelector.id);
+        const argumentText = document.createElement('label');
+        argumentText.textContent = ' показатель ';
+        argumentText.setAttribute('for', argumentSelector.id);
+
+        parentObj.querySelector('.report-block-content').innerHTML = '';
+        parentObj.querySelector('.report-header').replaceChildren(reportHeading, dateRow, argumentText,
+            argumentSelector, periodText, periodSelector, reportSelector);
     }
 }
