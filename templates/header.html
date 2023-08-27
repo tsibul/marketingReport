@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="{% static 'marketing_report/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'marketing_report/css/header.css' %}">
     <link rel="stylesheet" href="{% static 'marketing_report/css/report.css' %}">
+    <link rel="stylesheet" href="{% static 'marketing_report/css/dictionary.css' %}">
+    <link rel="stylesheet" href="{% static 'marketing_report/css/imports.css' %}">
 
     <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'>
 
@@ -26,8 +28,10 @@
                        class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
                     <a href="{% url 'marketing_report:reports' %}"
                        class="menu-item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
-                    <a href="#" class="menu-item">Настройки</a>
-                    <a href="#" class="menu-item">Импорт</a>
+                    <a href="{% url 'marketing_report:dictionary' %}"
+                       class="menu-item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
+                    <a href="{% url 'marketing_report:imports' %}"
+                       class="menu-item {% if navi == 'imports' %}active{% endif %}">Импорт</a>
                 {% else %}
                     <p class="menu-item">Макетинг V2.0. <strong>Авторизуйтесь</strong></p>
                 {% endif %}
@@ -66,7 +70,7 @@
         </div>
     </div>
 {% endif %}
-    <script src="{% static 'marketing_report/js/main.js' %}"></script>
+<script src="{% static 'marketing_report/js/main.js' %}"></script>
 
 </body>
 </html>
