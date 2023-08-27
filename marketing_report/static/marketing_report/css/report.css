@@ -1,3 +1,8 @@
+.report-header{
+    display: flex;
+    justify-content: space-between;
+}
+
 .report-content{
     display: flex;
     flex-wrap: wrap;
@@ -14,6 +19,11 @@
     padding: 12px;
     text-decoration: none;
     transition: all 0.3s ease-out;
+}
+
+.report-block-content{
+    display: flex;
+    flex-direction: column;
 }
 
 .temp-block{
