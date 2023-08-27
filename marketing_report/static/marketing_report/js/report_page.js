@@ -121,6 +121,7 @@ function buildReport(thisObj) {
     const dateEnd = dates[1].value;
     const argument = parentObj.querySelector('[id^="parameter-select"]').value;
     if (dateBegin !== '' && dateEnd !== '' && dateBegin < dateEnd) {
+        changeHeadingStyle();
         emptyReportBlockBig();
     } else if (dateBegin === '') {
         dates[0].focus();
@@ -160,5 +161,11 @@ function buildReport(thisObj) {
         parentObj.querySelector('.report-block-content').innerHTML = '';
         parentObj.querySelector('.report-header').replaceChildren(reportHeading, dateRow, argumentText,
             argumentSelector, periodText, periodSelector, reportSelector);
+    }
+
+    function changeHeadingStyle () {
+        parentObj.querySelector('.report-header').style.backgroundColor = '#DFCFB9';
+        parentObj.querySelector('.report-header').style.padding = '4px';
+
     }
 }
