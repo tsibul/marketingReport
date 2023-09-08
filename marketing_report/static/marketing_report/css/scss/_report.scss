@@ -1,21 +1,27 @@
 @import "vars";
 @import "mixins";
 
-.report-header{
+.report {
+  &-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 8px;
     border: 1px solid transparent;
     border-radius: 10px;
-}
+  }
 
-.report-content{
+  &-heading {
+    font-weight: 800;
+    margin-bottom: 2px;
+  }
+
+  &-content {
     display: flex;
     flex-wrap: wrap;
-}
+  }
 
-.report-block{
+  &-block {
     display: flex;
     flex-direction: column;
     margin: 20px;
@@ -26,53 +32,54 @@
     padding: 12px;
     text-decoration: none;
     transition: all 0.3s ease-out;
+
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &-hoverable {
+      cursor: pointer;
+
+
+      &:hover p {
+        color: $colorSecondary100;
+        opacity: 1;
+      }
+
+      &:hover {
+        background-color: #293D32;
+      }
+    }
+  }
 }
 
-.report-block-content{
-    display: flex;
-    flex-direction: column;
-}
-
-.temp-block{
-    margin: 20px;
-    width: 0px;
-    min-height: 360px;
-    border: 1px solid $colorPrimary800;
-    border-radius: 10px;
-    transition: width 0.3s ease-out;
-}
-
-.report-block-hoverable{
-    cursor: pointer;
-}
-
-.report-block-hoverable:hover p{
-    color: $colorSecondary100;
-    opacity: 1;
+.temp-block {
+  margin: 20px;
+  width: 0px;
+  min-height: 360px;
+  border: 1px solid $colorPrimary800;
+  border-radius: 10px;
+  transition: width 0.3s ease-out;
 }
 
 
-.report-block-hoverable:hover{
-    background-color: #293D32;
+.big-plus {
+  font-size: 250px;
+  text-align: center;
+  font-weight: 100;
+  opacity: 0.5;
 }
 
-
-
-.big-plus{
-    font-size: 250px;
-    text-align: center;
-    font-weight: 100;
-    opacity: 0.5;
+.date-row {
+  display: flex;
+  justify-content: space-between;
 }
 
-.date-row{
-    display: flex;
-    justify-content: space-between;
-}
-
-.button-block{
-    display: flex;
-    justify-content: flex-end;
-    margin: 10px 0;
-    gap: 8px;
+.button-block {
+  display: flex;
+  justify-content: flex-end;
+  margin: 10px 0;
+  gap: 8px;
 }

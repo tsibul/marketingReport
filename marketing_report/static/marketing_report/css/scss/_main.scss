@@ -29,27 +29,25 @@
   margin-top: 6px;
 }
 
-.form-select {
-  margin-bottom: 6px;
-  border: 1px solid $colorPrimary800;
-  border-radius: 10px;
-  font-size: 16px;
-  padding: 6px;
-  background-color: $colorSecondary100;
+.form {
+  &-select {
+    margin-bottom: 6px;
+    border: 1px solid $colorPrimary800;
+    border-radius: 10px;
+    font-size: 16px;
+    padding: 6px;
+    background-color: $colorSecondary100;
+  }
+
+  &-input {
+    margin: 10px 0;
+    border: 1px solid $colorPrimary800;
+    border-radius: 10px;
+    padding: 8px 4px;
+    background-color: $colorSecondary100;
+  }
 }
 
-.form-input {
-  margin: 10px 0;
-  border: 1px solid $colorPrimary800;
-  border-radius: 10px;
-  padding: 8px 4px;
-  background-color: $colorSecondary100;
-}
-
-.report-heading {
-  font-weight: 800;
-  margin-bottom: 2px;
-}
 
 .btn {
   border: 1px solid;
