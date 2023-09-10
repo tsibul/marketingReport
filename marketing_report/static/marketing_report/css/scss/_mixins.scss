@@ -1,2 +1,12 @@
 @import "vars";
 
+@mixin brd-standard() {
+  border: 1px solid $colorPrimary800;
+  border-radius: 10px;
+}
+
+@mixin d-flex-center($position) {
+  display: flex;
+  align-items: center;
+  justify-content: $position;
+}
