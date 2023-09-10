@@ -58,6 +58,10 @@
   margin-top: 6px;
 }
 
+.id-hidden {
+  display: none;
+}
+
 .form-row {
   display: flex;
   justify-content: space-between;
@@ -232,7 +236,7 @@
   cursor: pointer;
 }
 .dict-section-block-row:hover {
-  background-color: #C3CFD5;
+  background-color: #E1E7EA;
 }
 .dict-section-block-text {
   width: 100%;
