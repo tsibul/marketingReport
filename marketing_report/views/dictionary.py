@@ -1,7 +1,10 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-from marketing_report.models.color_models import PrintType, ColorScheme
-from marketing_report.models.goods_types_models import GoodCrmType, GoodMatrixType
+from django.views.decorators.csrf import csrf_exempt
+
+from marketing_report import models
+from marketing_report.models import PrintType, ColorScheme, GoodCrmType, GoodMatrixType, CustomerTypes, Customer, \
+    CustomerGroups, Color
 
 
 def dictionary(request):
@@ -14,6 +17,11 @@ def dictionary(request):
     return render(request, 'dictionary.html', context)
 
 
+@csrf_exempt
 def dictionary_update(request, dict_type):
+    dict_id = request.POST['id']
+    dict_model = getattr(models, dict_type)
+    field_list = [f.name for f in dict_model._meta.get_fields()]
+    if dict_id:
+        dict_element = dict_model.objects.get(id=dict_id)
     return HttpResponse()
-
