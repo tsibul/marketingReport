@@ -203,6 +203,9 @@
   background-color: #DFCFB9;
   border-radius: 10px;
 }
+.dict__form-input {
+  background-color: inherit;
+}
 .dict-section {
   padding: 20px;
   display: flex;
