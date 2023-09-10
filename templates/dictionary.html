@@ -4,15 +4,77 @@
 {% block content %}
     <div class="full-content">
         <div class="container">
-            <section class="goods-types">
-                <div class="dict-section-heading">
-
+            <section class="dict">
+                <div class="dict-header">
+                    Служебные справочники
                 </div>
-                <div class="double-columns">
-
-                </div>
-                <div class="double-columns">
-
+                <div class="dict-section">
+                    <details class="dict-section-block">
+                        <summary class="dict-section-block-row report-heading">
+                            <div>Товарная матрица</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            {% for item in matrix %}
+                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                     id="matrix-{{ item.id }}" onclick="editDictionary(this);">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text" data-name="matrix_name">{{ item.matrix_name }}</div>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                    <details class="dict-section-block">
+                        <summary class="dict-section-block-row report-heading">
+                            <div>Группы товаров</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            {% for item in crm %}
+                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                     id="crm-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text" data-name="crm_name">{{ item.crm_name }}</div>
+                                    <button class="btn btn-close">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                    <details class="dict-section-block">
+                        <summary class="dict-section-block-row report-heading">
+                            <div>Тип печати</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            {% for item in print_type %}
+                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                     id="printType-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text" data-name="type_name">{{ item.type_name }}</div>
+                                    <button class="btn btn-close">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                    <details class="dict-section-block">
+                        <summary class="dict-section-block-row report-heading">
+                            <div>Цветовая группа</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            {% for item in color_group %}
+                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                     id="colorScheme-{{ item.id }}">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text" data-name="scheme_name">{{ item.scheme_name }}</div>
+                                    <button class="btn btn-close">удалить</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
                 </div>
             </section>
         </div>
@@ -23,5 +85,5 @@
         <div id="periods">{{ json_period }}</div>
 
     </div>
-    <script src="{%  static 'marketing_report/js/dictionary.js' %}"></script>
+    <script src="{% static 'marketing_report/js/dictionary.js' %}"></script>
 {% endblock %}
