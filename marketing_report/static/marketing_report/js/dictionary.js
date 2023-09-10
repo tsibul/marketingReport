@@ -1,12 +1,12 @@
 const dictList = {
-    matrix: 'matrix',
-    crm: 'crm',
-    printType: 'print_type',
-    colorScheme: 'color_scheme',
-    color: 'color',
-    customer: 'customer',
-    customerType: 'customer_type',
-    customerGroup: 'customer_group',
+    matrix: 'GoodMatrixType',
+    crm: 'GoodCrmType',
+    printType: 'PrintType',
+    colorScheme: 'ColorScheme',
+    color: 'Color',
+    customer: 'Customer',
+    customerTypes: 'CustomerTypes',
+    customerGroups: 'CustomerGroups',
     goods: 'goods',
 };
 
@@ -89,8 +89,8 @@ function createButtonBlock() {
 function saveDictionaryRecord(obj) {
     event.preventDefault();
     const updateForm = obj.parentElement.parentElement;
-    const dictionaryType = updateForm.parentElement.id.split('_')[0];
-    const fetchPath = '/dict_update/' + dictList[dictionaryType];
+    const dictionaryType = updateForm.parentElement.id.split('-')[0];
+    const fetchPath = '/marketing/dict_update/' + dictList[dictionaryType];
     const formData = new FormData(updateForm);
     fetch(fetchPath, {
         method: 'POST',
