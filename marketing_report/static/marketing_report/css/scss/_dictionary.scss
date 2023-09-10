@@ -1,2 +1,58 @@
 @import "vars";
 @import "mixins";
+
+.dict {
+  color: $colorPrimary900;
+  font-weight: 900;
+  @include brd-standard;
+
+  &-header {
+    padding: 20px;
+    background-color: $colorSecondary200;
+    border-radius: 10px;
+  }
+
+  &-section {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    height: auto;
+
+    &-block {
+      width: 382.5px;
+      margin: 0 4px;
+      @include brd-standard;
+      display: flex;
+      flex-direction: column;
+      font-weight: normal;
+      height: 100%;
+      max-height: 60px;
+      transition: max-height .3s ease-in-out;
+      overflow: hidden;
+      &[open] {
+        max-height: 800px;
+      }
+
+      &-row {
+        @include d-flex-center(space-between);
+        gap: 10px;
+        padding: 8px 8px;
+        border-radius: 10px;
+        cursor: pointer;
+
+        &:hover {
+          background-color: $colorNeutral100;
+        }
+      }
+      &-text{
+        width: 100%;
+      }
+    }
+  }
+    &__btn-block{
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+}
