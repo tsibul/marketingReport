@@ -10,4 +10,6 @@ urlpatterns = [
          views.json_periods, name='json_report'),
     path('dictionary/', views.dictionary, name='dictionary'),
     path('imports/', views.imports, name='imports'),
+    path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
+
 ]

@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render
 from marketing_report.models.color_models import PrintType, ColorScheme
 from marketing_report.models.goods_types_models import GoodCrmType, GoodMatrixType
@@ -11,3 +12,8 @@ def dictionary(request):
     color_group = ColorScheme.objects.all().order_by('scheme_name')
     context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group}
     return render(request, 'dictionary.html', context)
+
+
+def dictionary_update(request, dict_type):
+    return HttpResponse()
+
