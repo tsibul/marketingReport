@@ -32,7 +32,7 @@ function editDictionary(obj) {
     nodeElements.forEach(function (node) {
         if (node.tagName === 'DIV' && !node.hidden) {
             childNode = document.createElement('input'); // block for input
-            childNode.classList.add('form-input', 'dict-section-block-text');
+            childNode.classList.add('form-input', 'dict-section-block-text', 'dict__form-input');
             childNode.type = 'text';
             childNode.name = node.dataset.name;
             childNode.setAttribute('value', node.textContent);
