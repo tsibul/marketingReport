@@ -16,6 +16,10 @@
     margin-bottom: 2px;
   }
 
+  &__form-input {
+    margin: 10px 0;
+  }
+
   &-content {
     display: flex;
     flex-wrap: wrap;
@@ -27,8 +31,7 @@
     margin: 20px;
     min-width: 360px;
     min-height: 360px;
-    border: 1px solid $colorPrimary800;
-    border-radius: 10px;
+    @include brd-standard;
     padding: 12px;
     text-decoration: none;
     transition: all 0.3s ease-out;
@@ -59,8 +62,7 @@
   margin: 20px;
   width: 0px;
   min-height: 360px;
-  border: 1px solid $colorPrimary800;
-  border-radius: 10px;
+  @include brd-standard;
   transition: width 0.3s ease-out;
 }
 

@@ -16,6 +16,7 @@
 }
 
 .container {
+  //padding-top: 20px;
   max-width: 1600px;
   margin: 0 auto;
 }
@@ -23,6 +24,7 @@
 .full-content {
   background-color: $colorSecondary100;
   min-height: calc(100vh - 70px);
+  padding-top: 20px;
 }
 
 .top-label {
@@ -30,19 +32,24 @@
 }
 
 .form {
+  &-row{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
   &-select {
     margin-bottom: 6px;
-    border: 1px solid $colorPrimary800;
-    border-radius: 10px;
+    @include brd-standard;
     font-size: 16px;
     padding: 6px;
     background-color: $colorSecondary100;
   }
 
   &-input {
-    margin: 10px 0;
-    border: 1px solid $colorPrimary800;
-    border-radius: 10px;
+    //margin: 10px 0;
+    @include brd-standard;
     padding: 8px 4px;
     background-color: $colorSecondary100;
   }
@@ -58,6 +65,10 @@
   cursor: pointer;
   color: $colorSecondary100;
   transition: all 0.3s ease-out;
+
+  & i {
+    color: inherit;
+  }
 
   &-save {
     background-color: $colorPrimary800;
@@ -79,6 +90,10 @@
     }
   }
 
+}
+
+.fa{
+  padding: 0 4px;
 }
 
 
