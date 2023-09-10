@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from marketing_report.models.customer_group_models import CustomerTypes, CustomerGroups
+from marketing_report.models import CustomerTypes, CustomerGroups
 
 
 class Customer(models.Model):
