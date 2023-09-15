@@ -13,7 +13,9 @@ def dictionary(request):
     crm = GoodCrmType.objects.all().order_by('crm_name')
     print_type = PrintType.objects.all().order_by('type_name')
     color_group = ColorScheme.objects.all().order_by('scheme_name')
-    context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group}
+    customer_type = CustomerTypes.objects.all().order_by('id')
+    context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
+               'customer_type': customer_type}
     return render(request, 'dictionary.html', context)
 
 
@@ -24,4 +26,9 @@ def dictionary_update(request, dict_type):
     field_list = [f.name for f in dict_model._meta.get_fields()]
     if dict_id:
         dict_element = dict_model.objects.get(id=dict_id)
+    else:
+        dict_element = dict_model()
+    for field in field_list:
+        if field in request.POST.keys() and field != 'id':
+            setattr(dict_element, field, request.POST[field])
     return HttpResponse()
