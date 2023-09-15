@@ -14,8 +14,11 @@ def dictionary(request):
     print_type = PrintType.objects.all().order_by('type_name')
     color_group = ColorScheme.objects.all().order_by('scheme_name')
     customer_type = CustomerTypes.objects.all().order_by('id')
+    customer_group = CustomerGroups.objects.all().order_by('group_name')[0:19]
+    customer_group_end = CustomerGroups.objects.all().order_by('group_name')[19:20]
     context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
-               'customer_type': customer_type}
+               'customer_type': customer_type, 'customer_group': customer_group,
+               'customer_group_end': customer_group_end}
     return render(request, 'dictionary.html', context)
 
 
