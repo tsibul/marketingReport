@@ -10,16 +10,17 @@
                 </div>
                 <div class="dict-section">
                     <details class="dict-section-block">
-                        <summary class="dict-section-block-row report-heading">
+                        <summary class="dict-section-block-row report-heading service-dict">
                             <div>Товарная матрица</div>
                             <button class="btn btn-save">добавить</button>
                         </summary>
                         <div class="dict-section-block-content">
                             {% for item in matrix %}
-                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                <div class="dict-section-block-row service-dict" data-id="{{ item.id }}"
                                      id="matrix-{{ item.id }}" onclick="editDictionary(this);">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-section-block-text" data-name="matrix_name">{{ item.matrix_name }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="matrix_name">{{ item.matrix_name }}</div>
                                     <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                         удалить
                                     </button>
@@ -28,13 +29,13 @@
                         </div>
                     </details>
                     <details class="dict-section-block">
-                        <summary class="dict-section-block-row report-heading">
+                        <summary class="dict-section-block-row report-heading service-dict">
                             <div>Группы товаров</div>
                             <button class="btn btn-save">добавить</button>
                         </summary>
                         <div class="dict-section-block-content">
                             {% for item in crm %}
-                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                <div class="dict-section-block-row service-dict" data-id="{{ item.id }}"
                                      id="crm-{{ item.id }}" onclick="editDictionary(this);">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
                                     <div class="dict-section-block-text" data-name="crm_name">{{ item.crm_name }}</div>
@@ -44,39 +45,103 @@
                         </div>
                     </details>
                     <details class="dict-section-block">
-                        <summary class="dict-section-block-row report-heading">
+                        <summary class="dict-section-block-row report-heading service-dict">
                             <div>Тип печати</div>
                             <button class="btn btn-save">добавить</button>
                         </summary>
                         <div class="dict-section-block-content">
                             {% for item in print_type %}
-                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                <div class="dict-section-block-row service-dict" data-id="{{ item.id }}"
                                      id="printType-{{ item.id }}" onclick="editDictionary(this);">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-section-block-text" data-name="type_name">{{ item.type_name }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="type_name">{{ item.type_name }}</div>
                                     <button class="btn btn-close">удалить</button>
                                 </div>
                             {% endfor %}
                         </div>
                     </details>
                     <details class="dict-section-block">
-                        <summary class="dict-section-block-row report-heading">
+                        <summary class="dict-section-block-row report-heading service-dict">
                             <div>Цветовая группа</div>
                             <button class="btn btn-save">добавить</button>
                         </summary>
                         <div class="dict-section-block-content">
                             {% for item in color_group %}
-                                <div class="dict-section-block-row" data-id="{{ item.id }}"
+                                <div class="dict-section-block-row service-dict" data-id="{{ item.id }}"
                                      id="colorScheme-{{ item.id }}" onclick="editDictionary(this);">
                                     <input class="id-hidden" name="id" value="{{ item.id }}">
-                                    <div class="dict-section-block-text" data-name="scheme_name">{{ item.scheme_name }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="scheme_name">{{ item.scheme_name }}</div>
                                     <button class="btn btn-close">удалить</button>
                                 </div>
                             {% endfor %}
                         </div>
                     </details>
                 </div>
+            </section> <!-- служебные справочники -->
+            <section class="dict"> <!-- типы клиентов -->
+                <div class="dict-header">
+                    Типы клиентов
+                </div>
+                <div class="dict-section">
+                    <details class="dict-section-block dict-section-block-2">
+                        <summary class="dict-section-block-row report-heading customer-type">
+                            <div>Тип клиента</div>
+                            <div>Скидка</div>
+                            <div>Код</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content ">
+                            {% for item in customer_type %}
+                                <div class="dict-section-block-row customer-type" data-id="{{ item.id }}"
+                                     id="customer-type-{{ item.id }}" onclick="editDictionary(this);">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text"
+                                         data-name="type_name">{{ item.type_name }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="group_discount">{{ item.group_discount }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="code">{{ item.code }}</div>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                </div>
             </section>
+            <section class="dict">
+                <div class="dict-header">
+                    Группы клиентов
+                </div>
+                <div class="dict-section">
+                    <details class="dict-section-block dict-section-block-4">
+                        <summary class="dict-section-block-row report-heading customer-group">
+                            <div>Группа</div>
+                            <div>Код</div>
+                            <div>Тип группы</div>
+                            <div>Скидка</div>
+                            <div>Первая продажа</div>
+                            <div>Последняя продажа</div>
+                            <button class="btn btn-save">добавить</button>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            <div class="dict-section-block-row customer-group" data-id="{{ item.id }}"
+                                 id="customer-group-{{ item-id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-section-block-text"
+                                     data-name="client_group_name"></div>
+                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details>
+                </div>
+            </section>
+
         </div>
 
     </div>
