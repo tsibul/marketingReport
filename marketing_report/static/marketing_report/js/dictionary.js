@@ -40,7 +40,11 @@ function editDictionary(obj) {
             childNode = document.createElement('input'); // block for input
             childNode.classList.add('form-input', 'dict-section-block-text', 'dict__form-input');
             childNode.type = 'text';
-            childNode.name = node.dataset.name;
+            if(node.dataset.name != null){
+            childNode.name = node.dataset.name;} else {
+                childNode.readOnly = true;
+                childNode.classList.add('form-input__inactive');
+            }
             childNode.setAttribute('value', node.textContent);
             newNode.appendChild(childNode)
             changes += 1;
