@@ -5,6 +5,7 @@
   color: $colorPrimary900;
   font-weight: 900;
   @include brd-standard;
+  margin-bottom: 20px;
 
   &-header {
     padding: 20px;
@@ -12,7 +13,7 @@
     border-radius: 10px;
   }
 
-  &__form-input{
+  &__form-input {
     background-color: inherit;
   }
 
@@ -32,31 +33,63 @@
       font-weight: normal;
       height: 100%;
       max-height: 60px;
-      transition: max-height .3s ease-in-out;
+      transition: all .3s ease-in-out;
       overflow: hidden;
+      box-shadow: 6px 6px 12px $colorPrimary800;
+
+      &-2 {
+        width: 775px;
+      }
+
+      &-3 {
+        width: 1167.5px;
+      }
+
+      &-4 {
+        width: 1560px;
+      }
+
       &[open] {
         max-height: 800px;
       }
 
+      &:hover {
+        transform: scale(1.02);
+      }
+
       &-row {
-        @include d-flex-center(space-between);
+        display: grid;
+        align-items: center;
         gap: 10px;
         padding: 8px 8px;
         border-radius: 10px;
         cursor: pointer;
 
-        &:hover {
+        &:not(.report-heading):hover {
           background-color: $colorNeutral100;
         }
       }
-      &-text{
+
+      &-text {
         width: 100%;
       }
     }
   }
-    &__btn-block{
-      display: flex;
-      justify-content: flex-end;
-      gap: 10px;
-    }
+
+  &__btn-block {
+    display: flex;
+    justify-content: space-around;
+  }
+}
+
+.service-dict{
+  grid-template-columns: 3fr 1fr;
+}
+
+.customer-type {
+  grid-template-columns: 4fr 1fr 1fr 1fr;
+}
+
+.customer-group{
+  grid-template-columns: 5fr 1fr 3fr 2fr 2fr 2fr 2fr;
 }
