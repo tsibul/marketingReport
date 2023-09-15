@@ -26,8 +26,9 @@
     transition: all 0.3s ease-out;
 
     &:hover {
-      color: $colorPrimary600;
+      color: $colorPrimary800;
       background-color: $colorSecondary100;
+      box-shadow: 4px 4px 8px $colorPrimary800;
     }
   }
 }
