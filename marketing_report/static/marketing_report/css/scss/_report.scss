@@ -35,6 +35,11 @@
     padding: 12px;
     text-decoration: none;
     transition: all 0.3s ease-out;
+    box-shadow: 6px 6px 12px $colorPrimary800;
+
+    &:hover{
+      transform: scale(1.02);
+    }
 
 
     &-content {
