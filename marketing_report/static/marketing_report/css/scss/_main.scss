@@ -37,8 +37,8 @@
 
 .form {
   &-row{
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-column: 1/ -1;
     align-items: center;
     gap: 10px;
     width: 100%;
@@ -52,7 +52,6 @@
   }
 
   &-input {
-    //margin: 10px 0;
     @include brd-standard;
     padding: 8px 4px;
     background-color: $colorSecondary100;
