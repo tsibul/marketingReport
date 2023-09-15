@@ -55,7 +55,11 @@
     @include brd-standard;
     padding: 8px 4px;
     background-color: $colorSecondary100;
+    &__inactive{
+      opacity: 0.5;
+    }
   }
+
 }
 
 
@@ -80,6 +84,7 @@
     &:hover {
       color: $colorPrimary800;
       background-color: transparent;
+      //box-shadow: 6px 6px 12px $colorPrimary800;
     }
   }
 
