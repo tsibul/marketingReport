@@ -24,8 +24,14 @@ document.addEventListener('mousedown', function (element) {
 
 function editDictionary(obj) {
     const nodeElements = obj.childNodes;
+    const objClasses = obj.classList;
     const newNode = document.createElement('form'); // block for new row
     newNode.classList.add('form-row');
+    objClasses.forEach(function (el){
+       if(el !== 'dict-section-block-row') {
+           newNode.classList.add(el);
+       }
+    });
     newNode.id = 'form-dict';
     let childNode;
     let changes = 0;
