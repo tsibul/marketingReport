@@ -1,97 +1,110 @@
 @import "vars";
 @import "mixins";
 
-.dict {
-  color: $colorPrimary900;
-  font-weight: 900;
-  @include brd-standard;
-  margin-bottom: 20px;
+.dict{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
 
-  &-header {
-    padding: 20px;
+.dict-block {
+  max-width: 382.5px;
+  @include brd-standard;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: 143px;
+  transition: scale 2s ease, max-height 0.6s ease-in-out, max-width 0.4s ease-in-out;
+  overflow: hidden;
+  box-shadow: 6px 6px 12px $colorPrimary800;
+  cursor: pointer;
+
+  &:hover{
+    transform: scale(1.03);
+  }
+
+  &__header {
+    padding: 60px;
     background-color: $colorSecondary200;
     border-radius: 10px;
-    @include d-flex-center(space-between)
+    @include d-flex-center(center);
+  }
+
+  &__search {
+    display: none;
   }
 
   &__form-input {
-    background-color: inherit;
+    min-width: 390px;
   }
 
-  &-section {
+  &__section {
     padding: 20px;
     display: flex;
     justify-content: space-between;
     gap: 10px;
     height: auto;
+  }
 
-    &-block {
-      width: 382.5px;
-      margin: 0 4px;
-      @include brd-standard;
-      display: flex;
-      flex-direction: column;
-      font-weight: normal;
-      height: 100%;
-      max-height: 60px;
-      transition: scale 2s ease, max-height 0.5s ease-in-out;
-      overflow: hidden;
-      box-shadow: 6px 6px 12px $colorPrimary800;
+  &__row {
+    display: grid;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 8px;
+    border-radius: 10px;
 
-      &-content{
-        overflow: auto;
-        max-height: calc(100vh - 300px);
-      }
+    &_right-margin {
+      margin-right: 19px;
+    }
 
-      &-2 {
-        width: 775px;
-      }
-
-      &-3 {
-        width: 1167.5px;
-      }
-
-      &-4 {
-        width: 1560px;
-      }
-
-      &[open] {
-        max-height: 1600px;
-      }
-
-
-
-      //&[open] summary {
-      //  position: sticky;
-      //}
-
-      &:hover {
-        transform: scale(1.02);
-      }
-
-      &-row {
-        display: grid;
-        align-items: center;
-        gap: 10px;
-        padding: 8px 8px;
-        border-radius: 10px;
-        cursor: pointer;
-
-        &:not(.report-heading):hover {
-          background-color: $colorNeutral100;
-        }
-      }
-
-      &-text {
-        width: 100%;
-      }
+    &:not(.report-heading):hover {
+      background-color: $colorNeutral100;
     }
   }
 
-  &__btn-block {
-    display: flex;
-    justify-content: space-around;
+  &__content {
+    overflow: auto;
+    height: calc(100% - 130px);
   }
+
+  &__text {
+    width: 100%;
+  }
+
+
+  &[open] {
+    max-height: 632px;
+    grid-row: span 4;
+    &:hover{
+      transform: scale(1);
+    }
+  }
+
+  &[open] &__search {
+    @include d-flex-center('flex-end');
+    gap: 10px;
+  }
+
+  &[open] &__header {
+    padding: 20px;
+    justify-content: space-between;
+  }
+
+  &__2[open] {
+    max-width: 800px;
+    grid-column: span 2;
+  }
+
+  &__3[open] {
+    max-width: 1200px;
+    grid-column: 1 / 4;
+  }
+
+  &__4[open] {
+    max-width: 1600px;
+    grid-column: 1 / 5;
+  }
+
 }
 
 .service-dict {
@@ -108,5 +121,8 @@
 
 .customer {
   grid-template-columns: 80px 260px 110px 100px 140px 1fr 160px 90px 100px 120px;
-  //min-height: 70px;
+}
+
+.color {
+  grid-template-columns: 1fr 8fr 4fr 2fr 4fr 2fr;
 }

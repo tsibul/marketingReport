@@ -28,7 +28,7 @@ function editDictionary(obj) {
     const newNode = document.createElement('form'); // block for new row
     newNode.classList.add('form-row');
     objClasses.forEach(function (el){
-       if(el !== 'dict-section-block-row') {
+       if(el !== 'dict-block__row') {
            newNode.classList.add(el);
        }
     });
@@ -38,7 +38,7 @@ function editDictionary(obj) {
     nodeElements.forEach(function (node) {
         if (node.tagName === 'DIV' && !node.hidden) {
             childNode = document.createElement('input'); // block for input
-            childNode.classList.add('form-input', 'dict-section-block-text', 'dict__form-input');
+            childNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
             childNode.type = 'text';
             if(node.dataset.name != null){
             childNode.name = node.dataset.name;} else {
