@@ -2,7 +2,10 @@
 @import "mixins";
 
 .header {
-  background-color: $colorSecondary200;
+  position: fixed;
+  width: 100%;
+  background-color: $colorSecondary400;
+  z-index: 3;
 }
 
 .menu {
