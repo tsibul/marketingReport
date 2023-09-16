@@ -66,6 +66,28 @@
                 </details><!-- цвета -->
                 <details class="dict-block">
                     <summary class="dict-block__header">
+                        <div class="report-heading">Цветовая группа</div>
+                    </summary>
+                    <div class="dict-block__row report-heading service-dict">
+                        <div>Цветовая группа</div>
+                        <button class="btn btn-save">добавить</button>
+                    </div>
+                    <div class="dict-block__content ">
+                        {% for item in color_group %}
+                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                 id="colorScheme-{{ item.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
+                                <div class="dict-block__text"
+                                     data-name="scheme_name">{{ item.scheme_name }}</div>
+                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                    удалить
+                                </button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </details><!-- Цветовая группа -->
+                <details class="dict-block">
+                    <summary class="dict-block__header">
                         <div class="report-heading">Товарная матрица</div>
                     </summary>
                     <div class="dict-block__row report-heading service-dict">
@@ -291,28 +313,6 @@
                         {% endfor %}
                     </div>
                 </details><!-- клиенты -->
-                <details class="dict-block">
-                    <summary class="dict-block__header">
-                        <div class="report-heading">Цветовая группа</div>
-                    </summary>
-                    <div class="dict-block__row report-heading service-dict">
-                        <div>Цветовая группа</div>
-                        <button class="btn btn-save">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        {% for item in color_group %}
-                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="colorScheme-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="scheme_name">{{ item.scheme_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- Цветовая группа -->
             </div>
         </div>
 
