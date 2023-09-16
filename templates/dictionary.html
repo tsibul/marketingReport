@@ -80,7 +80,7 @@
                     </details>
                 </div>
             </section> <!-- служебные справочники -->
-            <section class="dict"> <!-- типы клиентов -->
+            <section class="dict">
                 <div class="dict-header">
                     Типы клиентов
                 </div>
@@ -111,10 +111,15 @@
                         </div>
                     </details>
                 </div>
-            </section>
+            </section><!-- типы клиентов -->
             <section class="dict">
                 <div class="dict-header">
-                    Группы клиентов
+                    <div>Группы клиентов</div>
+                    <div class="search-block">
+                        <i class="fa fa-solid fa-magnifying-glass"></i>
+                        <input type="search" class="form-input search-block__form-input" placeholder="искать...">
+                        <button class="btn btn-save" type="button">поиск</button>
+                    </div>
                 </div>
                 <div class="dict-section">
                     <details class="dict-section-block dict-section-block-4">
@@ -131,32 +136,123 @@
                         </summary>
                         <div class="dict-section-block-content">
                             {% for item in customer_group %}
-                            <div class="dict-section-block-row customer-group" data-id="{{ item.id }}"
-                                 id="customer-group-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-section-block-text"
-                                     data-name="group_name">{{ item.group_name }}</div>
-                                <div class="dict-section-block-text"
-                                     data-name="group_type">{{ item.group_type }}</div>
-                                <div class="dict-section-block-text">{{ item.group_type.group_discount }}</div>
-                                <div class="dict-section-block-text"
-                                     data-name="phone">{{ item.phone }}</div>
-                                <div class="dict-section-block-text"
-                                     data-name="mail">{{ item.mail }}</div>
-                                <div class="dict-section-block-text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-section-block-text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
-                                    состав
-                                </button>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
+                                <div class="dict-section-block-row customer-group" data-id="{{ item.id }}"
+                                     id="customer-group-{{ item.id }}" onclick="editDictionary(this);" >
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text"
+                                         data-name="group_name">{{ item.group_name }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="group_type">{{ item.group_type }}</div>
+                                    <div class="dict-section-block-text">{{ item.group_type.group_discount }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="phone">{{ item.phone }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="mail">{{ item.mail }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_first|date:'d.m.Y' }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_last|date:'d.m.Y' }}</div>
+                                    <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
+                                        состав
+                                    </button>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        удалить
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            {% for item in customer_group_end %}
+                                <div class="dict-section-block-row customer-group" data-id="{{ item.id }}"
+                                     id="customer-group-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text"
+                                         data-name="group_name">{{ item.group_name }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="group_type">{{ item.group_type }}</div>
+                                    <div class="dict-section-block-text">{{ item.group_type.group_discount }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="phone">{{ item.phone }}</div>
+                                    <div class="dict-section-block-text"
+                                         data-name="mail">{{ item.mail }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_first|date:'d.m.Y' }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_last|date:'d.m.Y' }}</div>
+                                    <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
+                                        состав
+                                    </button>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        удалить
+                                    </button>
+                                </div>
                             {% endfor %}
                         </div>
                     </details>
                 </div>
-            </section>
+            </section><!-- группы клиентов -->
+            <section class="dict">
+                <div class="dict-header">
+                    <div>Клиенты</div>
+                    <div class="search-block">
+                        <i class="fa fa-solid fa-magnifying-glass"></i>
+                        <input type="search" class="form-input search-block__form-input" placeholder="искать...">
+                        <button class="btn btn-save" type="button">поиск</button>
+                    </div>
+                </div>
+                <div class="dict-section">
+                    <details class="dict-section-block dict-section-block-4">
+                        <summary class="dict-section-block-row report-heading customer">
+                            <div></div>
+                            <div>Название</div>
+                            <div>ИНН</div>
+                            <div>Тип</div>
+                            <div>Группа</div>
+                            <div>Адрес</div>
+                            <div>Телефон</div>
+                            <div>Первая продажа</div>
+                            <div>Последняя продажа</div>
+                            <div></div>
+                        </summary>
+                        <div class="dict-section-block-content">
+                            {% for item in customer %}
+                                <div class="dict-section-block-row customer" data-id="{{ item.id }}"
+                                     id="customer-group-{{ item.id }}" >
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text">{{ item.form }}</div>
+                                    <div class="dict-section-block-text">{{ item.name }}</div>
+                                    <div class="dict-section-block-text">{{ item.inn }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="customer_type">{{ item.customer_type }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="customer_group">{{ item.customer_group }}</div>
+                                    <div class="dict-section-block-text">{{ item.address }}</div>
+                                    <div class="dict-section-block-text">{{ item.phone }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_first|date:'d.m.Y' }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_last|date:'d.m.Y' }}</div>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        полная информация
+                                    </button>
+                                </div>
+                            {% endfor %}
+                            {% for item in customer_end %}
+                                <div class="dict-section-block-row customer" data-id="{{ item.id }}"
+                                     id="customer-group-{{ item.id }}" data-last="20">
+                                    <input class="id-hidden" name="id" value="{{ item.id }}">
+                                    <div class="dict-section-block-text">{{ item.form }}</div>
+                                    <div class="dict-section-block-text">{{ item.name }}</div>
+                                    <div class="dict-section-block-text">{{ item.inn }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="customer_type">{{ item.customer_type }}</div>
+                                    <div class="dict-section-block-text foreign-key"
+                                         data-name="customer_group">{{ item.customer_group }}</div>
+                                    <div class="dict-section-block-text">{{ item.address }}</div>
+                                    <div class="dict-section-block-text">{{ item.phone }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_first|date:'d.m.Y' }}</div>
+                                    <div class="dict-section-block-text">{{ item.date_last|date:'d.m.Y' }}</div>
+                                    <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                        полная информация
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </details>
+                </div>
+            </section><!-- клиенты -->
 
         </div>
 

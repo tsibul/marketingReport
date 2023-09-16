@@ -16,9 +16,11 @@ def dictionary(request):
     customer_type = CustomerTypes.objects.all().order_by('id')
     customer_group = CustomerGroups.objects.all().order_by('group_name')[0:19]
     customer_group_end = CustomerGroups.objects.all().order_by('group_name')[19:20]
+    customer = Customer.objects.filter(internal=False).order_by('name')[0:19]
+    customer_end = Customer.objects.filter(internal=False).order_by('name')[19:20]
     context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
                'customer_type': customer_type, 'customer_group': customer_group,
-               'customer_group_end': customer_group_end}
+               'customer_group_end': customer_group_end, 'customer': customer, 'customer_end': customer_end}
     return render(request, 'dictionary.html', context)
 
 
