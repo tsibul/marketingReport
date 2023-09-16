@@ -23,8 +23,8 @@
 
 .full-content {
   background-color: $colorSecondary100;
-  min-height: calc(100vh - 70px);
-  padding-top: 20px;
+  min-height: calc(100vh);
+  padding-top: 90px;
 }
 
 .top-label {
@@ -102,6 +102,14 @@
 
 .fa{
   padding: 0 4px;
+}
+
+.search-block{
+  @include d-flex-center('flex-end');
+  gap: 10px;
+  &__form-input{
+    min-width: 390px;
+  }
 }
 
 
