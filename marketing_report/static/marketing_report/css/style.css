@@ -252,6 +252,10 @@
   overflow: hidden;
   box-shadow: 6px 6px 12px #293D32;
 }
+.dict-section-block-content {
+  overflow: auto;
+  max-height: calc(100vh - 300px);
+}
 .dict-section-block-2 {
   width: 775px;
 }
@@ -262,8 +266,7 @@
   width: 1560px;
 }
 .dict-section-block[open] {
-  max-height: 2400px;
-  overflow: auto;
+  max-height: 1600px;
 }
 .dict-section-block:hover {
   transform: scale(1.02);
