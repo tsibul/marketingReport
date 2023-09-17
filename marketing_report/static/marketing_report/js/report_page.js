@@ -145,9 +145,10 @@ function buildReport(thisObj) {
         const reportSelector = parentObj.querySelector('[id^="report-select"]').cloneNode(true);
         reportSelector.value = parentObj.querySelector('[id^="report-select"]').value;
         reportSelector.style.display = 'none';
-        const periodSelector = parentObj.querySelector('[id^="period-select"]').cloneNode(true);
+        const periodSelector = parentObj.querySelector('[id^="period-select"]').parentElement.cloneNode(true);
         periodSelector.value = parentObj.querySelector('[id^="period-select"]').value;
         periodSelector.style.marginBottom = '0';
+        periodSelector.style.maxWidth = '120px'
         const argumentSelector = parentObj.querySelector('[id^="parameter-select"]').cloneNode(true);
         argumentSelector.value = parentObj.querySelector('[id^="parameter-select"]').value;
         argumentSelector.style.marginBottom = '0';
