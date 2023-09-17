@@ -33,25 +33,6 @@ class Color(models.Model):
         return str(self.color_id + ', ' + self.color_scheme.scheme_name)
 
 
-class PrintGroup(models.Model):
-    """code for similar shapes of items"""
-    code = models.CharField(max_length=7, default=0)
-    name = models.CharField(max_length=255)
-    options = models.SmallIntegerField(default=1)
-    layout = models.CharField(max_length=120, blank=True, default='')
-    pattern_file = models.FileField(storage=fs_patterns, null=True, blank=True)
-    item_width = models.DecimalField(default=39, max_digits=7, decimal_places=3)
-    item_height = models.DecimalField(default=39, max_digits=7, decimal_places=3)
-    item_width_initial = models.DecimalField(default=39, max_digits=7, decimal_places=3)
-    item_height_initial = models.DecimalField(default=39, max_digits=7, decimal_places=3)
-
-    def __repr__(self):
-        return self.code
-
-    def __str__(self):
-        return str(self.code)
-
-
 class PrintType(models.Model):
     """ Pad, screen, UW, soft_touch etc."""
     type_name = models.CharField(max_length=20)
