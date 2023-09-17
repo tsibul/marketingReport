@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{%  load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<div class="dropdown" onclick="openDropdown(this);">
+    <input name="id" type="text" class="dropdown__hidden" hidden>
+    <ul class="dropdown__content" id="itemDropdown">
+        <div class="dropdown__input-block">
+            <input type="text" class="dropdown__input"
+                   placeholder="Поиск.." onkeyup="filterList(this);"
+                   value="{{ money_arguments.0.description }}"
+                   data-value="{{ money_arguments.0.description }}">
+            <i class="fa fa-solid fa-angle-down"></i>
+        </div>
+        {% for argument in money_arguments %}
+            <li data-value="{{ argument.code }}" class="visible"
+                onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+        {% endfor %}
+    </ul>
+</div>
+
+    <script src="{% static 'marketing_report/js/main.js' %}"></script>
+
+</body>
+</html>
