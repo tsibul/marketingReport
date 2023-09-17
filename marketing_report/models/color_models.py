@@ -1,3 +1,4 @@
+import datetime
 from django.db import models
 from django.core.files.storage import FileSystemStorage
 
@@ -25,6 +26,8 @@ class Color(models.Model):
     color_name = models.CharField(max_length=60)
     color_code = models.CharField(max_length=7)
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
+    date_first = models.DateField(default=datetime.date(2000, 1, 1))
+    date_last = models.DateField(default=datetime.date(2000, 1, 1))
 
     def __repr__(self):
         return str(self.color_id + ', ' + self.color_scheme.scheme_name)

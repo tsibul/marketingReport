@@ -1,4 +1,5 @@
 from django.db import models
+import datetime
 
 from marketing_report.models.goods_types_models import GoodCrmType, GoodMatrixType
 from marketing_report.models.color_models import ColorScheme
@@ -17,6 +18,8 @@ class Goods(models.Model):
     crm = models.ForeignKey(GoodCrmType,  models.SET_NULL, null=True, default=None)
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
     multicolor = models.BooleanField(default=False)
+    date_first = models.DateField(default=datetime.date(2000, 1, 1))
+    date_last = models.DateField(default=datetime.date(2000, 1, 1))
 
     def __repr__(self):
         return self.name
