@@ -16,7 +16,6 @@
 }
 
 .container {
-  //padding-top: 20px;
   max-width: 1600px;
   margin: 0 auto;
 }
@@ -106,36 +105,24 @@
   padding: 0 4px;
 }
 
-.temp {
-  display: flex;
-  width: 360px;
-  @include brd-standard;
-}
-
 .dropdown {
-  width: 100%;
-  padding: 8px 6px;
   position: relative;
-
-  //&:hover li {
-  //  display: block;
-  //}
+  height: 40px;
 
   &__content {
-    width: auto;
+    width: 100%;
     list-style: none;
     overflow: auto;
-
-    & ul {
-      position: absolute;
-      @include brd-standard;
-    }
+    @include brd-standard;
+    position: absolute;
+    background-color: $colorSecondary100;
+    display: none;
+    z-index: 2;
 
     & li {
-      padding: 6px 6px;
+      padding: 6px 10px;
       border: 1px solid transparent;
       border-radius: 10px;
-      display: none;
 
       &:hover {
         color: $colorSecondary100;
@@ -147,8 +134,9 @@
   &__input-block {
     display: flex;
     align-items: center;
-    margin-bottom: 6px;
-    @include brd-standard;
+    border: 1px solid $colorPrimary800;
+    border-radius: 10px;
+    background-color: $colorSecondary100;
   }
 
   &__input {
@@ -157,7 +145,6 @@
     font-size: 16px;
     padding: 8px 10px;
     border: 1px solid transparent;
-    border-radius: 10px 0 0 10px;
 
     &:focus {
       outline: none;
@@ -167,7 +154,7 @@
 
 }
 
-.visible{
+.visible {
   display: block;
 }
 

@@ -38,8 +38,8 @@ function filterList(input) {
 }
 
 async function selectFromList(obj) {
-    obj.parentElement.querySelector('.dropdown__input').value = obj.textContent;
-    obj.parentElement.querySelector('.dropdown__input').dataset.value = obj.textContent;
+    obj.parentElement.parentElement.querySelector('.dropdown__input').value = obj.textContent;
+    obj.parentElement.parentElement.querySelector('.dropdown__input').dataset.value = obj.textContent;
     obj.parentElement.parentElement.querySelector('.dropdown__hidden').value = obj.dataset.value;
     obj.parentElement.classList.remove('visible');
 }
