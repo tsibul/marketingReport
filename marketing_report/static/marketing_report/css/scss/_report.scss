@@ -2,6 +2,10 @@
 @import "mixins";
 
 .report {
+  &_button-block {
+    margin: 10px 0;
+  }
+
   &-header {
     display: flex;
     justify-content: space-between;
@@ -37,7 +41,7 @@
     transition: all 0.3s ease-out;
     box-shadow: 6px 6px 12px $colorPrimary800;
 
-    &:hover{
+    &:hover {
       transform: scale(1.02);
     }
 
@@ -82,11 +86,4 @@
 .date-row {
   display: flex;
   justify-content: space-between;
-}
-
-.button-block {
-  display: flex;
-  justify-content: flex-end;
-  margin: 10px 0;
-  gap: 8px;
 }

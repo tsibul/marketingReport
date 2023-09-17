@@ -80,7 +80,7 @@ function createButtonBlock() {
     /* create button block for buttons submit & cancel */
     let childNode;
     const buttonBlock = document.createElement('div');
-    buttonBlock.classList.add('dict__btn-block'); // block for buttons submit & cancel
+    buttonBlock.classList.add('dict__button-block', 'button-block'); // block for buttons submit & cancel
     childNode = document.createElement('button'); //button cancel
     childNode.innerHTML = '<i class="fa fa-solid fa-xmark" ></i>';
     childNode.classList.add('btn', 'btn-close', 'dict__btn');

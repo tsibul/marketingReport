@@ -47,7 +47,7 @@
     margin-bottom: 6px;
     @include brd-standard;
     font-size: 16px;
-    padding: 0 6px;
+    padding: 8px 6px;
     background-color: $colorSecondary100;
   }
 
@@ -112,4 +112,8 @@
   }
 }
 
-
+.button-block {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
