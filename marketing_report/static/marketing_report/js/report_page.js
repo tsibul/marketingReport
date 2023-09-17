@@ -74,7 +74,7 @@ function newReport(thisObj, reportType) {
 function changeArgumentList(thisObj) {
     const parentObj = thisObj.parentElement;
     let newOptions;
-    if (thisObj.value === 'MIG') {
+    if (thisObj.value === 'MIG' || thisObj.value === 'CLR') {
         newOptions = timeArguments();
         parentObj.querySelector('[for^="parameter-select"]').textContent = 'время жизни';
     } else {
