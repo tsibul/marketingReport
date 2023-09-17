@@ -125,6 +125,62 @@
   padding: 0 4px;
 }
 
+.temp {
+  display: flex;
+  width: 360px;
+  border: 1px solid #293D32;
+  border-radius: 10px;
+}
+
+.dropdown {
+  width: 100%;
+  padding: 8px 6px;
+  position: relative;
+}
+.dropdown__content {
+  width: auto;
+  list-style: none;
+  overflow: auto;
+}
+.dropdown__content ul {
+  position: absolute;
+  border: 1px solid #293D32;
+  border-radius: 10px;
+}
+.dropdown__content li {
+  padding: 6px 6px;
+  border: 1px solid transparent;
+  border-radius: 10px;
+  display: none;
+}
+.dropdown__content li:hover {
+  color: #EFE7DC;
+  background-color: #293D32;
+}
+.dropdown__input-block {
+  display: flex;
+  align-items: center;
+  margin-bottom: 6px;
+  border: 1px solid #293D32;
+  border-radius: 10px;
+}
+.dropdown__input {
+  background-color: transparent;
+  width: 100%;
+  font-size: 16px;
+  padding: 8px 10px;
+  border: 1px solid transparent;
+  border-radius: 10px 0 0 10px;
+}
+.dropdown__input:focus {
+  outline: none;
+  font-weight: 600;
+}
+
+.visible li{
+  display: block;
+}
+
 .search-block {
   display: flex;
   align-items: center;

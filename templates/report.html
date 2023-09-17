@@ -3,85 +3,104 @@
 {% block title %}Отчеты{% endblock %}
 {% block content %}
     <div class="full-content">
-        <div class="container">
-            <section class="report-content">
-                <div class="report-block" id="report-1">
-                    <div class="report-header">
-                        <p class="report-heading">Отчет по клиентам</p>
-                    </div>
-                    <div class="report-block-content">
-                        <label for="report-1" class="top-label">тип отчета</label>
-                        <select class="form-select" id="report-select-1" onchange="changeArgumentList(this)">
-                            {% for report in cst_reports %}
-                                <option value="{{ report.code }}">{{ report.description }}</option>
-                            {% endfor %}
-                        </select>
-                        <label for="period-1" class="top-label">период</label>
-                        <select class="form-select" id="period-select-1">
-                            {% for period in periods %}
-                                <option value="{{ period.value }}">{{ period.label }}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="date-row">
-                            <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
-                            <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
-                        </div>
-                        <label for="parameter-select-1" class="top-label">показатель</label>
-                        <select class="form-select" id="parameter-select-1">
-                            {% for argument in money_arguments %}
-                                <option value="{{ argument.code }}">{{ argument.description }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="button-block report_button-block">
-                        <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
-                        </button>
-                        <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
-                    </div>
-                </div>
-                <div onclick="newReport(this, 0)" class="report-block report-block-hoverable" id="report-2">
+    <div class="container">
+        <section class="report-content">
+            <div class="report-block" id="report-1">
+                <div class="report-header">
                     <p class="report-heading">Отчет по клиентам</p>
-                    <p class="big-plus">+</p>
                 </div>
-                <div class="report-block" id="report-10001">
-                    <div class="report-header">
-                        <p class="report-heading">Отчет по товарам</p>
+                <div class="report-block-content">
+                    <label for="report-1" class="top-label">тип отчета</label>
+                    <select class="form-select" id="report-select-1" onchange="changeArgumentList(this)">
+                        {% for report in cst_reports %}
+                            <option value="{{ report.code }}">{{ report.description }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="period-1" class="top-label">период</label>
+                    <select class="form-select" id="period-select-1">
+                        {% for period in periods %}
+                            <option value="{{ period.value }}">{{ period.label }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="date-row">
+                        <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
+                        <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
                     </div>
-                    <div class="report-block-content">
-
-                        <label for="report-10001" class="top-label">тип отчета</label>
-                        <select class="form-select" id="report-select-10001" onchange="changeArgumentList(this)">
-                            {% for report in goods_reports %}
-                                <option value="{{ report.code }}">{{ report.description }}</option>
-                            {% endfor %}
-                        </select> <label for="period-10001" class="top-label">период</label>
-                        <select class="form-select" id="period-select-10001">
-                            {% for period in periods %}
-                                <option value="{{ period.value }}">{{ period.label }}</option>
-                            {% endfor %}
-                        </select>
-                        <div class="date-row">
-                            <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
-                            <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
-                        </div>
-                        <label for="parameter-select-10001" class="top-label">показатель</label>
-                        <select class="form-select" id="parameter-select-10001">
-                            {% for argument in money_arguments %}
-                                <option value="{{ argument.code }}">{{ argument.description }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
-                    <div class="button-block report_button-block">
-                        <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
-                        </button>
-                        <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
-                    </div>
+                    <label for="parameter-select-1" class="top-label">показатель</label>
+                    <select class="form-select" id="parameter-select-1">
+                        {% for argument in money_arguments %}
+                            <option value="{{ argument.code }}">{{ argument.description }}</option>
+                        {% endfor %}
+                    </select>
                 </div>
-                <div onclick="newReport(this, 10000)" class="report-block report-block-hoverable" id="report-1002">
+                <div class="button-block report_button-block">
+                    <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
+                    </button>
+                    <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
+                </div>
+            </div>
+            <div onclick="newReport(this, 0)" class="report-block report-block-hoverable" id="report-2">
+                <p class="report-heading">Отчет по клиентам</p>
+                <p class="big-plus">+</p>
+            </div>
+            <div class="report-block" id="report-10001">
+                <div class="report-header">
                     <p class="report-heading">Отчет по товарам</p>
-                    <p class="big-plus">+</p>
                 </div>
-            </section>
+                <div class="report-block-content">
+
+                    <label for="report-10001" class="top-label">тип отчета</label>
+                    <select class="form-select" id="report-select-10001" onchange="changeArgumentList(this)">
+                        {% for report in goods_reports %}
+                            <option value="{{ report.code }}">{{ report.description }}</option>
+                        {% endfor %}
+                    </select> <label for="period-10001" class="top-label">период</label>
+                    <select class="form-select" id="period-select-10001">
+                        {% for period in periods %}
+                            <option value="{{ period.value }}">{{ period.label }}</option>
+                        {% endfor %}
+                    </select>
+                    <div class="date-row">
+                        <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
+                        <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
+                    </div>
+                    <label for="parameter-select-10001" class="top-label">показатель</label>
+                    <select class="form-select" id="parameter-select-10001">
+                        {% for argument in money_arguments %}
+                            <option value="{{ argument.code }}">{{ argument.description }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="button-block report_button-block">
+                    <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
+                    </button>
+                    <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
+                </div>
+            </div>
+            <div onclick="newReport(this, 10000)" class="report-block report-block-hoverable" id="report-1002">
+                <p class="report-heading">Отчет по товарам</p>
+                <p class="big-plus">+</p>
+            </div>
+        </section>
+        <br> <br>
+        <div class="temp">
+            <div class="dropdown" onclick="openDropdown(this);">
+                <input name="id" type="text" class="dropdown__hidden" hidden>
+                <ul class="dropdown__content" id="itemDropdown">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.." onkeyup="filterList(this);"
+                               value="{{ money_arguments.0.description }}"
+                               data-value="{{ money_arguments.0.description }}">
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    {% for argument in money_arguments %}
+                        <li data-value="{{ argument.code }}" class="visible"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
         </div>
 
     </div>
@@ -92,7 +111,7 @@
         <div id="json-goods-reports">{{ json_goods_reports }}</div>
         <div id="json-money-arguments">{{ json_money_arguments }}</div>
         <div id="json-time-arguments">{{ json_time_arguments }}</div>
-        <div class="report-block" id="report-0">
+        <section class="report-block" id="report-0">
             <div class="report-header">
                 <p class="report-heading">Отчет по клиентам</p>
             </div>
@@ -119,8 +138,8 @@
                 <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
                 <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
-        </div>
-        <div class="report-block" id="report-10000">
+        </section>
+        <section class="report-block" id="report-10000">
             <div class="report-header">
                 <p class="report-heading">Отчет по товарам</p>
             </div>
@@ -146,8 +165,7 @@
                 <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
                 <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
-        </div>
-
+        </section>
     </div>
     <script src="{% static 'marketing_report/js/report_page.js' %}"></script>
     <script src="{% static 'marketing_report/js/reports.js' %}"></script>
