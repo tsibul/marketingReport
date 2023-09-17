@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from marketing_report import models
 from marketing_report.models import PrintType, ColorScheme, GoodCrmType, GoodMatrixType, CustomerTypes, Customer, \
-    CustomerGroups, Color
+    CustomerGroups, Color, Goods
 
 
 def dictionary(request):
@@ -20,10 +20,12 @@ def dictionary(request):
     customer_end = Customer.objects.filter(internal=False).order_by('name')[19:20]
     color = Color.objects.all().order_by('color_scheme', 'color_id')[0:19]
     color_end = Color.objects.all().order_by('color_scheme', 'color_id')[19:20]
+    goods = Goods.objects.all().order_by('item_name')[0:19]
+    goods_end = Goods.objects.all().order_by('item_name')[19:20]
     context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
                'customer_type': customer_type, 'customer_group': customer_group, 'color': color,
                'color_end': color_end, 'customer_group_end': customer_group_end, 'customer': customer,
-               'customer_end': customer_end}
+               'customer_end': customer_end, 'goods': goods, 'goods_end': goods_end}
     return render(request, 'dictionary.html', context)
 
 

@@ -328,4 +328,8 @@
   grid-template-columns: 1fr 8fr 4fr 2fr 4fr 2fr;
 }
 
+.goods {
+  grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
+}
+
 /*# sourceMappingURL=style.css.map */
