@@ -29,8 +29,9 @@ def cst_report_list():
 def goods_report_list():
     return [GoodsReports('ABC', 'ABC - анализ'),
             GoodsReports('GRP', 'Группы товара'),
-            GoodsReports('MTR', 'Товарная матрица')]
-
+            GoodsReports('MTR', 'Товарная матрица'),
+            GoodsReports('CLR', 'Миграции цветов'),
+            GoodsReports('MIG', 'Миграции товаров')]
 
 def json_customer_report_list():
     return json.dumps([report.to_dict() for report in cst_report_list()], ensure_ascii=False)
