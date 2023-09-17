@@ -164,7 +164,7 @@
                     <div class="dict-block__content ">
                         {% for item in customer_type %}
                             <div class="dict-block__row customer-type" data-id="{{ item.id }}"
-                                 id="customer-type-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="customerType-{{ item.id }}" onclick="editDictionary(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="type_name">{{ item.type_name }}</div>
@@ -202,7 +202,7 @@
                     <div class="dict-block__content">
                         {% for item in customer_group %}
                             <div class="dict-block__row customer-group" data-id="{{ item.id }}"
-                                 id="customer-group-{{ item.id }}" onclick="editDictionary(this);">
+                                 id="customerGroup-{{ item.id }}" onclick="editDictionary(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="group_name">{{ item.group_name }}</div>
@@ -225,7 +225,7 @@
                         {% endfor %}
                         {% for item in customer_group_end %}
                             <div class="dict-block__row customer-group" data-id="{{ item.id }}"
-                                 id="customer-group-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
+                                 id="customerGroup-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="group_name">{{ item.group_name }}</div>
@@ -363,7 +363,7 @@
                         {% endfor %}
                         {% for item in goods_end %}
                             <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                 id="customer-{{ item.id }}" data-last="20">
+                                 id="goods-{{ item.id }}" data-last="20">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="name">{{ item.name }}</div>

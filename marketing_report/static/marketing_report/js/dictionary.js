@@ -5,9 +5,9 @@ const dictList = {
     colorScheme: 'ColorScheme',
     color: 'Color',
     customer: 'Customer',
-    customerTypes: 'CustomerTypes',
-    customerGroups: 'CustomerGroups',
-    goods: 'goods',
+    customerType: 'CustomerTypes',
+    customerGroup: 'CustomerGroups',
+    goods: 'Goods',
 };
 
 
