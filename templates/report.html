@@ -13,10 +13,10 @@
                         <label for="report-select-1" class="top-label">тип отчета</label>
                         <div class="dropdown report_dropdown" onclick="openDropdown(this);">
                             <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-1"
-                                   value="{{ cst_reports.0.code }}">
+                                   value="{{ cst_reports.0.code }}" oninput="changeArgumentList(this)">
                             <div class="dropdown__input-block">
                                 <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.." onchange="changeArgumentList(this)"
+                                       placeholder="Поиск.." oninput="changeArgumentList(this)"
                                        value="{{ cst_reports.0.description }}"
                                        data-value="{{ cst_reports.0.description }}" readonly>
                                 <i class="fa fa-solid fa-angle-down"></i>
@@ -283,6 +283,40 @@
                 <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
                 <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
+        </div>
+        <div id="money-arguments">
+            <input name="id" type="text" class="dropdown__hidden" hidden
+                   id="parameter-select-10001" value="{{ money_arguments.0.code }}">
+            <div class="dropdown__input-block">
+                <input type="text" class="dropdown__input"
+                       placeholder="Поиск.."
+                       value="{{ money_arguments.0.description }}"
+                       data-value="{{ money_arguments.0.description }}" readonly>
+                <i class="fa fa-solid fa-angle-down"></i>
+            </div>
+            <ul class="dropdown__content">
+                {% for argument in money_arguments %}
+                    <li data-value="{{ argument.code }}"
+                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="time-arguments">
+            <input name="id" type="text" class="dropdown__hidden" hidden
+                   id="parameter-select-10001" value="{{ time_arguments.0.code }}">
+            <div class="dropdown__input-block">
+                <input type="text" class="dropdown__input"
+                       placeholder="Поиск.."
+                       value="{{ time_arguments.0.description }}"
+                       data-value="{{ time_arguments.0.description }}" readonly>
+                <i class="fa fa-solid fa-angle-down"></i>
+            </div>
+            <ul class="dropdown__content">
+                {% for argument in time_arguments %}
+                    <li data-value="{{ argument.code }}"
+                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
     <script src="{% static 'marketing_report/js/report_page.js' %}"></script>
