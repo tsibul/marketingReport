@@ -13,6 +13,7 @@ def reports(request):
     json_cst_reports = json_customer_report_list()
     json_goods_reports = json_goods_report_list()
     money_arguments = money_argument_list()
+    time_arguments = time_argument_list()
     json_money_arguments = json_money_argument_list()
     json_time_arguments = json_time_argument_list()
     json_period = json_periods()
@@ -20,7 +21,8 @@ def reports(request):
     context = {'periods': periods, 'cst_reports': cst_reports, 'goods_reports': goods_reports,
                'json_goods_reports': json_goods_reports, 'json_cst_reports': json_cst_reports,
                'money_arguments': money_arguments, 'json_money_arguments': json_money_arguments,
-               'json_time_arguments': json_time_arguments, 'json_period': json_period, 'navi': navi}
+               'json_time_arguments': json_time_arguments, 'json_period': json_period, 'time_arguments': time_arguments,
+               'navi': navi}
     return render(request, 'report.html', context)
 
 
