@@ -6,7 +6,7 @@
     margin: 10px 0;
   }
 
-  &_dropdown{
+  &_dropdown {
     margin-bottom: 6px;
   }
 
@@ -80,6 +80,16 @@
 }
 
 
+.zero-width {
+  min-width: 0;
+  width: 0;
+}
+
+.temp-width {
+  min-width: 360px;
+}
+
+
 .big-plus {
   font-size: 250px;
   text-align: center;
@@ -90,4 +100,31 @@
 .date-row {
   display: flex;
   justify-content: space-between;
+}
+
+.report-long {
+  max-width: 1500px;
+  min-width: 1160px;
+
+  &__header {
+    background-color: $colorSecondary200;
+    padding: 4px;
+  }
+
+  &_parameter {
+    margin-bottom: 0;
+    max-width: 220px;
+  }
+  &_period {
+    margin-bottom: 0;
+    max-width: 120px;
+  }
+}
+
+.report__remove {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  width: 0;
 }

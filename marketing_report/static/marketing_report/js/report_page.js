@@ -9,7 +9,7 @@ function newReport(thisObj, reportType) {
     setTimeout(function () {
         tempNode.remove();
         const newNode = addReportBlock(reportType, oldId);
-        newNode.style.minWidth = '360px';
+        newNode.classList.add('temp-width');
         thisObj.parentNode.insertBefore(newNode, thisObj);
         addPeriodList(newNode);
         addReportList(newNode, reportType);
@@ -41,31 +41,34 @@ function newReport(thisObj, reportType) {
         newNode.querySelectorAll('[for$="' + reportType + '"]').forEach(function (element) {
             element.setAttribute('for', element.getAttribute('for').replace(reportType, oldId));
         });
-        newNode.style.minWidth = '0';
-        newNode.style.width = '0';
+        newNode.classList.add('zero-width');
         return newNode;
     }
 
     function addPeriodList(newNode) {
-        const periodSelect = newNode.querySelector('[id^="period-select"]');
+        const periodSelect = newNode.querySelector('[id^="period-select"]')
+                                            .parentElement.querySelector('.dropdown__content');
         let newOption;
         for (const [key, value] of Object.entries(periodsList())) {
-            newOption = document.createElement('option');
-            newOption.value = key;
+            newOption = document.createElement('li');
+            newOption.dataset.value = key;
             newOption.textContent = value;
+            newOption.setAttribute('onclick', 'event.stopPropagation(); selectFromList(this);')
             periodSelect.appendChild(newOption);
         }
     }
 
     function addReportList(newNode, reportType) {
-        const periodSelect = newNode.querySelector('[id^="report-select"]');
+        const reportSelect = newNode.querySelector('[id^="report-select"]')
+                                            .parentElement.querySelector('.dropdown__content');
         const reportArray = reportType === 0 ? customerReports() : goodsReports();
         let newOption;
         reportArray.forEach(function (report) {
-            newOption = document.createElement('option');
-            newOption.value = report['code'];
+            newOption = document.createElement('li');
+            newOption.dataset.value = report['code'];
             newOption.textContent = report['description'];
-            periodSelect.appendChild(newOption);
+            newOption.setAttribute('onclick', 'event.stopPropagation(); selectFromList(this);')
+            reportSelect.appendChild(newOption);
         });
     }
 }
@@ -97,11 +100,7 @@ function changeArgumentList(thisObj) {
 function reportRemove(thisObj) {
     const parentObj = thisObj.parentElement.parentElement;
     parentObj.innerHTML = '';
-    parentObj.style.border = 'none';
-    parentObj.style.padding = '0';
-    parentObj.style.margin = '0';
-    parentObj.style.minWidth = '0';
-    parentObj.style.width = '0';
+    parentObj.classList.add('report__remove');
     setTimeout(function () {
         parentObj.remove();
     }, 295)
@@ -137,21 +136,19 @@ function buildReport(thisObj) {
     }
 
     function emptyReportBlockBig() {
-        parentObj.style.minWidth = '1160px';
-        parentObj.style.maxWidth = '1500px';
+        parentObj.classList.add('report-long');
         const reportHeading = parentObj.querySelector('.report-heading')
         reportHeading.textContent = reportTitle;
         const dateRow = parentObj.querySelector('.date-row').cloneNode(true);
-        const reportSelector = parentObj.querySelector('[id^="report-select"]').cloneNode(true);
+        const reportSelector = parentObj.querySelector('[id^="report-select"]').parentElement.cloneNode(true);
         reportSelector.value = parentObj.querySelector('[id^="report-select"]').value;
         reportSelector.style.display = 'none';
         const periodSelector = parentObj.querySelector('[id^="period-select"]').parentElement.cloneNode(true);
         periodSelector.value = parentObj.querySelector('[id^="period-select"]').value;
-        periodSelector.style.marginBottom = '0';
-        periodSelector.style.maxWidth = '120px'
-        const argumentSelector = parentObj.querySelector('[id^="parameter-select"]').cloneNode(true);
+        periodSelector.classList.add('report-long_period');
+        const argumentSelector = parentObj.querySelector('[id^="parameter-select"]').parentElement.cloneNode(true);
         argumentSelector.value = parentObj.querySelector('[id^="parameter-select"]').value;
-        argumentSelector.style.marginBottom = '0';
+        argumentSelector.classList.add('report-long_parameter');
         const periodText = document.createElement('label');
         periodText.textContent = ' детализация ';
         periodText.setAttribute('for', periodSelector.id);
@@ -164,9 +161,7 @@ function buildReport(thisObj) {
             argumentSelector, periodText, periodSelector, reportSelector);
     }
 
-    function changeHeadingStyle () {
-        parentObj.querySelector('.report-header').style.backgroundColor = '#DFCFB9';
-        parentObj.querySelector('.report-header').style.padding = '4px';
-
+    function changeHeadingStyle() {
+        parentObj.querySelector('.report-header').classList.add('report-long__header');
     }
 }

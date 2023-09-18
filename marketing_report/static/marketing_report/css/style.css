@@ -253,6 +253,15 @@
   transition: width 0.3s ease-out;
 }
 
+.zero-width {
+  min-width: 0;
+  width: 0;
+}
+
+.temp-width {
+  min-width: 360px;
+}
+
 .big-plus {
   font-size: 250px;
   text-align: center;
@@ -263,6 +272,31 @@
 .date-row {
   display: flex;
   justify-content: space-between;
+}
+
+.report-long {
+  max-width: 1500px;
+  min-width: 1160px;
+}
+.report-long__header {
+  background-color: #DFCFB9;
+  padding: 4px;
+}
+.report-long_parameter {
+  margin-bottom: 0;
+  max-width: 220px;
+}
+.report-long_period {
+  margin-bottom: 0;
+  max-width: 120px;
+}
+
+.report__remove {
+  border: none;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+  width: 0;
 }
 
 .dict {

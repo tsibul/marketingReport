@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{%  load static %}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -7,7 +7,7 @@
 </head>
 <body>
 
-
+{#var 1#}
 <div class="dropdown" onclick="openDropdown(this);">
     <input name="id" type="text" class="dropdown__hidden" hidden>
     <ul class="dropdown__content" id="itemDropdown">
@@ -24,8 +24,63 @@
         {% endfor %}
     </ul>
 </div>
+{#var2#}
+<div class="dropdown report_dropdown" onclick="openDropdown(this);">
+    <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-1"
+           value="{{ cst_reports.0.code }}">
+    <div class="dropdown__input-block">
+        <input type="text" class="dropdown__input"
+               placeholder="Поиск.." onchange="changeArgumentList(this)"
+               value="{{ cst_reports.0.description }}"
+               data-value="{{ cst_reports.0.description }}" readonly>
+        <i class="fa fa-solid fa-angle-down"></i>
+    </div>
+    <ul class="dropdown__content">
+        {% for report in cst_reports %}
+            <li data-value="{{ report.code }}"
+                onclick="event.stopPropagation(); selectFromList(this);">{{ report.description }} </li>
+        {% endfor %}
+    </ul>
+</div>
 
-    <script src="{% static 'marketing_report/js/main.js' %}"></script>
+{#old report#}
+<div class="report-block" id="report-10001">
+    <div class="report-header">
+        <p class="report-heading">Отчет по товарам</p>
+    </div>
+    <div class="report-block-content">
+
+        <label for="report-10001" class="top-label">тип отчета</label>
+        <select class="form-select" id="report-select-10001" onchange="changeArgumentList(this)">
+            {% for report in goods_reports %}
+                <option value="{{ report.code }}">{{ report.description }}</option>
+            {% endfor %}
+        </select> <label for="period-10001" class="top-label">период</label>
+        <select class="form-select" id="period-select-10001">
+            {% for period in periods %}
+                <option value="{{ period.value }}">{{ period.label }}</option>
+            {% endfor %}
+        </select>
+        <div class="date-row">
+            <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
+            <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
+        </div>
+        <label for="parameter-select-10001" class="top-label">показатель</label>
+        <select class="form-select" id="parameter-select-10001">
+            {% for argument in money_arguments %}
+                <option value="{{ argument.code }}">{{ argument.description }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="button-block report_button-block">
+        <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
+        </button>
+        <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
+    </div>
+</div>
+
+
+<script src="{% static 'marketing_report/js/main.js' %}"></script>
 
 </body>
 </html>
