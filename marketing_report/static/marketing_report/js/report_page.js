@@ -137,7 +137,7 @@ function buildReport(thisObj) {
 
     function emptyReportBlockBig() {
         parentObj.classList.add('report-long');
-        const reportHeading = parentObj.querySelector('.report-heading')
+        const reportHeading = parentObj.querySelector('.border-title')
         reportHeading.textContent = reportTitle;
         const dateRow = parentObj.querySelector('.date-row').cloneNode(true);
         const reportSelector = parentObj.querySelector('[id^="report-select"]').parentElement.cloneNode(true);

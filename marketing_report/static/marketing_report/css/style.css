@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   background-color: #BF9F73;
-  z-index: 3;
+  z-index: 5;
 }
 
 .menu {
@@ -138,7 +138,7 @@
   position: absolute;
   background-color: #EFE7DC;
   display: none;
-  z-index: 2;
+  z-index: 5;
 }
 .dropdown__content li {
   padding: 6px 10px;
@@ -188,23 +188,24 @@
   gap: 8px;
 }
 
+.border-title {
+  margin-left: 20px;
+  border: 1px solid #293D32;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 2px 8px;
+  background-color: #EFE7DC;
+  z-index: 3;
+  width: auto;
+  position: absolute;
+  top: -14px;
+}
+
 .report_button-block {
   margin: 10px 0;
 }
 .report_dropdown {
   margin-bottom: 6px;
-}
-.report-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-}
-.report-heading {
-  font-weight: 800;
-  margin-bottom: 2px;
 }
 .report__form-input {
   margin: 10px 0;
@@ -225,9 +226,11 @@
   text-decoration: none;
   transition: all 0.3s ease-out;
   box-shadow: 6px 6px 12px #293D32;
+  position: relative;
 }
 .report-block:hover {
   transform: scale(1.02);
+  z-index: 5;
 }
 .report-block-content {
   display: flex;
@@ -239,6 +242,9 @@
 .report-block-hoverable:hover p {
   color: #EFE7DC;
   opacity: 1;
+}
+.report-block-hoverable:hover .border-title {
+  border-color: #293D32;
 }
 .report-block-hoverable:hover {
   background-color: #293D32;
@@ -272,6 +278,7 @@
 .date-row {
   display: flex;
   justify-content: space-between;
+  gap: 30px;
 }
 
 .report-long {
@@ -280,7 +287,12 @@
 }
 .report-long__header {
   background-color: #DFCFB9;
-  padding: 4px;
+  padding: 2px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #293D32;
+  border-radius: 10px;
 }
 .report-long_parameter {
   margin-bottom: 0;
@@ -322,6 +334,9 @@
 .dict-block:hover {
   transform: scale(1.03);
 }
+.dict-block__active {
+  font-weight: 800;
+}
 .dict-block__header {
   padding: 60px;
   background-color: #DFCFB9;
@@ -353,8 +368,8 @@
 .dict-block__row_right-margin {
   margin-right: 19px;
 }
-.dict-block__row:not(.report-heading):hover {
-  background-color: #E1E7EA;
+.dict-block__row:not(.dict-block__active):hover {
+  background-color: #C2D6CB;
 }
 .dict-block__content {
   overflow: auto;
@@ -362,6 +377,7 @@
 }
 .dict-block__text {
   width: 100%;
+  font-weight: inherit;
 }
 .dict-block[open] {
   max-height: 632px;
@@ -427,19 +443,6 @@
   width: 600px;
   align-items: center;
   position: relative;
-}
-
-.border-title {
-  margin-left: 20px;
-  border: 1px solid #293D32;
-  border-radius: 10px;
-  border-color: transparent;
-  padding: 8px;
-  background-color: #EFE7DC;
-  z-index: 3;
-  width: auto;
-  position: absolute;
-  top: -17px;
 }
 
 /*# sourceMappingURL=style.css.map */

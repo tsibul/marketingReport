@@ -117,7 +117,7 @@
     position: absolute;
     background-color: $colorSecondary100;
     display: none;
-    z-index: 2;
+    z-index: 5;
 
     & li {
       padding: 6px 10px;
@@ -172,4 +172,16 @@
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+.border-title{
+  margin-left: 20px;
+  @include brd-standard;
+  border-color: transparent;
+  padding: 2px 8px;
+  background-color: $colorSecondary100;
+  z-index: 3;
+  width: auto;
+  position: absolute;
+  top: -14px;
 }

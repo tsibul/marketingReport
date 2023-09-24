@@ -24,6 +24,9 @@
     transform: scale(1.03);
   }
 
+  &__active{
+    font-weight: 800;
+  }
   &__header {
     padding: 60px;
     background-color: $colorSecondary200;
@@ -58,8 +61,8 @@
       margin-right: 19px;
     }
 
-    &:not(.report-heading):hover {
-      background-color: $colorNeutral100;
+    &:not(.dict-block__active):hover {
+      background-color: $colorPrimary200;
     }
   }
 
@@ -70,6 +73,7 @@
 
   &__text {
     width: 100%;
+    font-weight: inherit;
   }
 
 
