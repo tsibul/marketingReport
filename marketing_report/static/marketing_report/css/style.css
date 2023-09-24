@@ -417,4 +417,29 @@
   grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
 }
 
+.form-row__export {
+  border: 1px solid #293D32;
+  border-radius: 10px;
+  padding: 20px 30px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: 2fr repeat(2, 1fr);
+  width: 600px;
+  align-items: center;
+  position: relative;
+}
+
+.border-title {
+  margin-left: 20px;
+  border: 1px solid #293D32;
+  border-radius: 10px;
+  border-color: transparent;
+  padding: 8px;
+  background-color: #EFE7DC;
+  z-index: 3;
+  width: auto;
+  position: absolute;
+  top: -17px;
+}
+
 /*# sourceMappingURL=style.css.map */

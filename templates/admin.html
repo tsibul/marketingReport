@@ -1,0 +1,23 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block title %}Импорт{% endblock %}
+{% block content %}
+    <div class="full-content">
+        <div class="container">
+            <form id="customer_export" method="post" action="{% url 'marketing_report:customer_export' %}">
+                {%  csrf_token %}
+                <div class="form-row__export">
+                <h4 class="active border-title">Экспорт клиентов</h4>
+                    <label for="customer_export">дата последней продажи</label>
+                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>
+                    <button type="submit" class="btn btn-save">экспорт</button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+
+
+    </div>
+    <script src="{% static 'marketing_report/js/admin.js' %}"></script>
+{% endblock %}

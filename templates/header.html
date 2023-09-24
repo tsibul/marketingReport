@@ -32,7 +32,7 @@
                     <p class="menu-item">Макетинг V2.0. <strong>Авторизуйтесь</strong></p>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="#" class="menu-item">Админ</a>
+                    <a href="{%  url 'marketing_report:admin_site' %}" class="menu-item">Админ</a>
                 {% endif %}
             </div>
             <nav class="menu-right">
