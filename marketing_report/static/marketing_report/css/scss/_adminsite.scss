@@ -13,14 +13,3 @@
   position: relative;
 }
 
-.border-title{
-  margin-left: 20px;
-  @include brd-standard;
-  border-color: transparent;
-  padding: 8px;
-  background-color: $colorSecondary100;
-  z-index: 3;
-  width: auto;
-  position: absolute;
-  top: -17px;
-}
