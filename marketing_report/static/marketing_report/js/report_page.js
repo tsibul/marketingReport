@@ -1,3 +1,24 @@
+function selectFromListMod(obj) {
+    const parentObj = obj.parentElement.parentElement;
+    const valuePrevious = parentObj.querySelector('.dropdown__hidden').value;
+    const valueCurrent = obj.dataset.value;
+    selectFromList(obj);
+    const moneyReports = document.querySelector('#money-reports').value.split(',');
+    const paramContent = parentObj.parentElement.querySelector('[id^="parameter-select"]')
+        .parentElement.querySelector('.dropdown__content');
+    let newLines;
+    if (moneyReports.includes(valuePrevious) && !moneyReports.includes(valueCurrent)) {
+        newLines = document.querySelector('#time-arguments');
+        paramContent.innerHTML = newLines.innerHTML;
+        selectFromList(paramContent.querySelector('li'))
+    } else if (!moneyReports.includes(valuePrevious) && moneyReports.includes(valueCurrent)) {
+        newLines = document.querySelector('#money-arguments');
+        paramContent.innerHTML = newLines.innerHTML;
+        selectFromList(paramContent.querySelector('li'))
+    }
+}
+
+
 // add report block
 function newReport(thisObj, reportType) {
     const oldId = changeReportBlockId(thisObj);
@@ -47,7 +68,7 @@ function newReport(thisObj, reportType) {
 
     function addPeriodList(newNode) {
         const periodSelect = newNode.querySelector('[id^="period-select"]')
-                                            .parentElement.querySelector('.dropdown__content');
+            .parentElement.querySelector('.dropdown__content');
         let newOption;
         for (const [key, value] of Object.entries(periodsList())) {
             newOption = document.createElement('li');
@@ -60,14 +81,14 @@ function newReport(thisObj, reportType) {
 
     function addReportList(newNode, reportType) {
         const reportSelect = newNode.querySelector('[id^="report-select"]')
-                                            .parentElement.querySelector('.dropdown__content');
+            .parentElement.querySelector('.dropdown__content');
         const reportArray = reportType === 0 ? customerReports() : goodsReports();
         let newOption;
         reportArray.forEach(function (report) {
             newOption = document.createElement('li');
             newOption.dataset.value = report['code'];
             newOption.textContent = report['description'];
-            newOption.setAttribute('onclick', 'event.stopPropagation(); selectFromList(this);')
+            newOption.setAttribute('onclick', 'event.stopPropagation(); selectFromListMod(this);')
             reportSelect.appendChild(newOption);
         });
     }
@@ -112,8 +133,7 @@ function buildReport(thisObj) {
     const blockId = parentObj.id.split('-').pop();
     const reportNo = parseInt(blockId) < 10000 ? '0' : '10000';
     const reportType = parentObj.querySelector('[id^="report-select"]').value;
-    const reportTitle = reportNo === '0' ? 'Клиенты. ' + findReport(reportType, customerReports())
-        : 'Товары. ' + findReport(reportType, goodsReports());
+    const reportTitle = reportNo === '0' ? 'Клиенты. ' + findReport(reportType, customerReports()) : 'Товары. ' + findReport(reportType, goodsReports());
     const period = parentObj.querySelector('[id^="period-select"]').value;
     const dates = parentObj.querySelectorAll('[type="date"]');
     const dateBegin = dates[0].value;
@@ -157,8 +177,7 @@ function buildReport(thisObj) {
         argumentText.setAttribute('for', argumentSelector.id);
 
         parentObj.querySelector('.report-block-content').innerHTML = '';
-        parentObj.querySelector('.report-header').replaceChildren(reportHeading, dateRow, argumentText,
-            argumentSelector, periodText, periodSelector, reportSelector);
+        parentObj.querySelector('.report-header').replaceChildren(reportHeading, dateRow, argumentText, argumentSelector, periodText, periodSelector, reportSelector);
     }
 
     function changeHeadingStyle() {

@@ -10,12 +10,12 @@
                     <div class="report-header"></div>
                     <div class="report-block-content">
                         <label for="report-select-1" class="top-label">тип отчета</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-1"
-                                   value="{{ cst_reports.0.code }}" oninput="changeArgumentList(this)">
+                                   value="{{ cst_reports.0.code }}">
                             <div class="dropdown__input-block">
                                 <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.." oninput="changeArgumentList(this)"
+                                       placeholder="Поиск.."
                                        value="{{ cst_reports.0.description }}"
                                        data-value="{{ cst_reports.0.description }}" readonly>
                                 <i class="fa fa-solid fa-angle-down"></i>
@@ -23,12 +23,12 @@
                             <ul class="dropdown__content">
                                 {% for report in cst_reports %}
                                     <li data-value="{{ report.code }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ report.description }} </li>
+                                        onclick="event.stopPropagation(); selectFromListMod(this);">{{ report.description }} </li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <label for="period-select-1" class="top-label">период</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden
                                    id="period-select-1" value="{{ periods.0.value }}">
                             <div class="dropdown__input-block">
@@ -50,7 +50,7 @@
                             <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
                         </div>
                         <label for="parameter-select-1" class="top-label">показатель</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden
                                    id="parameter-select-1" value="{{ money_arguments.0.code }}">
                             <div class="dropdown__input-block">
@@ -83,12 +83,12 @@
                     <div class="report-header"></div>
                     <div class="report-block-content">
                         <label for="report-select-10001" class="top-label">тип отчета</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-10001"
                                    value="{{ goods_reports.0.code }}">
                             <div class="dropdown__input-block">
                                 <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.." onchange="changeArgumentList(this)"
+                                       placeholder="Поиск.."
                                        value="{{ goods_reports.0.description }}"
                                        data-value="{{ goods_reports.0.description }}" readonly>
                                 <i class="fa fa-solid fa-angle-down"></i>
@@ -96,12 +96,12 @@
                             <ul class="dropdown__content">
                                 {% for report in goods_reports %}
                                     <li data-value="{{ report.code }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ report.description }} </li>
+                                        onclick="event.stopPropagation(); selectFromListMod(this);">{{ report.description }} </li>
                                 {% endfor %}
                             </ul>
                         </div>
                         <label for="period-select-10001" class="top-label">период</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden
                                    id="period-select-10001" value="{{ periods.0.value }}">
                             <div class="dropdown__input-block">
@@ -123,7 +123,7 @@
                             <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
                         </div>
                         <label for="parameter-select-10001" class="top-label">показатель</label>
-                        <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                        <div class="dropdown report_dropdown">
                             <input name="id" type="text" class="dropdown__hidden" hidden
                                    id="parameter-select-10001" value="{{ money_arguments.0.code }}">
                             <div class="dropdown__input-block">
@@ -160,17 +160,18 @@
         <div id="json-goods-reports">{{ json_goods_reports }}</div>
         <div id="json-money-arguments">{{ json_money_arguments }}</div>
         <div id="json-time-arguments">{{ json_time_arguments }}</div>
+        <input id="money-reports" value="{{ money_reports }}">
         <div class="report-block" id="report-0">
             <h4 class="border-title active">Отчет по клиентам</h4>
             <div class="report-header"></div>
             <div class="report-block-content">
                 <label for="report-select-0" class="top-label">тип отчета</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-0"
                            value="{{ cst_reports.0.code }}">
                     <div class="dropdown__input-block">
                         <input type="text" class="dropdown__input"
-                               placeholder="Поиск.." onchange="changeArgumentList(this)"
+                               placeholder="Поиск.."
                                value="{{ cst_reports.0.description }}"
                                data-value="{{ cst_reports.0.description }}" readonly>
                         <i class="fa fa-solid fa-angle-down"></i>
@@ -179,7 +180,7 @@
                     </ul>
                 </div>
                 <label for="period-select-0" class="top-label">период</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden
                            id="period-select-0" value="{{ periods.0.value }}">
                     <div class="dropdown__input-block">
@@ -197,7 +198,7 @@
                     <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
                 </div>
                 <label for="parameter-select-0" class="top-label">показатель</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden
                            id="parameter-select-0" value="{{ money_arguments.0.code }}">
                     <div class="dropdown__input-block">
@@ -225,12 +226,12 @@
             <div class="report-header"></div>
             <div class="report-block-content">
                 <label for="report-select-10000" class="top-label">тип отчета</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden id="report-select-10000"
                            value="{{ goods_reports.0.code }}">
                     <div class="dropdown__input-block">
                         <input type="text" class="dropdown__input"
-                               placeholder="Поиск.." onchange="changeArgumentList(this)"
+                               placeholder="Поиск.."
                                value="{{ goods_reports.0.description }}"
                                data-value="{{ goods_reports.0.description }}" readonly>
                         <i class="fa fa-solid fa-angle-down"></i>
@@ -239,7 +240,7 @@
                     </ul>
                 </div>
                 <label for="period-select-10000" class="top-label">период</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden
                            id="period-select-10000" value="{{ periods.0.value }}">
                     <div class="dropdown__input-block">
@@ -257,7 +258,7 @@
                     <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
                 </div>
                 <label for="parameter-select-10000" class="top-label">показатель</label>
-                <div class="dropdown report_dropdown" onclick="openDropdown(this);">
+                <div class="dropdown report_dropdown">
                     <input name="id" type="text" class="dropdown__hidden" hidden
                            id="parameter-select-10000" value="{{ money_arguments.0.code }}">
                     <div class="dropdown__input-block">
@@ -280,7 +281,7 @@
                 <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
         </div>
-        <div id="money-arguments">
+        <div id="money-arguments_big">
             <input name="id" type="text" class="dropdown__hidden" hidden
                    id="parameter-select-10001" value="{{ money_arguments.0.code }}">
             <div class="dropdown__input-block">
@@ -297,7 +298,7 @@
                 {% endfor %}
             </ul>
         </div>
-        <div id="time-arguments">
+        <div id="time-arguments_big">
             <input name="id" type="text" class="dropdown__hidden" hidden
                    id="parameter-select-10001" value="{{ time_arguments.0.code }}">
             <div class="dropdown__input-block">
@@ -313,6 +314,18 @@
                         onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
                 {% endfor %}
             </ul>
+        </div>
+        <div id="money-arguments">
+            {% for argument in money_arguments %}
+                <li data-value="{{ argument.code }}"
+                    onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+            {% endfor %}
+        </div>
+        <div id="time-arguments">
+            {% for argument in time_arguments %}
+                <li data-value="{{ argument.code }}"
+                    onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+            {% endfor %}
         </div>
     </div>
     <script src="{% static 'marketing_report/js/report_page.js' %}"></script>

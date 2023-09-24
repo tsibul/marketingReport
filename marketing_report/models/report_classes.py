@@ -23,7 +23,7 @@ def cst_report_list():
     return [CustomerReports('ABC', 'ABC - анализ'),
             CustomerReports('MIG', 'Миграции клиентов'),
             CustomerReports('GEO', 'Типы и география'),
-            CustomerReports('TYP', 'Виды клиентов')]
+            CustomerReports('GRP', 'Группы клиентов')]
 
 
 def goods_report_list():
@@ -32,6 +32,11 @@ def goods_report_list():
             GoodsReports('MTR', 'Товарная матрица'),
             GoodsReports('CLR', 'Миграции цветов'),
             GoodsReports('MIG', 'Миграции товаров')]
+
+
+def money_report_list():
+    return 'ABC,GRP,MTR,GEO'
+
 
 def json_customer_report_list():
     return json.dumps([report.to_dict() for report in cst_report_list()], ensure_ascii=False)

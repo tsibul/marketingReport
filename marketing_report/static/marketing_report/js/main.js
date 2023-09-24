@@ -1,25 +1,30 @@
 document.addEventListener('click', element => {
-    const dropdown = document.querySelectorAll('.dropdown')
-    let obj
+    const dropdown = document.querySelectorAll('.dropdown');
+    let obj;
     dropdown.forEach(element => {
-        if(element.querySelector('ul').classList.contains('visible')){
+        if (element.querySelector('ul').classList.contains('visible')) {
             obj = element;
         }
     });
-    if (obj != null &&  !obj.contains(element.target)) {
+    if (obj != null && !obj.contains(element.target)) {
         obj.querySelector('ul').classList.remove('visible');
         obj.querySelector('.dropdown__input').value = obj.querySelector('.dropdown__input').dataset.value;
     }
+});
+
+document.addEventListener('click', element => {
+    const dropdown = document.querySelectorAll('.dropdown');
+    dropdown.forEach(dropChild => {
+        if (dropChild.contains(element.target)) {
+            dropChild.querySelector('ul').classList.add('visible');
+        }
+    });
 });
 
 
 function fetchJsonData(jsonUrl) {
     return fetch(jsonUrl)
         .then(response => response.json());
-}
-
-function openDropdown(obj) {
-    obj.querySelector('ul').classList.add('visible');
 }
 
 function filterList(input) {
@@ -37,7 +42,7 @@ function filterList(input) {
     }
 }
 
-async function selectFromList(obj) {
+function selectFromList(obj) {
     obj.parentElement.parentElement.querySelector('.dropdown__input').value = obj.textContent;
     obj.parentElement.parentElement.querySelector('.dropdown__input').dataset.value = obj.textContent;
     obj.parentElement.parentElement.querySelector('.dropdown__hidden').value = obj.dataset.value;
