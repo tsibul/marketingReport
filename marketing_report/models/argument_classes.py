@@ -30,8 +30,8 @@ def time_argument_list():
     return [TimeTypes('1', '1 год'),
             TimeTypes('2', '2 года'),
             TimeTypes('3', '3 года'),
-            TimeTypes('4', '4 год'),
-            TimeTypes('5', '3 лет')]
+            TimeTypes('4', '4 года'),
+            TimeTypes('5', '5 лет')]
 
 
 def json_money_argument_list():
