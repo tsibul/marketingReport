@@ -27,21 +27,43 @@ function editDictionary(obj) {
     const objClasses = obj.classList;
     const newNode = document.createElement('form'); // block for new row
     newNode.classList.add('form-row');
-    objClasses.forEach(function (el){
-       if(el !== 'dict-block__row') {
-           newNode.classList.add(el);
-       }
+    objClasses.forEach(function (el) {
+        if (el !== 'dict-block__row') {
+            newNode.classList.add(el);
+        }
     });
     newNode.id = 'form-dict';
-    let childNode;
-    let changes = 0;
-    nodeElements.forEach(function (node) {
-        if (node.tagName === 'DIV' && !node.hidden) {
+    fillFormNode();
+
+    function fillFormNode() {
+        let childNode;
+        let changes = 0;
+        nodeElements.forEach(function (node) {
+            if (node.tagName === 'DIV' && !node.hidden) {
+                if (node.classList.contains('foreign-key')) {
+                    createDropdown(node);
+                } else if (node.classList.contains('boolean')) {
+                    createBoolean(node);
+                } else {
+                    createInput(node);
+                }
+            }
+            node.hidden = true;
+        });
+        if (changes === 0) {
+            return
+        }
+        obj.querySelector('.id-hidden').setAttribute('form', 'form-dict')
+        newNode.appendChild(createButtonBlock());
+        obj.appendChild(newNode);
+
+        function createInput(node) {
             childNode = document.createElement('input'); // block for input
             childNode.classList.add('form-input', 'dict-block__text', 'dict__form-input');
             childNode.type = 'text';
-            if(node.dataset.name != null){
-            childNode.name = node.dataset.name;} else {
+            if (node.dataset.name != null) {
+                childNode.name = node.dataset.name;
+            } else {
                 childNode.readOnly = true;
                 childNode.classList.add('form-input__inactive');
             }
@@ -49,14 +71,17 @@ function editDictionary(obj) {
             newNode.appendChild(childNode)
             changes += 1;
         }
-        node.hidden = true;
-    });
-    if (changes === 0) {
-        return
+
+        function createDropdown(node) {
+            childNode = document.getElementById(node.dataset.name).querySelector('div').cloneNode(true);
+            newNode.appendChild(childNode)
+            changes += 1;
+        }
+
+        function createBoolean(node) {
+
+        }
     }
-    obj.querySelector('.id-hidden').setAttribute('form', 'form-dict')
-    newNode.appendChild(createButtonBlock());
-    obj.appendChild(newNode);
 }
 
 function cancelEditDictionary(obj) {

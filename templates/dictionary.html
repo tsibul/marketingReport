@@ -37,7 +37,8 @@
                                 <div class="dict-block__text"
                                      data-name="color_code">{{ item.color_code }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme">{{ item.color_scheme.scheme_name }}</div>
+                                     data-name="color_scheme"
+                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
@@ -56,7 +57,8 @@
                                 <div class="dict-block__text"
                                      data-name="color_code">{{ item.color_code }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme">{{ item.color_scheme.scheme_name }}</div>
+                                     data-name="color_scheme"
+                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
@@ -391,6 +393,84 @@
             </div>
         </div>
 
+    </div>
+    <div id="technical-data">
+        <div id="color_scheme">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="id" type="text" class="dropdown__hidden" hidden
+                       value="{{ color_group.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           value="{{ color_group.0.scheme_name }}"
+                           data-value="{{ color_group.0.scheme_name }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in color_group %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.scheme_name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="matrix">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="id" type="text" class="dropdown__hidden" hidden
+                       value="{{ matrix.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           value="{{ matrix.0.matrix_name }}"
+                           data-value="{{ matrix.0.matrix_name }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in matrix %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.matrix_name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="crm">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="id" type="text" class="dropdown__hidden" hidden
+                       value="{{ crm.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           value="{{ crm.0.crm_name }}"
+                           data-value="{{ crm.0.crm_name }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in crm %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.crm_name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="group_type">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="id" type="text" class="dropdown__hidden" hidden
+                       value="{{ customer_type.0.id }}">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           value="{{ customer_type.0.type_name }}"
+                           data-value="{{ customer_type.0.type_name }}" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    {% for report in customer_type %}
+                        <li data-value="{{ report.id }}"
+                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.type_name }} </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
     </div>
     <script src="{% static 'marketing_report/js/dictionary.js' %}"></script>
 {% endblock %}

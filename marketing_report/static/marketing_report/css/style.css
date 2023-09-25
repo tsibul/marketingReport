@@ -2,7 +2,7 @@
   position: fixed;
   width: 100%;
   background-color: #BF9F73;
-  z-index: 5;
+  z-index: 20;
 }
 
 .menu {
@@ -138,7 +138,7 @@
   position: absolute;
   background-color: #EFE7DC;
   display: none;
-  z-index: 5;
+  z-index: 7;
 }
 .dropdown__content li {
   padding: 6px 10px;
@@ -431,6 +431,15 @@
 
 .goods {
   grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
+}
+
+.dropdown_dict {
+  height: 29px;
+  font-size: 13px;
+}
+
+.dropdown__input_dict {
+  font-size: inherit;
 }
 
 .form-row__export {
