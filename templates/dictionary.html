@@ -350,7 +350,8 @@
                                 <div class="dict-block__text"
                                      data-name="item_name">{{ item.item_name }}</div>
                                 <div class="dict-block__text bool-field"
-                                     data-name="eco">{{ item.eco }}</div>
+                                     data-name="eco" data-id="{% if item.eco %}1{% else %}0{% endif %}">
+                                    {% if item.eco %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="matrix"
                                      data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
@@ -360,7 +361,8 @@
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <div class="dict-block__text bool-field"
-                                     data-name="multicolor">{{ item.multicolor }}</div>
+                                     data-name="multicolor"data-id="{% if item.multicolor %}1{% else %}0{% endif %}">
+                                    {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
                                 <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
                                 <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
@@ -377,7 +379,8 @@
                                 <div class="dict-block__text"
                                      data-name="item_name">{{ item.item_name }}</div>
                                 <div class="dict-block__text bool-field"
-                                     data-name="eco">{{ item.eco }}</div>
+                                     data-name="eco" data-id="{% if item.eco %}1{% else %}0{% endif %}">
+                                    {% if item.eco %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="matrix"
                                      data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
@@ -387,7 +390,8 @@
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <div class="dict-block__text bool-field"
-                                     data-name="multicolor">{{ item.multicolor }}</div>
+                                     data-name="multicolor" data-id="{% if item.multicolor %}1{% else %}0{% endif %}">
+                                    {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
                                 <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
                                 <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
@@ -475,6 +479,25 @@
                         <li data-value="{{ report.id }}"
                             onclick="event.stopPropagation(); selectFromList(this);">{{ report.type_name }} </li>
                     {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <div id="boolean">
+            <div class="dropdown report_dropdown dropdown_dict">
+                <input name="id" type="text" class="dropdown__hidden" hidden
+                       value="1">
+                <div class="dropdown__input-block">
+                    <input type="text" class="dropdown__input dropdown__input_dict"
+                           placeholder="Поиск.." onchange="changeArgumentList(this)"
+                           value="Да"
+                           data-value="Да" readonly>
+                    <i class="fa fa-solid fa-angle-down"></i>
+                </div>
+                <ul class="dropdown__content">
+                    <li data-value="1"
+                        onclick="event.stopPropagation(); selectFromList(this);">Да</li>
+                    <li data-value="0"
+                        onclick="event.stopPropagation(); selectFromList(this);">Нет</li>
                 </ul>
             </div>
         </div>

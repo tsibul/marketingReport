@@ -42,7 +42,7 @@ function editDictionary(obj) {
             if (node.tagName === 'DIV' && !node.hidden) {
                 if (node.classList.contains('foreign-key')) {
                     createDropdown(node);
-                } else if (node.classList.contains('boolean')) {
+                } else if (node.classList.contains('bool-field')) {
                     createBoolean(node);
                 } else {
                     createInput(node);
@@ -74,15 +74,20 @@ function editDictionary(obj) {
 
         function createDropdown(node) {
             childNode = document.getElementById(node.dataset.name).querySelector('div').cloneNode(true);
-            childNode.querySelector('.dropdown__input').value = node.textContent;
-            childNode.querySelector('.dropdown__input').dataset.value = node.textContent;
-            childNode.querySelector('.dropdown__hidden').value = node.dataset.id;
-            newNode.appendChild(childNode);
-            changes += 1;
+            fillFields(node, childNode);
         }
 
         function createBoolean(node) {
+            childNode = document.getElementById('boolean').querySelector('div').cloneNode(true);
+            fillFields(node, childNode);
+        }
 
+        function fillFields(node, childNode){
+            childNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g,' ');
+            childNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g,' ');
+            childNode.querySelector('.dropdown__hidden').value = node.dataset.id;
+            newNode.appendChild(childNode);
+            changes += 1;
         }
     }
 }
