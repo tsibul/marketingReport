@@ -193,7 +193,6 @@
                     <div class="dict-block__row dict-block__active customer-group dict-block__row_right-margin">
                         <div>Группа</div>
                         <div>Тип группы</div>
-                        <div>Скидка</div>
                         <div>Телефон</div>
                         <div>E-mail</div>
                         <div>Первая продажа</div>
@@ -211,7 +210,6 @@
                                 <div class="dict-block__text foreign-key"
                                      data-name="group_type"
                                      data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
-                                <div class="dict-block__text">{{ item.group_type.group_discount }}</div>
                                 <div class="dict-block__text"
                                      data-name="phone">{{ item.phone }}</div>
                                 <div class="dict-block__text"
@@ -235,7 +233,6 @@
                                 <div class="dict-block__text foreign-key"
                                      data-name="group_type"
                                      data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
-                                <div class="dict-block__text">{{ item.group_type.group_discount }}</div>
                                 <div class="dict-block__text"
                                      data-name="phone">{{ item.phone }}</div>
                                 <div class="dict-block__text"
@@ -284,7 +281,7 @@
                                 <div class="dict-block__text">{{ item.inn }}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_type"
-                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
+                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.code }}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_group"
                                      data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>
@@ -306,7 +303,7 @@
                                 <div class="dict-block__text">{{ item.inn }}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_type"
-                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
+                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.code }}</div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_group"
                                      data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>

@@ -418,11 +418,11 @@
 }
 
 .customer-group {
-  grid-template-columns: 310px 210px 61px 3fr 4fr 105px 105px 90px 90px;
+  grid-template-columns: 300px 210px 3fr 4fr 105px 105px 90px 90px;
 }
 
 .customer {
-  grid-template-columns: 80px 260px 110px 100px 140px 1fr 160px 90px 100px 120px;
+  grid-template-columns: 80px 220px 110px 60px 190px 1fr 160px 90px 100px 120px;
 }
 
 .color {
