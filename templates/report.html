@@ -281,40 +281,6 @@
                 <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
             </div>
         </div>
-        <div id="money-arguments_big">
-            <input name="id" type="text" class="dropdown__hidden" hidden
-                   id="parameter-select-10001" value="{{ money_arguments.0.code }}">
-            <div class="dropdown__input-block">
-                <input type="text" class="dropdown__input"
-                       placeholder="Поиск.."
-                       value="{{ money_arguments.0.description }}"
-                       data-value="{{ money_arguments.0.description }}" readonly>
-                <i class="fa fa-solid fa-angle-down"></i>
-            </div>
-            <ul class="dropdown__content">
-                {% for argument in money_arguments %}
-                    <li data-value="{{ argument.code }}"
-                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
-                {% endfor %}
-            </ul>
-        </div>
-        <div id="time-arguments_big">
-            <input name="id" type="text" class="dropdown__hidden" hidden
-                   id="parameter-select-10001" value="{{ time_arguments.0.code }}">
-            <div class="dropdown__input-block">
-                <input type="text" class="dropdown__input"
-                       placeholder="Поиск.."
-                       value="{{ time_arguments.0.description }}"
-                       data-value="{{ time_arguments.0.description }}" readonly>
-                <i class="fa fa-solid fa-angle-down"></i>
-            </div>
-            <ul class="dropdown__content">
-                {% for argument in time_arguments %}
-                    <li data-value="{{ argument.code }}"
-                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
-                {% endfor %}
-            </ul>
-        </div>
         <div id="money-arguments">
             {% for argument in money_arguments %}
                 <li data-value="{{ argument.code }}"
