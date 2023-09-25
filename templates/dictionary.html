@@ -209,7 +209,8 @@
                                 <div class="dict-block__text"
                                      data-name="group_name">{{ item.group_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="group_type">{{ item.group_type }}</div>
+                                     data-name="group_type"
+                                     data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
                                 <div class="dict-block__text">{{ item.group_type.group_discount }}</div>
                                 <div class="dict-block__text"
                                      data-name="phone">{{ item.phone }}</div>
@@ -232,7 +233,8 @@
                                 <div class="dict-block__text"
                                      data-name="group_name">{{ item.group_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="group_type">{{ item.group_type }}</div>
+                                     data-name="group_type"
+                                     data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
                                 <div class="dict-block__text">{{ item.group_type.group_discount }}</div>
                                 <div class="dict-block__text"
                                      data-name="phone">{{ item.phone }}</div>
@@ -281,9 +283,11 @@
                                 <div class="dict-block__text">{{ item.name }}</div>
                                 <div class="dict-block__text">{{ item.inn }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="customer_type">{{ item.customer_type }}</div>
+                                     data-name="customer_type"
+                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="customer_group">{{ item.customer_group }}</div>
+                                     data-name="customer_group"
+                                     data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>
                                 <div class="dict-block__text">{{ item.address }}</div>
                                 <div class="dict-block__text">{{ item.phone }}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
@@ -301,9 +305,11 @@
                                 <div class="dict-block__text">{{ item.name }}</div>
                                 <div class="dict-block__text">{{ item.inn }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="customer_type">{{ item.customer_type }}</div>
+                                     data-name="customer_type"
+                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="customer_group">{{ item.customer_group }}</div>
+                                     data-name="customer_group"
+                                     data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>
                                 <div class="dict-block__text">{{ item.address }}</div>
                                 <div class="dict-block__text">{{ item.phone }}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
@@ -349,11 +355,13 @@
                                 <div class="dict-block__text bool-field"
                                      data-name="eco">{{ item.eco }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="matrix">{{ item.matrix }}</div>
+                                     data-name="matrix"
+                                     data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="crm">{{ item.crm }}</div>
+                                     data-name="crm" data-id="{{ item.crm.id }}">{{ item.crm.crm_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme">{{ item.color_scheme }}</div>
+                                     data-name="color_scheme"
+                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <div class="dict-block__text bool-field"
                                      data-name="multicolor">{{ item.multicolor }}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
@@ -374,11 +382,13 @@
                                 <div class="dict-block__text bool-field"
                                      data-name="eco">{{ item.eco }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="matrix">{{ item.matrix }}</div>
+                                     data-name="matrix"
+                                     data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="crm">{{ item.crm }}</div>
+                                     data-name="crm" data-id="{{ item.crm.id }}">{{ item.crm.crm_name }}</div>
                                 <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme">{{ item.color_scheme }}</div>
+                                     data-name="color_scheme"
+                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
                                 <div class="dict-block__text bool-field"
                                      data-name="multicolor">{{ item.multicolor }}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
@@ -394,7 +404,7 @@
         </div>
 
     </div>
-    <div id="technical-data">
+    <div id="technical-data" hidden>
         <div id="color_scheme">
             <div class="dropdown report_dropdown dropdown_dict">
                 <input name="id" type="text" class="dropdown__hidden" hidden

@@ -74,7 +74,10 @@ function editDictionary(obj) {
 
         function createDropdown(node) {
             childNode = document.getElementById(node.dataset.name).querySelector('div').cloneNode(true);
-            newNode.appendChild(childNode)
+            childNode.querySelector('.dropdown__input').value = node.textContent;
+            childNode.querySelector('.dropdown__input').dataset.value = node.textContent;
+            childNode.querySelector('.dropdown__hidden').value = node.dataset.id;
+            newNode.appendChild(childNode);
             changes += 1;
         }
 
