@@ -167,6 +167,9 @@
   outline: none;
   font-weight: 600;
 }
+.dropdown__hidden {
+  display: none;
+}
 
 .visible {
   display: block;
