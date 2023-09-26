@@ -83,9 +83,9 @@ function editDictionary(obj) {
             fillFields(node, childNode);
         }
 
-        function fillFields(node, childNode){
-            childNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g,' ');
-            childNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g,' ');
+        function fillFields(node, childNode) {
+            childNode.querySelector('.dropdown__input').value = node.textContent.replace(/\s+/g, ' ');
+            childNode.querySelector('.dropdown__input').dataset.value = node.textContent.replace(/\s+/g, ' ');
             childNode.querySelector('.dropdown__hidden').value = node.dataset.id;
             newNode.appendChild(childNode);
             changes += 1;
@@ -141,7 +141,23 @@ function saveDictionaryRecord(obj) {
         body: formData,
     })
         .then(async () => {
-            let fieldList;
+            const formFields = updateForm.querySelectorAll('[name]');
+            const parentRow = updateForm.parentElement;
+            formFields.forEach((field) => {
+                if (!field.classList.contains('dropdown__hidden')) {
+                    parentRow.querySelector(`[data-name = ${field.name}]`).textContent = field.value;
+                } else {
+                    parentRow.querySelector(`[data-name = ${field.name}]`).textContent =
+                        field.parentElement.querySelector('.dropdown__input').value;
+                }
+            });
+            updateForm.remove();
+            parentRow.childNodes.forEach(function (element) {
+                if (element.hidden) {
+                    element.hidden = false
+                }
+            });
+            parentRow.querySelector('.id-hidden').setAttribute('form', '');
         })
         .catch((error) => {
             console.error(error);
