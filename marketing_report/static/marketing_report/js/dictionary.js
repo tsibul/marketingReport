@@ -79,6 +79,7 @@ function editDictionary(obj) {
 
         function createBoolean(node) {
             childNode = document.getElementById('boolean').querySelector('div').cloneNode(true);
+            childNode.querySelector('.dropdown__hidden').name = node.dataset.name;
             fillFields(node, childNode);
         }
 

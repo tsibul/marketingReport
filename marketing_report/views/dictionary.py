@@ -40,5 +40,14 @@ def dictionary_update(request, dict_type):
         dict_element = dict_model()
     for field in field_list:
         if field in request.POST.keys() and field != 'id':
-            setattr(dict_element, field, request.POST[field])
+            model_field = dict_model._meta.get_field(field)
+            if model_field.get_internal_type() == 'ForeignKey':
+                setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
+            elif model_field.get_internal_type() == 'Boolean':
+                setattr(dict_element, field, False)
+                if request.POST[field]:
+                    setattr(dict_element, field, True)
+            else:
+                setattr(dict_element, field, request.POST[field])
+    dict_element.save()
     return HttpResponse()
