@@ -35,6 +35,10 @@ class Color(models.Model):
     def __str__(self):
         return str(self.color_id + ', ' + self.color_scheme.scheme_name)
 
+    @staticmethod
+    def order_default():
+        return ['color_scheme', 'color_id']
+
 
 class PrintType(models.Model):
     """ Pad, screen, UW, soft_touch etc."""

@@ -28,3 +28,7 @@ class CustomerGroups(models.Model):
 
     def __str__(self):
         return str(self.group_name)
+
+    @staticmethod
+    def order_default():
+        return ['customer_group']

@@ -26,3 +26,7 @@ class Goods(models.Model):
 
     def __str__(self):
         return str(self.name)
+
+    @staticmethod
+    def order_default():
+        return ['item_name']
