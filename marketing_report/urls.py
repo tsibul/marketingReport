@@ -14,5 +14,6 @@ urlpatterns = [
     path('customer_export/', views.customer_export, name='customer_export'),
     path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
     path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>', views.dictionary_json, name='dictionary_json'),
+    path('customer_group_json/', views.customer_group_json, name='customer_group_json'),
 
 ]

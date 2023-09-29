@@ -179,21 +179,50 @@ document.addEventListener('mouseover', async (event) => {
             nextRecords.forEach((record) => {
                 i++;
                 newRow = rowCopy.cloneNode(true);
-                newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
-                newRow.dataset.id = record['pk'];
-                newRow.id = newRow.id.slice(0, -1) + record['pk'];
-                newRow.querySelector('.id-hidden').value = record['pk'];
-                newRowElements.forEach((rowElement) => {
-                    rowElement.textContent = record.fields[rowElement.dataset.field];
-                });
+                fillNewRow(record, i);
+                newRow.classList.remove('dict-block__row_hidden');
                 if (i === 20) {
                     newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
                     rowCurrent.dataset.last = '';
                 }
-                newRow.classList.remove('dict-block__row_hidden');
                 blockContent.appendChild(newRow);
             });
-            // alert(dictType)
         }
     }
+
+    async function fillNewRow(record, i) {
+        newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
+        newRow.dataset.id = record['pk'];
+        newRow.id = newRow.id.slice(0, -1) + record['pk'];
+        newRow.querySelector('.id-hidden').value = record['pk'];
+        for (const rowElement of newRowElements) {
+            let fieldName = rowElement.dataset.field;
+            if (rowElement.classList.contains('foreign-key')) {
+                rowElement.dataset.id = record.fields[fieldName];
+                if (fieldName === 'customer_group') {
+                    let groupUrl = `/marketing/customer_group_json`;
+                    let groupData = await fetchJsonData(groupUrl);
+                    let customerGroups = JSON.parse(groupData);
+                    rowElement.textContent = customerGroups[record.fields[fieldName]]
+                } else {
+                    let foreignKeyElement;
+                    if (fieldName !== 'customer_type') {
+                        foreignKeyElement = document.getElementById(fieldName);
+                    } else {
+                        foreignKeyElement = document.getElementById('group_type');
+                    }
+                    let foreignKeyLi = foreignKeyElement
+                        .querySelector(`[data-value = "${record.fields[fieldName]}"]`);
+                    rowElement.textContent = foreignKeyLi.textContent;
+                }
+            } else if (rowElement.classList.contains('bool-field')) {
+                rowElement.textContent = record.fields[fieldName] ? 'Да' : 'Нет';
+                rowElement.dataset.id = record.fields[fieldName] ? '1' : '0';
+            } else {
+                rowElement.textContent = record.fields[fieldName];
+            }
+            // fieldName = '';
+        }
+    }
+
 });

@@ -64,3 +64,10 @@ def dictionary_json(request, dict_type, id_no, order):
     json_dict = serialize('python', dict_items)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
+
+
+def customer_group_json(request):
+    customer_groups = CustomerGroups.objects.all().order_by('group_name')
+    json_dict = serialize('python', customer_groups)
+    json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
+    return JsonResponse(json_dict, safe=False)
