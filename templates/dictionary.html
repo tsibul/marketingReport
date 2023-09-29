@@ -28,15 +28,15 @@
                              id="color-0" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
-                                 data-name="color_id"></div>
+                                 data-name="color_id" data-field="color_id"></div>
                             <div class="dict-block__text"
-                                 data-name="color_name"></div>
+                                 data-name="color_name" data-field="color_name"></div>
                             <div class="dict-block__text"
-                                 data-name="pantone"></div>
+                                 data-name="pantone" data-field="pantone"></div>
                             <div class="dict-block__text"
-                                 data-name="color_code"></div>
+                                 data-name="color_code" data-field="color_code"></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="color_scheme"
+                                 data-name="color_scheme" data-field="color_scheme"
                                  data-id=""></div>
                             <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                 удалить
@@ -124,12 +124,21 @@
                         <button class="btn btn-save">добавить</button>
                     </div>
                     <div class="dict-block__content ">
+                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                             id="matrix-0" onclick="editDictionary(this);">
+                            <input class="id-hidden" name="id" value="0">
+                            <div class="dict-block__text"
+                                 data-name="matrix_name"></div>
+                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                удалить
+                            </button>
+                        </div>
                         {% for item in matrix %}
-                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                                 id="matrix-0" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="0">
+                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
+                                 id="matrix-{{ item.id }}" onclick="editDictionary(this);">
+                                <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
-                                     data-name="matrix_name"></div>
+                                     data-name="matrix_name">{{ item.matrix_name }}</div>
                                 <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
@@ -262,16 +271,16 @@
                              id="customerGroup-0" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
-                                 data-name="group_name"></div>
+                                 data-name="group_name" data-field="group_name"></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="group_type"
+                                 data-name="group_type" data-field="group_type"
                                  data-id=""></div>
                             <div class="dict-block__text"
-                                 data-name="phone"></div>
+                                 data-name="phone" data-field="phone"></div>
                             <div class="dict-block__text"
-                                 data-name="mail"></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
+                                 data-name="mail" data-field="mail"></div>
+                            <div class="dict-block__text" data-field="date_first"></div>
+                            <div class="dict-block__text" data-field="date_last"></div>
                             <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
                                 состав
                             </button>
@@ -350,22 +359,22 @@
                         <div></div>
                     </div>
                     <div class="dict-block__content">
-                        <div class="dict-block__row customer" data-id="0"
+                        <div class="dict-block__row customer dict-block__row_hidden" data-id="0"
                              id="customer-0">
                             <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
+                            <div class="dict-block__text" data-field="form"></div>
+                            <div class="dict-block__text" data-field="name"></div>
+                            <div class="dict-block__text" data-field="inn"></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="customer_type"
+                                 data-name="customer_type" data-field="customer_type"
                                  data-id=""></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="customer_group"
+                                 data-name="customer_group" data-field="customer_group"
                                  data-id=""></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
+                            <div class="dict-block__text" data-field="address"></div>
+                            <div class="dict-block__text" data-field="phone"></div>
+                            <div class="dict-block__text" data-field="date_first"></div>
+                            <div class="dict-block__text" data-field="date_last"></div>
                             <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                 полная информация
                             </button>
@@ -439,27 +448,27 @@
                         <button class="btn btn-save">добавить</button>
                     </div>
                     <div class="dict-block__content">
-                        <div class="dict-block__row goods" data-id="0"
+                        <div class="dict-block__row goods dict-block__row_hidden" data-id="0"
                              id="goods-0" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
-                                 data-name="name"></div>
+                                 data-name="name" data-field="name"></div>
                             <div class="dict-block__text"
-                                 data-name="item_name"></div>
+                                 data-name="item_name" data-field="item_name"></div>
                             <div class="dict-block__text bool-field"
-                                 data-name="eco" data-id=""></div>
+                                 data-name="eco" data-field="eco" data-id=""></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="matrix"
+                                 data-name="matrix" data-field="matrix"
                                  data-id=""></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="crm" data-id=""></div>
+                                 data-name="crm" data-field="crm" data-id=""></div>
                             <div class="dict-block__text foreign-key"
-                                 data-name="color_scheme"
+                                 data-name="color_scheme" data-field="color_scheme"
                                  data-id=""></div>
                             <div class="dict-block__text bool-field"
-                                 data-name="multicolor" data-id=""></div>
-                            <div class="dict-block__text"></div>
-                            <div class="dict-block__text"></div>
+                                 data-name="multicolor" data-field="multicolor" data-id=""></div>
+                            <div class="dict-block__text" data-field="date_first"></div>
+                            <div class="dict-block__text" data-field="date_last"></div>
                             <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
@@ -527,6 +536,7 @@
             </div>
         </div>
     </div>
+
     <div id="technical-data" hidden>
         <div id="color_scheme">
             <div class="dropdown report_dropdown dropdown_dict">
