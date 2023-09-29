@@ -10,7 +10,6 @@ const dictList = {
     goods: 'Goods',
 };
 
-
 document.addEventListener('mousedown', function (element) {
     try {
         if (element.target !== document.querySelector('form').parentElement &&
@@ -163,3 +162,16 @@ function saveDictionaryRecord(obj) {
             console.error(error);
         });
 }
+
+document.addEventListener('mouseover', async (event) =>  {
+    const lastRecords = document.querySelectorAll('div[data-last]:not([data-last = ""])')
+    const rowCurrent = event.target;
+    for (const el of lastRecords) {
+        if (el.contains(rowCurrent)) {
+            const dictType = dictList[rowCurrent.id.split('-')[0]];
+            const jsonUrl = `json_dict_next_20/${rowCurrent.dataset.last}/${dictType}`
+            const [nextRecords] = await fetchJsonData(jsonUrl);
+            alert(dictType)
+        }
+    }
+});

@@ -65,6 +65,9 @@
     &:not(.dict-block__active):hover {
       background-color: $colorPrimary200;
     }
+    &_hidden{
+      display: none;
+    }
   }
 
   &__content {

@@ -374,6 +374,9 @@
 .dict-block__row:not(.dict-block__active):hover {
   background-color: #C2D6CB;
 }
+.dict-block__row_hidden {
+  display: none;
+}
 .dict-block__content {
   overflow: auto;
   height: calc(100% - 130px);

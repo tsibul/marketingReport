@@ -1,4 +1,7 @@
-from django.http import HttpResponse
+import json
+
+from django.core.serializers import serialize
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
@@ -51,3 +54,13 @@ def dictionary_update(request, dict_type):
                 setattr(dict_element, field, request.POST[field])
     dict_element.save()
     return HttpResponse()
+
+
+def dictionary_json(request, dict_type, id_no, order):
+    dict_model = getattr(models, dict_type)
+    if order == 'default':
+        order = dict_model.order_default()
+    dict_items = dict_model.objects.all().order_by(*order)[id_no + 1: id_no + 21]
+    json_dict = serialize('python', dict_items)
+    json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
+    return JsonResponse(json_dict, safe=False)
