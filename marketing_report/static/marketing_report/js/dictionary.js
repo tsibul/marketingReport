@@ -163,15 +163,37 @@ function saveDictionaryRecord(obj) {
         });
 }
 
-document.addEventListener('mouseover', async (event) =>  {
+document.addEventListener('mouseover', async (event) => {
     const lastRecords = document.querySelectorAll('div[data-last]:not([data-last = ""])')
     const rowCurrent = event.target;
+    const blockContent = rowCurrent.parentElement;
+    const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
+    let newRow, newRowElements;
     for (const el of lastRecords) {
         if (el.contains(rowCurrent)) {
             const dictType = dictList[rowCurrent.id.split('-')[0]];
-            const jsonUrl = `json_dict_next_20/${rowCurrent.dataset.last}/${dictType}`
-            const [nextRecords] = await fetchJsonData(jsonUrl);
-            alert(dictType)
+            const jsonUrl = `/marketing/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default`;
+            const jsonData = await fetchJsonData(jsonUrl);
+            const nextRecords = JSON.parse(jsonData);
+            let i = 0;
+            nextRecords.forEach((record) => {
+                i++;
+                newRow = rowCopy.cloneNode(true);
+                newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])')
+                newRow.dataset.id = record['pk'];
+                newRow.id = newRow.id.slice(0, -1) + record['pk'];
+                newRow.querySelector('.id-hidden').value = record['pk'];
+                newRowElements.forEach((rowElement) => {
+                    rowElement.textContent = record.fields[rowElement.dataset.field];
+                });
+                if (i === 20) {
+                    newRow.dataset.last = Number.parseInt(rowCurrent.dataset.last) + 20;
+                    rowCurrent.dataset.last = '';
+                }
+                newRow.classList.remove('dict-block__row_hidden');
+                blockContent.appendChild(newRow);
+            });
+            // alert(dictType)
         }
     }
 });
