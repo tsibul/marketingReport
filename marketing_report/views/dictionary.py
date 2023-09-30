@@ -1,4 +1,5 @@
 import json
+from datetime import timedelta, date
 
 from django.core.serializers import serialize
 from django.http import HttpResponse, JsonResponse
@@ -11,16 +12,17 @@ from marketing_report.models import PrintType, ColorScheme, GoodCrmType, GoodMat
 
 
 def dictionary(request):
+    border_date = date.today() - timedelta(days=1100)
     navi = 'dictionary'
     matrix = GoodMatrixType.objects.all().order_by('matrix_name')
     crm = GoodCrmType.objects.all().order_by('crm_name')
     print_type = PrintType.objects.all().order_by('type_name')
     color_group = ColorScheme.objects.all().order_by('scheme_name')
     customer_type = CustomerTypes.objects.all().order_by('id')
-    customer_group = CustomerGroups.objects.all().order_by('group_name')[0:19]
-    customer_group_end = CustomerGroups.objects.all().order_by('group_name')[19:20]
-    customer = Customer.objects.filter(internal=False).order_by('name')[0:19]
-    customer_end = Customer.objects.filter(internal=False).order_by('name')[19:20]
+    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date).order_by('group_name')[0:19]
+    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date).order_by('group_name')[19:20]
+    customer = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[0:19]
+    customer_end = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[19:20]
     color = Color.objects.all().order_by('color_scheme', 'color_id')[0:19]
     color_end = Color.objects.all().order_by('color_scheme', 'color_id')[19:20]
     goods = Goods.objects.all().order_by('item_name')[0:19]
@@ -57,13 +59,24 @@ def dictionary_update(request, dict_type):
 
 
 def dictionary_json(request, dict_type, id_no, order):
-    dict_model = getattr(models, dict_type)
-    if order == 'default':
-        order = dict_model.order_default()
-    dict_items = dict_model.objects.all().order_by(*order)[id_no + 1: id_no + 21]
+    dict_items = dict_additional_filter(dict_type, order, id_no)
     json_dict = serialize('python', dict_items)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
+
+
+def dict_additional_filter(dict_type, order, id_no):  # костыль
+    border_date = date.today() - timedelta(days=1100)
+    dict_model = getattr(models, dict_type)
+    if order == 'default':
+        order = dict_model.order_default()
+    if dict_type == 'Customer':
+        dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)[id_no + 1: id_no + 21]
+    elif dict_type == 'CustomerGroups':
+        dict_items = dict_model.objects.filter(date_last__gt=border_date).order_by(*order)[id_no + 1: id_no + 21]
+    else:
+        dict_items = dict_model.objects.all().order_by(*order)[id_no + 1: id_no + 21]
+    return dict_items
 
 
 def customer_group_json(request):
