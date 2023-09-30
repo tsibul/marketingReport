@@ -8,6 +8,7 @@ urlpatterns = [
     path('report/', views.reports, name='reports'),
     path('/json_report/<int:report_no>/<str:report_type>/<str:period>/<str:date_begin>/<str:date_end>/<str:argument>',
          views.json_periods, name='json_report'),
+    path('customer/', views.customer, name='customer'),
     path('dictionary/', views.dictionary, name='dictionary'),
     path('imports/', views.imports, name='imports'),
     path('admin/', views.admin, name='admin_site'),

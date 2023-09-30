@@ -1,0 +1,16 @@
+{% extends 'header.html' %}
+{% load static %}
+{% block title %}Импорт{% endblock %}
+{% block content %}
+    <div class="full-content">
+        <div class="container">
+        </div>
+
+    </div>
+
+    <div hidden id="technical-data">
+        <div id="periods">{{ json_period }}</div>
+
+    </div>
+    <script src="{%  static 'marketing_report/js/customer.js' %}"></script>
+{% endblock %}

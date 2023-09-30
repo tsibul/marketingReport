@@ -27,6 +27,8 @@
                        class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
                     <a href="{% url 'marketing_report:reports' %}"
                        class="menu-item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
+                    <a href="{% url 'marketing_report:customer' %}"
+                       class="menu-item {% if navi == 'customer' %}active{% endif %}">Клиенты</a>
                     <a href="{% url 'marketing_report:dictionary' %}"
                        class="menu-item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                     <a href="{% url 'marketing_report:imports' %}"
