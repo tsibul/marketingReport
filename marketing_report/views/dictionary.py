@@ -14,19 +14,19 @@ from marketing_report.models import PrintType, ColorScheme, GoodCrmType, GoodMat
 def dictionary(request):
     border_date = date.today() - timedelta(days=1100)
     navi = 'dictionary'
-    matrix = GoodMatrixType.objects.all().order_by('matrix_name')
-    crm = GoodCrmType.objects.all().order_by('crm_name')
-    print_type = PrintType.objects.all().order_by('type_name')
-    color_group = ColorScheme.objects.all().order_by('scheme_name')
-    customer_type = CustomerTypes.objects.all().order_by('id')
-    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date).order_by('group_name')[0:19]
-    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date).order_by('group_name')[19:20]
+    matrix = GoodMatrixType.objects.filter(deleted=False).order_by('matrix_name')
+    crm = GoodCrmType.objects.filter(deleted=False).order_by('crm_name')
+    print_type = PrintType.objects.filter(deleted=False).order_by('type_name')
+    color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
+    customer_type = CustomerTypes.objects.filter(deleted=False).order_by('id')
+    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[0:19]
+    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[19:20]
     customer = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[0:19]
     customer_end = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[19:20]
-    color = Color.objects.all().order_by('color_scheme', 'color_id')[0:19]
-    color_end = Color.objects.all().order_by('color_scheme', 'color_id')[19:20]
-    goods = Goods.objects.all().order_by('item_name')[0:19]
-    goods_end = Goods.objects.all().order_by('item_name')[19:20]
+    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[0:19]
+    color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[19:20]
+    goods = Goods.objects.filter(deleted=False).order_by('item_name')[0:19]
+    goods_end = Goods.objects.filter(deleted=False).order_by('item_name')[19:20]
     context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
                'customer_type': customer_type, 'customer_group': customer_group, 'color': color,
                'color_end': color_end, 'customer_group_end': customer_group_end, 'customer': customer,
@@ -73,16 +73,22 @@ def dict_additional_filter(dict_type, order, id_no):  # костыль
     if dict_type == 'Customer':
         dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)[id_no + 1: id_no + 21]
     elif dict_type == 'CustomerGroups':
-        dict_items = dict_model.objects.filter(date_last__gt=border_date).order_by(*order)[id_no + 1: id_no + 21]
+        dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)[id_no + 1: id_no + 21]
     else:
-        dict_items = dict_model.objects.all().order_by(*order)[id_no + 1: id_no + 21]
+        dict_items = dict_model.objects.filter(deleted=False).order_by(*order)[id_no + 1: id_no + 21]
     return dict_items
 
 
 def customer_group_json(request):
-    customer_groups = CustomerGroups.objects.all().order_by('group_name')
+    customer_groups = CustomerGroups.objects.filter(deleted=False).order_by('group_name')
     json_dict = serialize('python', customer_groups)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 
 
+def dictionary_delete(request, dict_type, id_no):
+    dict_model = getattr(models, dict_type)
+    dict_element = dict_model.objects.get(id=id_no)
+    dict_element.deleted = True
+    dict_element.save()
+    return HttpResponse()
