@@ -9,6 +9,8 @@ const dictList = {
     customerGroup: 'CustomerGroups',
     goods: 'Goods',
 };
+const addButtons = document.querySelectorAll('.btn_add');
+
 
 document.addEventListener('mousedown', function (element) {
     try {
@@ -97,7 +99,7 @@ function cancelEditDictionary(obj) {
     const row = parentObj.parentElement;
     parentObj.remove();
     const elementId = row.dataset.id;
-    if (elementId === '') {
+    if (elementId === 'e') {
         row.remove();
         return;
     }
@@ -229,5 +231,20 @@ document.addEventListener('mouseover', async (event) => {
             // fieldName = '';
         }
     }
+});
 
+addEventListener('mousedown', (event) => {
+    addButtons.forEach((btn) => {
+        if (event.target === btn) {
+            const dictBlock = btn.parentElement.parentElement;
+            const blockContent = dictBlock.querySelector('.dict-block__content')
+            const copyRow = dictBlock.querySelector('.dict-block__row_hidden');
+            const newRow = copyRow.cloneNode(true);
+            newRow.id = newRow.id.slice(0, -1) + 'e';
+            newRow.dataset.id = 'e';
+            copyRow.after(newRow);
+            newRow.classList.remove('dict-block__row_hidden');
+            editDictionary(newRow);
+        }
+    });
 });

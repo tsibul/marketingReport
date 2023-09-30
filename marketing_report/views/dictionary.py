@@ -39,7 +39,7 @@ def dictionary_update(request, dict_type):
     dict_id = request.POST['id']
     dict_model = getattr(models, dict_type)
     field_list = [f.name for f in dict_model._meta.get_fields()]
-    if dict_id:
+    if dict_id != '0':
         dict_element = dict_model.objects.get(id=dict_id)
     else:
         dict_element = dict_model()
@@ -84,3 +84,5 @@ def customer_group_json(request):
     json_dict = serialize('python', customer_groups)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
+
+
