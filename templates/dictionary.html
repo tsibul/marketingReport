@@ -38,7 +38,7 @@
                             <div class="dict-block__text foreign-key"
                                  data-name="color_scheme" data-field="color_scheme"
                                  data-id=""></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -57,7 +57,7 @@
                                 <div class="dict-block__text foreign-key"
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -77,7 +77,7 @@
                                 <div class="dict-block__text foreign-key"
                                      data-name="color_scheme"
                                      data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -98,7 +98,7 @@
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="scheme_name"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -108,7 +108,7 @@
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="scheme_name">{{ item.scheme_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -129,7 +129,7 @@
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="matrix_name"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -139,7 +139,7 @@
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="matrix_name">{{ item.matrix_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -159,7 +159,7 @@
                              id="crm-0" onclick="editDictionary(this);">
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text" data-name="crm_name">{{ item.crm_name }}</div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -168,7 +168,7 @@
                                  id="crm-{{ item.id }}" onclick="editDictionary(this);">
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text" data-name="crm_name">{{ item.crm_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -189,7 +189,7 @@
                             <input class="id-hidden" name="id" value="0">
                             <div class="dict-block__text"
                                  data-name="type_name"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -199,7 +199,7 @@
                                 <input class="id-hidden" name="id" value="{{ item.id }}">
                                 <div class="dict-block__text"
                                      data-name="type_name">{{ item.type_name }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -226,7 +226,7 @@
                                  data-name="group_discount"></div>
                             <div class="dict-block__text"
                                  data-name="code"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -240,7 +240,7 @@
                                      data-name="group_discount">{{ item.group_discount }}</div>
                                 <div class="dict-block__text"
                                      data-name="code">{{ item.code }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -284,7 +284,7 @@
                             <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
                                 состав
                             </button>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -306,7 +306,7 @@
                                 <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
                                     состав
                                 </button>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -329,7 +329,7 @@
                                 <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
                                     состав
                                 </button>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -469,7 +469,7 @@
                                  data-name="multicolor" data-field="multicolor" data-id=""></div>
                             <div class="dict-block__text" data-field="date_first"></div>
                             <div class="dict-block__text" data-field="date_last"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                 удалить
                             </button>
                         </div>
@@ -497,7 +497,7 @@
                                     {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
                                 <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>
@@ -526,7 +526,7 @@
                                     {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
                                 <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
                                 <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
+                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
                                     удалить
                                 </button>
                             </div>

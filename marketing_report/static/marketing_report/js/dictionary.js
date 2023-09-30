@@ -248,3 +248,18 @@ addEventListener('mousedown', (event) => {
         }
     });
 });
+
+addEventListener('mousedown', async event => {
+    const deleteButtons = document.querySelectorAll('.btn_delete');
+    for (const btn of deleteButtons) {
+        if (event.target === btn) {
+            const row = event.target.parentElement;
+            const idNo = row.dataset.id;
+            const dictType = dictList[row.id.split('-')[0]];
+            row.remove();
+            const url = `/marketing/dict_delete/${dictType}/${idNo}`;
+            await fetch(url);
+        }
+    }
+});
+
