@@ -200,10 +200,14 @@ document.addEventListener('mouseover', async (event) => {
             if (rowElement.classList.contains('foreign-key')) {
                 rowElement.dataset.id = record.fields[fieldName];
                 if (fieldName === 'customer_group') {
-                    let groupUrl = `/marketing/customer_group_json`;
-                    let groupData = await fetchJsonData(groupUrl);
-                    let customerGroups = JSON.parse(groupData);
-                    rowElement.textContent = customerGroups[record.fields[fieldName]]
+                    if (record.fields[fieldName] !== null) {
+                        let groupUrl = `/marketing/customer_group_json`;
+                        let groupData = await fetchJsonData(groupUrl);
+                        let customerGroups = JSON.parse(groupData);
+                        let groupElement = customerGroups.filter((el) => {
+                            return el['pk'] === record.fields[fieldName]});
+                        rowElement.textContent = groupElement[0].fields['group_name'];
+                    }
                 } else {
                     let foreignKeyElement;
                     if (fieldName !== 'customer_type') {
