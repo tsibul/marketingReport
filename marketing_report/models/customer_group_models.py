@@ -31,4 +31,4 @@ class CustomerGroups(models.Model):
 
     @staticmethod
     def order_default():
-        return ['customer_group']
+        return ['group_name']
