@@ -167,10 +167,10 @@ document.addEventListener('mouseover', async (event) => {
     const lastRecords = document.querySelectorAll('div[data-last]:not([data-last = ""])')
     const rowCurrent = event.target;
     const blockContent = rowCurrent.parentElement;
-    const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
     let newRow, newRowElements;
     for (const el of lastRecords) {
         if (el.contains(rowCurrent)) {
+            const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
             const dictType = dictList[rowCurrent.id.split('-')[0]];
             const jsonUrl = `/marketing/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default`;
             const jsonData = await fetchJsonData(jsonUrl);
@@ -205,7 +205,8 @@ document.addEventListener('mouseover', async (event) => {
                         let groupData = await fetchJsonData(groupUrl);
                         let customerGroups = JSON.parse(groupData);
                         let groupElement = customerGroups.filter((el) => {
-                            return el['pk'] === record.fields[fieldName]});
+                            return el['pk'] === record.fields[fieldName]
+                        });
                         rowElement.textContent = groupElement[0].fields['group_name'];
                     }
                 } else {
