@@ -10,6 +10,10 @@ const dictList = {
     goods: 'Goods',
 };
 const addButtons = document.querySelectorAll('.btn_add');
+function typeDict(row) {
+    return dictList[row.id.split('-')[0]];
+}
+
 
 
 document.addEventListener('mousedown', function (element) {
@@ -159,6 +163,15 @@ function saveDictionaryRecord(obj) {
                 }
             });
             parentRow.querySelector('.id-hidden').setAttribute('form', '');
+            if (parentRow.dataset.id === 'e') {
+                const dictType =  typeDict(parentRow);
+                const jsonUrl = `/marketing/dictionary_last_id/${dictType}`;
+                const jsonData = await fetchJsonData(jsonUrl);
+                const idRecord = JSON.parse(jsonData)['id__max'];
+                parentRow.dataset.id = idRecord;
+                parentRow.querySelector('.id-hidden').value = idRecord;
+                parentRow.id = parentRow.id.split('-')[0] + '-' + idRecord;
+            }
         })
         .catch((error) => {
             console.error(error);
@@ -173,7 +186,7 @@ document.addEventListener('mouseover', async (event) => {
     for (const el of lastRecords) {
         if (el.contains(rowCurrent)) {
             const rowCopy = blockContent.querySelector('.dict-block__row_hidden');
-            const dictType = dictList[rowCurrent.id.split('-')[0]];
+            const dictType = typeDict(rowCurrent);
             const jsonUrl = `/marketing/json_dict_next_20/${dictType}/${rowCurrent.dataset.last}/default`;
             const jsonData = await fetchJsonData(jsonUrl);
             const nextRecords = JSON.parse(jsonData);
@@ -255,7 +268,7 @@ addEventListener('mousedown', async event => {
         if (event.target === btn) {
             const row = event.target.parentElement;
             const idNo = row.dataset.id;
-            const dictType = dictList[row.id.split('-')[0]];
+            const dictType = typeDict(row);
             row.remove();
             const url = `/marketing/dict_delete/${dictType}/${idNo}`;
             await fetch(url);

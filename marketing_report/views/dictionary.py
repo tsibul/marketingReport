@@ -2,6 +2,7 @@ import json
 from datetime import timedelta, date
 
 from django.core.serializers import serialize
+from django.db.models import Max
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -92,3 +93,12 @@ def dictionary_delete(request, dict_type, id_no):
     dict_element.deleted = True
     dict_element.save()
     return HttpResponse()
+
+
+def dictionary_last_id(request, dict_type):
+    dict_model = getattr(models, dict_type)
+    last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
+    # json_dict = serialize('python', last_id)
+    json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
+    return JsonResponse(json_dict, safe=False)
+
