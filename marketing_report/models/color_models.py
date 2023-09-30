@@ -8,6 +8,7 @@ fs_patterns = FileSystemStorage(location='files/patterns')
 class ColorScheme(models.Model):
     """ color scheme IV, Grant, Eco """
     scheme_name = models.CharField(max_length=13)
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.scheme_name
@@ -28,6 +29,7 @@ class Color(models.Model):
     color_scheme = models.ForeignKey(ColorScheme, models.SET_NULL, null=True)
     date_first = models.DateField(default=datetime.date(2000, 1, 1))
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return str(self.color_id + ', ' + self.color_scheme.scheme_name)
@@ -43,6 +45,7 @@ class Color(models.Model):
 class PrintType(models.Model):
     """ Pad, screen, UW, soft_touch etc."""
     type_name = models.CharField(max_length=20)
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.type_name

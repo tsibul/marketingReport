@@ -6,6 +6,7 @@ class CustomerTypes(models.Model):
     type_name = models.CharField(max_length=30)
     group_discount = models.FloatField(default=0)
     code = models.CharField(max_length=2, default='')
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.type_name
@@ -22,6 +23,7 @@ class CustomerGroups(models.Model):
     date_first = models.DateField(default=datetime.date(2000, 1, 1))
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
     active = models.BooleanField(default=True)
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.group_name

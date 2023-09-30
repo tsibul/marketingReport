@@ -20,6 +20,7 @@ class Goods(models.Model):
     multicolor = models.BooleanField(default=False)
     date_first = models.DateField(default=datetime.date(2000, 1, 1))
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
+    deleted = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.name
