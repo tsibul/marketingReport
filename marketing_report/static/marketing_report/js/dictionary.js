@@ -10,16 +10,19 @@ const dictList = {
     goods: 'Goods',
 };
 const addButtons = document.querySelectorAll('.btn_add');
+const searchButtons = document.querySelectorAll('.search_submit');
+const searchCloseButtons = document.querySelectorAll('.search_clear');
+
 function typeDict(row) {
     return dictList[row.id.split('-')[0]];
 }
 
 
-
+// Cancel Edit Dictionary
 document.addEventListener('mousedown', function (element) {
     try {
-        if (element.target !== document.querySelector('form').parentElement &&
-            !document.querySelector('form').parentElement.contains(element.target)) {
+        const parentRow = document.querySelector('form').closest('.dict-block__row')
+        if (element.target !== parentRow && !parentRow.contains(element.target)) {
             const buttonClose = document.querySelector('form').querySelector('.btn-close');
             cancelEditDictionary(buttonClose);
         }
@@ -99,8 +102,8 @@ function editDictionary(obj) {
 }
 
 function cancelEditDictionary(obj) {
-    const parentObj = obj.parentElement.parentElement;
-    const row = parentObj.parentElement;
+    const parentObj = obj.closest('.form-row');
+    const row = obj.closest('.dict-block__row');
     parentObj.remove();
     const elementId = row.dataset.id;
     if (elementId === 'e') {
@@ -137,7 +140,7 @@ function createButtonBlock() {
 
 function saveDictionaryRecord(obj) {
     event.preventDefault();
-    const updateForm = obj.parentElement.parentElement;
+    const updateForm = obj.closest('.form-row');
     const dictionaryType = updateForm.parentElement.id.split('-')[0];
     const fetchPath = '/marketing/dict_update/' + dictList[dictionaryType];
     const formData = new FormData(updateForm);
@@ -147,7 +150,7 @@ function saveDictionaryRecord(obj) {
     })
         .then(async () => {
             const formFields = updateForm.querySelectorAll('[name]');
-            const parentRow = updateForm.parentElement;
+            const parentRow = updateForm.closest('.dict-block__row');
             formFields.forEach((field) => {
                 if (!field.classList.contains('dropdown__hidden')) {
                     parentRow.querySelector(`[data-name = ${field.name}]`).textContent = field.value;
@@ -178,10 +181,11 @@ function saveDictionaryRecord(obj) {
         });
 }
 
+// next 20 records
 document.addEventListener('mouseover', async (event) => {
     const lastRecords = document.querySelectorAll('div[data-last]:not([data-last = ""])')
     const rowCurrent = event.target;
-    const blockContent = rowCurrent.parentElement;
+    const blockContent = rowCurrent.closest('.dict-block__content');
     let newRow, newRowElements;
     for (const el of lastRecords) {
         if (el.contains(rowCurrent)) {
@@ -246,10 +250,11 @@ document.addEventListener('mouseover', async (event) => {
     }
 });
 
+// Edit dictionary
 addEventListener('mousedown', (event) => {
     addButtons.forEach((btn) => {
         if (event.target === btn) {
-            const dictBlock = btn.parentElement.parentElement;
+            const dictBlock = btn.closest('.dict-block');
             const blockContent = dictBlock.querySelector('.dict-block__content')
             const copyRow = dictBlock.querySelector('.dict-block__row_hidden');
             const newRow = copyRow.cloneNode(true);
@@ -262,16 +267,26 @@ addEventListener('mousedown', (event) => {
     });
 });
 
+// new Record
 addEventListener('mousedown', async event => {
     const deleteButtons = document.querySelectorAll('.btn_delete');
     for (const btn of deleteButtons) {
         if (event.target === btn) {
-            const row = event.target.parentElement;
+            const row = event.target.closest('.dict-block__row');
             const idNo = row.dataset.id;
             const dictType = typeDict(row);
             row.remove();
             const url = `/marketing/dict_delete/${dictType}/${idNo}`;
             await fetch(url);
+        }
+    }
+});
+
+// Search
+addEventListener('mouseover', (search) => {
+    for(const btn of searchButtons){
+        if(search.target === btn){
+            const dictBlock = search.target.closest('.dict_block');
         }
     }
 });
