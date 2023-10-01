@@ -204,6 +204,44 @@
   top: -14px;
 }
 
+.import-file-modal {
+  position: absolute;
+  top: 25%;
+  left: 25%;
+  padding: 6px;
+  background-color: #DFCFB9;
+  border-radius: 12px;
+  display: none;
+  box-shadow: 6px 6px 12px #293D32;
+}
+.import-file-modal__body {
+  position: relative;
+  border: 1px solid #151E19;
+  border-radius: 10px;
+  margin: 6px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  max-width: 400px;
+}
+.import-file-modal__header {
+  background-color: #DFCFB9;
+}
+.import-file-modal__input {
+  border: 1px solid #151E19;
+  border-radius: 10px;
+  padding: 6px 8px;
+  font-size: 16px;
+  color: #293D32;
+  margin: 20px 0 10px 0;
+  width: 100%;
+}
+.import-file-modal__buttons {
+  align-self: flex-end;
+  display: flex;
+  gap: 10px;
+}
+
 .report_button-block {
   margin: 10px 0;
 }

@@ -4,37 +4,51 @@
 {% block content %}
     <div class="full-content">
         <div class="container">
-                <div class="form-row__export">
+            <div class="form-row__export">
                 <h4 class="active border-title">Импорт клиентов</h4>
-                    <div>импорт клиентов во временную базу</div>
-                    <div></div>
-{#                    <label for="customer_export">дата последней продажи</label>#}
-{#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                    <button type="submit" class="btn btn-save">импорт</button>
-                </div>
-                <div class="form-row__export">
+                <div class="import-block__description">импорт клиентов во временную базу</div>
+                <div></div>
+                {#                    <label for="customer_export">дата последней продажи</label>#}
+                {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                <button type="submit" class="btn btn-save" onclick="importFileModal(this);">импорт</button>
+            </div>
+            <div class="form-row__export">
                 <h4 class="active border-title">Импорт новых клиентов</h4>
-                    <div>импорт новых клиентов в основную базу</div>
-                    <div></div>
-{#                    <label for="customer_export">дата последней продажи</label>#}
-{#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                    <button type="submit" class="btn btn-save">импорт</button>
-                </div>
-                <div class="form-row__export">
+                <div class="import-block__description">импорт новых клиентов в основную базу</div>
+                <div></div>
+                {#                    <label for="customer_export">дата последней продажи</label>#}
+                {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                <button type="submit" class="btn btn-save">импорт</button>
+            </div>
+            <div class="form-row__export">
                 <h4 class="active border-title">Проверка изменений в клиентах</h4>
-                    <div>проверка изменений в клиентах</div>
-                    <div></div>
-{#                    <label for="customer_export">дата последней продажи</label>#}
-{#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                    <button type="submit" class="btn btn-save">проверить</button>
+                <div class="import-block__description">проверка изменений в клиентах</div>
+                <div></div>
+                {#                    <label for="customer_export">дата последней продажи</label>#}
+                {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                <button type="submit" class="btn btn-save">проверить</button>
+            </div>
+        </div>
+
+
+        <!--- Import file modal -->
+        <div class="import-file-modal" id="import-file-modal">
+            <div class="import-file-modal__body">
+                <div class="border-title active import-file-modal__header">Импорт из .csv</div>
+                <div class="import-file-modal__content">
+                    <input type="file" accept=".csv" required class="import-file-modal__input">
                 </div>
+                <div class="import-file-modal__buttons">
+                    <button type="button" class="btn btn-close" onclick="importFileModalClose(this);">закрыть</button>
+                    <button type="button" class="btn btn-save">загрузить</button>
+                </div>
+            </div>
         </div>
 
     </div>
 
     <div hidden id="technical-data">
         <div id="periods">{{ json_period }}</div>
-
     </div>
-    <script src="{%  static 'marketing_report/js/imports.js' %}"></script>
+    <script src="{% static 'marketing_report/js/imports.js' %}"></script>
 {% endblock %}
