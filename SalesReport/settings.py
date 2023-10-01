@@ -127,3 +127,16 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+STORAGES = {
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+    "example": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+        "OPTIONS": {
+            "location": "/static/marketing_report/files",
+            "base_url": "/example/",
+        },
+    },
+}
