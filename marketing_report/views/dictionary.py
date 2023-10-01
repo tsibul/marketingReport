@@ -20,8 +20,10 @@ def dictionary(request):
     print_type = PrintType.objects.filter(deleted=False).order_by('type_name')
     color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
     customer_type = CustomerTypes.objects.filter(deleted=False).order_by('id')
-    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[0:19]
-    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[19:20]
+    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[
+                     0:19]
+    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[
+                         19:20]
     customer = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[0:19]
     customer_end = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[19:20]
     color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[0:19]
@@ -59,24 +61,45 @@ def dictionary_update(request, dict_type):
     return HttpResponse()
 
 
-def dictionary_json(request, dict_type, id_no, order):
-    dict_items = dict_additional_filter(dict_type, order, id_no)
+def dictionary_json(request, dict_type, id_no, order, search_string):
+    dict_items = dict_additional_filter(dict_type, order, id_no, search_string)
     json_dict = serialize('python', dict_items)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 
 
-def dict_additional_filter(dict_type, order, id_no):  # костыль
+def dict_additional_filter(dict_type, order, id_no, search_string):  # костыль
     border_date = date.today() - timedelta(days=1100)
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
-    if dict_type == 'Customer':
-        dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)[id_no + 1: id_no + 21]
-    elif dict_type == 'CustomerGroups':
-        dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)[id_no + 1: id_no + 21]
+    if search_string == 'default':
+        if dict_type == 'Customer':
+            dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+        elif dict_type == 'CustomerGroups':
+            dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+        else:
+            dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
     else:
-        dict_items = dict_model.objects.filter(deleted=False).order_by(*order)[id_no + 1: id_no + 21]
+        search_string = search_string.replace('_', ' ')
+        if dict_type == 'Customer':
+            filter_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+        elif dict_type == 'CustomerGroups':
+            filter_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+        else:
+            filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
+        dict_items = filter_items.filter(id=0)
+        for field in dict_model._meta.get_fields():
+            if field.get_internal_type() == 'CharField':
+                field_name = field.name + '__icontains'
+                dict_items = dict_items | filter_items.filter(**{field_name: search_string})
+            elif field.get_internal_type() == 'ForeignKey':
+                foreign_model = field.related_model
+                for key in foreign_model._meta.get_fields():
+                    if key.get_internal_type() == 'CharField':
+                        field_name = field.name + '__' + key.name + '__icontains'
+                        dict_items = dict_items | filter_items.filter(**{field_name: search_string})
+    dict_items = dict_items.distinct()[id_no: id_no + 20]
     return dict_items
 
 
@@ -101,4 +124,3 @@ def dictionary_last_id(request, dict_type):
     # json_dict = serialize('python', last_id)
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
-
