@@ -204,10 +204,23 @@
   top: -14px;
 }
 
+.imports {
+  display: flex;
+}
+.imports__block {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  padding: 20px;
+  border: 1px solid #151E19;
+  border-radius: 12px;
+  margin: 0 10px;
+}
+
 .import-file-modal {
   position: absolute;
   top: 25%;
-  left: 25%;
+  left: 30%;
   padding: 6px;
   background-color: #DFCFB9;
   border-radius: 12px;

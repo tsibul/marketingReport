@@ -1,15 +1,29 @@
 @import "vars";
 @import "mixins";
 
+.imports{
+  display: flex;
+  &__block{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    padding: 20px;
+    border: 1px solid $colorPrimary900;
+    border-radius: 12px;
+    margin: 0 10px;
+  }
+}
+
 .import-file-modal {
   position: absolute;
   top: 25%;
-  left: 25%;
+  left: 30%;
   padding: 6px;
   background-color: $colorSecondary200;
   border-radius: 12px;
   display: none;
   box-shadow: 6px 6px 12px $colorPrimary800;
+
   &__body {
     position: relative;
     border: 1px solid $colorPrimary900;
@@ -20,9 +34,11 @@
     flex-direction: column;
     max-width: 400px;
   }
-&__header{
-  background-color: $colorSecondary200;
-}
+
+  &__header {
+    background-color: $colorSecondary200;
+  }
+
   &__input {
     border: 1px solid $colorPrimary900;
     border-radius: 10px;

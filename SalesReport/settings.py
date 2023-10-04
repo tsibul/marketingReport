@@ -132,11 +132,12 @@ STORAGES = {
     "staticfiles": {
         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
     },
-    "example": {
-        "BACKEND": "django.core.files.storage.FileSystemStorage",
-        "OPTIONS": {
-            "location": "/static/marketing_report/files",
-            "base_url": "/example/",
-        },
-    },
+    "default": "django.core.files.storage.FileSystemStorage",
+
+        # {
+        # "BACKEND": "django.core.files.storage.FileSystemStorage",
+        # "OPTIONS": {
+        #     "location": "/static/marketing_report/files",
+        #     "base_url": "/static/marketing_report/files_uploaded",
+        # },
 }

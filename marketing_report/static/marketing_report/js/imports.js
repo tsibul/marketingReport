@@ -1,10 +1,14 @@
-function importFileModalClose(element){
-    element.closest('#import-file-modal').style.display = 'none';
+function importFileModalClose(element) {
+    const modal = element.closest('#import-file-modal');
+    modal.style.display = 'none';
+    modal.querySelector('#file-name').value = '';
+    modal.querySelector('.import-file-modal__header').textContent = 'Что-то пошло не так';
 }
 
-function importFileModal(thisButton){
+function importFileModal(thisButton, fileName) {
     const header = thisButton.closest('.form-row__export').querySelector('.import-block__description');
     const modal = document.getElementById('import-file-modal');
+    modal.querySelector('#file-name').value = fileName;
     modal.style.display = 'block';
     modal.querySelector('.import-file-modal__header').textContent = header.textContent;
 }

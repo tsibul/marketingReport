@@ -1,7 +1,7 @@
 from django.core.files.storage import FileSystemStorage
 from django.db import models
 
-fs = FileSystemStorage(location="/static/marketing/files")
+fs = FileSystemStorage(location="/static/marketing_report/files")
 
 
 class ImportCustomers (models.Model):
