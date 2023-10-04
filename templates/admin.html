@@ -13,6 +13,17 @@
                     <button type="submit" class="btn btn-save">экспорт</button>
                 </div>
             </form>
+            <br>
+            <form id="goods_export" method="post" action="{% url 'marketing_report:goods_export' %}">
+                {%  csrf_token %}
+                <div class="form-row__export">
+                <h4 class="active border-title">Экспорт товаров </h4>
+                    <div>Параметры: </div>
+                    <div>имя, артикул, эко</div>
+
+                    <button type="submit" class="btn btn-save">экспорт</button>
+                </div>
+            </form>
         </div>
 
     </div>
