@@ -1,15 +1,41 @@
 @import "vars";
 @import "mixins";
 
-.imports{
+.imports {
   display: flex;
-  &__block{
+  border: 1px solid $colorPrimary900;
+  border-radius: 12px;
+  width: 660px;
+  margin-bottom: 20px;
+  max-height: 160px;
+  transition: scale 2s ease, max-height 0.3s ease-in-out;
+  box-shadow: 6px 6px 12px $colorPrimary800;
+
+  & .dict-block__header {
+    transition: padding 0.2s ease-in-out;
+  }
+
+  &[open] .dict-block__header {
+    padding: 20px;
+  }
+
+  &[open] {
+    max-height: 800px;
+    overflow: hidden;
+    &:hover{
+      transform: scale(1);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.01);
+  }
+
+  &__block {
     display: flex;
     gap: 20px;
     flex-direction: column;
     padding: 20px;
-    border: 1px solid $colorPrimary900;
-    border-radius: 12px;
     margin: 0 10px;
   }
 }
@@ -23,6 +49,14 @@
   border-radius: 12px;
   display: none;
   box-shadow: 6px 6px 12px $colorPrimary800;
+  transition: max-height .4s ease;
+  max-height: 0;
+  overflow: hidden;
+
+  &_open{
+    max-height: 100%;
+  }
+
 
   &__body {
     position: relative;

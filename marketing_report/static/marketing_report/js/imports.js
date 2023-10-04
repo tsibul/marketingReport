@@ -1,8 +1,11 @@
 function importFileModalClose(element) {
     const modal = element.closest('#import-file-modal');
-    modal.style.display = 'none';
-    modal.querySelector('#file-name').value = '';
-    modal.querySelector('.import-file-modal__header').textContent = 'Что-то пошло не так';
+    modal.classList.remove('import-file-modal_open');
+    setTimeout(() => {
+        modal.style.display = 'none';
+        modal.querySelector('#file-name').value = '';
+        modal.querySelector('.import-file-modal__header').textContent = 'Что-то пошло не так';
+    }, 250);
 }
 
 function importFileModal(thisButton, fileName) {
@@ -11,4 +14,7 @@ function importFileModal(thisButton, fileName) {
     modal.querySelector('#file-name').value = fileName;
     modal.style.display = 'block';
     modal.querySelector('.import-file-modal__header').textContent = header.textContent;
+    setTimeout(() => {
+        modal.classList.add('import-file-modal_open');
+    }, 0);
 }

@@ -206,14 +206,35 @@
 
 .imports {
   display: flex;
+  border: 1px solid #151E19;
+  border-radius: 12px;
+  width: 660px;
+  margin-bottom: 20px;
+  max-height: 160px;
+  transition: scale 2s ease, max-height 0.3s ease-in-out;
+  box-shadow: 6px 6px 12px #293D32;
+}
+.imports .dict-block__header {
+  transition: padding 0.2s ease-in-out;
+}
+.imports[open] .dict-block__header {
+  padding: 20px;
+}
+.imports[open] {
+  max-height: 800px;
+  overflow: hidden;
+}
+.imports[open]:hover {
+  transform: scale(1);
+}
+.imports:hover {
+  transform: scale(1.01);
 }
 .imports__block {
   display: flex;
   gap: 20px;
   flex-direction: column;
   padding: 20px;
-  border: 1px solid #151E19;
-  border-radius: 12px;
   margin: 0 10px;
 }
 
@@ -226,6 +247,12 @@
   border-radius: 12px;
   display: none;
   box-shadow: 6px 6px 12px #293D32;
+  transition: max-height 0.4s ease;
+  max-height: 0;
+  overflow: hidden;
+}
+.import-file-modal_open {
+  max-height: 100%;
 }
 .import-file-modal__body {
   position: relative;
