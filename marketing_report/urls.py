@@ -11,6 +11,7 @@ urlpatterns = [
 
     path('customer/', views.customer, name='customer'),
 
+
     path('dictionary/', views.dictionary, name='dictionary'),
     path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),
     path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),

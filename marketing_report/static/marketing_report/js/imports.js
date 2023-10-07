@@ -18,3 +18,30 @@ function importFileModal(thisButton, fileName) {
         modal.classList.add('import-file-modal_open');
     }, 0);
 }
+
+document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const modal = document.getElementById('import-file-modal');
+    modal.classList.remove('import-file-modal_open');
+    setTimeout(() => {
+        modal.style.display = 'none';
+    }, 300);
+
+    // Создание объекта FormData для отправки данных формы
+    const formData = new FormData(this);
+
+    // Отправка AJAX-запроса
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            // Обновление элемента с результатом
+            var resultElement = document.getElementById('result');
+            resultElement.innerHTML = 'Импортировано во временную базу ' + data.result + ' записей';
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+});

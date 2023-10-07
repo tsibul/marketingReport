@@ -4,69 +4,69 @@
 {% block content %}
     <div class="full-content">
         <div class="container">
-                <details class="imports">
-                    <summary class="active dict-block__header">Операции с клиентами</summary>
-                    <div class="imports__block">
-                        <div class="form-row__export">
-                            <h4 class="active border-title">Загрузить файл с клиентами</h4>
-                            <div class="import-block__description">загрузить файл с клиентами</div>
-                            <div>загружено {{ cst_date|date:'d.m.Y' }}</div>
-                            {#                    <label for="customer_export">дата последней продажи</label>#}
-                            {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                            <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'customers');">
-                                импорт
-                            </button>
-                        </div>
-                        <div class="form-row__export">
-                            <h4 class="active border-title">Импорт клиентов</h4>
-                            <div class="import-block__description">импорт клиентов во временную базу</div>
-                            <div></div>
-                            {#                    <label for="customer_export">дата последней продажи</label>#}
-                            {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                            <button type="submit" class="btn btn-save">импорт</button>
-                        </div>
-                        <div class="form-row__export">
-                            <h4 class="active border-title">Импорт новых клиентов</h4>
-                            <div class="import-block__description">импорт новых клиентов в основную базу</div>
-                            <div></div>
-                            {#                    <label for="customer_export">дата последней продажи</label>#}
-                            {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                            <button type="submit" class="btn btn-save">импорт</button>
-                        </div>
-                        <div class="form-row__export">
-                            <h4 class="active border-title">Проверка изменений в клиентах</h4>
-                            <div class="import-block__description">проверка изменений в клиентах</div>
-                            <div></div>
-                            {#                    <label for="customer_export">дата последней продажи</label>#}
-                            {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                            <button type="submit" class="btn btn-save">проверить</button>
-                        </div>
+            <details class="imports">
+                <summary class="active dict-block__header">Операции с клиентами</summary>
+                <div class="imports__block">
+                    <div class="form-row__export">
+                        <h4 class="active border-title">Загрузить клиентов во временную базу </h4>
+                        <div class="import-block__description">загрузить файл с csv</div>
+                        <div>импортировано {{ cst_date|date:'d.m.Y' }}</div>
+                        <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'customers');">
+                            импорт
+                        </button>
+                        <div id="result" class="border-title border-title_down"></div>
+
                     </div>
-                </details>
-                <details class="imports">
-                    <summary class="active dict-block__header">Операции с продажами</summary>
-                    <div class="imports__block"></div>
-                </details>
+                    <div class="form-row__export">
+                        <h4 class="active border-title">Импорт клиентов</h4>
+                        <div class="import-block__description">импорт клиентов во временную базу</div>
+                        <div></div>
+                        {#                    <label for="customer_export">дата последней продажи</label>#}
+                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                        <button type="submit" class="btn btn-save">импорт</button>
+                    </div>
+                    <div class="form-row__export">
+                        <h4 class="active border-title">Импорт новых клиентов</h4>
+                        <div class="import-block__description">импорт новых клиентов в основную базу</div>
+                        <div></div>
+                        {#                    <label for="customer_export">дата последней продажи</label>#}
+                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                        <button type="submit" class="btn btn-save">импорт</button>
+                    </div>
+                    <div class="form-row__export">
+                        <h4 class="active border-title">Проверка изменений в клиентах</h4>
+                        <div class="import-block__description">проверка изменений в клиентах</div>
+                        <div></div>
+                        {#                    <label for="customer_export">дата последней продажи</label>#}
+                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                        <button type="submit" class="btn btn-save">проверить</button>
+                    </div>
+                </div>
+            </details>
+            <details class="imports">
+                <summary class="active dict-block__header">Операции с продажами</summary>
+                <div class="imports__block"></div>
+            </details>
+        </div>
+    </div>
+
+
+    <!--- Import file modal -->
+    <div class="import-file-modal" id="import-file-modal">
+        <form class="import-file-modal__body" method="post" enctype="multipart/form-data"
+              action="{% url 'marketing_report:import_file' %}">
+            {% csrf_token %}
+            <input type="text" name="file_name" id="file-name" hidden>
+            <div class="border-title active import-file-modal__header">Импорт из .csv</div>
+            <div class="import-file-modal__content">
+                <input type="file" accept=".csv" required class="import-file-modal__input" name="loaded_file">
             </div>
-        </div>
-
-
-        <!--- Import file modal -->
-        <div class="import-file-modal" id="import-file-modal">
-            <form class="import-file-modal__body" method="post" enctype="multipart/form-data"
-                  action="{% url 'marketing_report:import_file' %}">
-                {% csrf_token %}
-                <input type="text" name="file_name" id="file-name" hidden>
-                <div class="border-title active import-file-modal__header">Импорт из .csv</div>
-                <div class="import-file-modal__content">
-                    <input type="file" accept=".csv" required class="import-file-modal__input" name="loaded_file">
-                </div>
-                <div class="import-file-modal__buttons">
-                    <button type="button" class="btn btn-close" onclick="importFileModalClose(this);">закрыть</button>
-                    <button type="submit" class="btn btn-save">загрузить</button>
-                </div>
-            </form>
-        </div>
+            <div class="import-file-modal__buttons">
+                <button type="button" class="btn btn-close" onclick="importFileModalClose(this);">закрыть</button>
+                <button type="submit" class="btn btn-save">загрузить</button>
+            </div>
+        </form>
+    </div>
 
     </div>
 

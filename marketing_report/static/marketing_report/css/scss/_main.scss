@@ -188,4 +188,8 @@
   width: auto;
   position: absolute;
   top: -14px;
+  &_down{
+    top: calc(100% - 14px);
+    //bottom: -14px;
+  }
 }
