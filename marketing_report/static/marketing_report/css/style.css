@@ -207,11 +207,15 @@
   top: calc(100% - 14px);
 }
 
+.alert {
+  color: #86A0AC;
+  font-weight: bold;
+}
+
 .imports {
   display: flex;
   border: 1px solid #151E19;
   border-radius: 12px;
-  width: 660px;
   margin-bottom: 20px;
   max-height: 160px;
   transition: scale 2s ease, max-height 0.3s ease-in-out;
@@ -283,6 +287,17 @@
   align-self: flex-end;
   display: flex;
   gap: 10px;
+}
+
+.form-row__import {
+  border: 1px solid #293D32;
+  border-radius: 10px;
+  padding: 20px 30px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  position: relative;
 }
 
 .report_button-block {
