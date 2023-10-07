@@ -5,7 +5,6 @@
   display: flex;
   border: 1px solid $colorPrimary900;
   border-radius: 12px;
-  width: 660px;
   margin-bottom: 20px;
   max-height: 160px;
   transition: scale 2s ease, max-height 0.3s ease-in-out;
@@ -88,4 +87,14 @@
     display: flex;
     gap: 10px;
   }
+}
+
+.form-row__import{
+  @include brd-standard;
+  padding: 20px 30px;
+  display: grid;
+  gap: 30px;
+  grid-template-columns: repeat(5, 1fr);
+  align-items: center;
+  position: relative;
 }

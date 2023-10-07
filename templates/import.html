@@ -7,17 +7,17 @@
             <details class="imports">
                 <summary class="active dict-block__header">Операции с клиентами</summary>
                 <div class="imports__block">
-                    <div class="form-row__export">
+                    <div class="form-row__import">
                         <h4 class="active border-title">Загрузить клиентов во временную базу </h4>
                         <div class="import-block__description">загрузить файл с csv</div>
                         <div>импортировано {{ cst_date|date:'d.m.Y' }}</div>
+                        <div>записей в базе {{ customers_imported }}</div>
+                        <div id="result" class="import-block__description alert"></div>
                         <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'customers');">
                             импорт
                         </button>
-                        <div id="result" class="border-title border-title_down"></div>
-
                     </div>
-                    <div class="form-row__export">
+                    <div class="form-row__import">
                         <h4 class="active border-title">Импорт клиентов</h4>
                         <div class="import-block__description">импорт клиентов во временную базу</div>
                         <div></div>
@@ -25,7 +25,7 @@
                         {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
                         <button type="submit" class="btn btn-save">импорт</button>
                     </div>
-                    <div class="form-row__export">
+                    <div class="form-row__import">
                         <h4 class="active border-title">Импорт новых клиентов</h4>
                         <div class="import-block__description">импорт новых клиентов в основную базу</div>
                         <div></div>
@@ -33,7 +33,7 @@
                         {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
                         <button type="submit" class="btn btn-save">импорт</button>
                     </div>
-                    <div class="form-row__export">
+                    <div class="form-row__import">
                         <h4 class="active border-title">Проверка изменений в клиентах</h4>
                         <div class="import-block__description">проверка изменений в клиентах</div>
                         <div></div>
@@ -49,8 +49,6 @@
             </details>
         </div>
     </div>
-
-
     <!--- Import file modal -->
     <div class="import-file-modal" id="import-file-modal">
         <form class="import-file-modal__body" method="post" enctype="multipart/form-data"
@@ -66,8 +64,6 @@
                 <button type="submit" class="btn btn-save">загрузить</button>
             </div>
         </form>
-    </div>
-
     </div>
 
     <div hidden id="technical-data">

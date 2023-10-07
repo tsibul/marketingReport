@@ -9,7 +9,7 @@ function importFileModalClose(element) {
 }
 
 function importFileModal(thisButton, fileName) {
-    const header = thisButton.closest('.form-row__export').querySelector('.import-block__description');
+    const header = thisButton.closest('.form-row__import').querySelector('.import-block__description');
     const modal = document.getElementById('import-file-modal');
     modal.querySelector('#file-name').value = fileName;
     modal.style.display = 'block';
@@ -26,10 +26,8 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
     setTimeout(() => {
         modal.style.display = 'none';
     }, 300);
-
     // Создание объекта FormData для отправки данных формы
     const formData = new FormData(this);
-
     // Отправка AJAX-запроса
     fetch(this.action, {
         method: 'POST',
@@ -38,8 +36,10 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
         .then(response => response.json())
         .then(data => {
             // Обновление элемента с результатом
-            var resultElement = document.getElementById('result');
-            resultElement.innerHTML = 'Импортировано во временную базу ' + data.result + ' записей';
+            const resultElement = document.getElementById('result');
+            setTimeout(() => {
+                resultElement.textContent = 'импортировано ' + data.result + ' записей';
+            }, 5000);
         })
         .catch(error => {
             console.error('Ошибка:', error);
