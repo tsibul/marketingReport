@@ -10,6 +10,7 @@ class ImportCustomers (models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True)
     inn = models.CharField(max_length=20, null=True)
+    region = models.CharField(max_length=2, default='', blank=True, null=True)
     customer_type = models.CharField(max_length=255, null=True, blank=True)
     phone = models.CharField(max_length=255, blank=True)
     all_phones = models.CharField(max_length=600, null=True, blank=True)
@@ -17,4 +18,6 @@ class ImportCustomers (models.Model):
     all_mails = models.CharField(max_length=600, null=True, blank=True)
     comment = models.CharField(max_length=255, null=True, blank=True)
     our_manager = models.CharField(max_length=255, blank=True)
+    changed = models.BooleanField(default=True)
+    new = models.BooleanField(default=True)
 
