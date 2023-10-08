@@ -31,8 +31,10 @@
                         <div class="import-block__description form-row__double">импорт новых клиентов в основную базу
                         </div>
                         <div>новые клиенты {{ customers_new }}</div>
-                        <div></div>
-                        <button type="submit" class="btn btn-save">импорт</button>
+                        <div id="import_new_customers"></div>
+                        <button type="button" class="btn btn-save" onclick="importCustomers('import_new_customers');">
+                            импорт
+                        </button>
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">3.2 Импорт измененных клиентов в БД</h4>
@@ -40,8 +42,10 @@
                             базу (опционально)
                         </div>
                         <div>измененные клиенты {{ customers_changed }}</div>
-                        <div></div>
-                        <button type="submit" class="btn btn-save">импорт</button>
+                        <div id="import_changed_customers"></div>
+                        <button type="button" class="btn btn-save"
+                                onclick="importCustomers('import_changed_customers')">импорт
+                        </button>
                     </div>
                 </div>
             </details>

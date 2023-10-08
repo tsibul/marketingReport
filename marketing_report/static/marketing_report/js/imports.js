@@ -26,8 +26,14 @@ async function editTemporaryBase() {
     const updatedCustomers = document.getElementById('updated-customers');
     newCustomers.textContent = `новые ${counts.new_customers}`;
     updatedCustomers.textContent = `измененные ${counts.updated_customers}`;
-
 }
+
+async function importCustomers(url) {
+    const counts = await fetchJsonData('/marketing/' + url);
+    const newCustomers = document.getElementById(url);
+    newCustomers.textContent = `импортировано ${counts.result}`;
+}
+
 
 document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
     e.preventDefault();

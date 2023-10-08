@@ -4,7 +4,7 @@ import os
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from marketing_report.models import ImportCustomers, Customer
+from marketing_report.models import ImportCustomers, Customer, CustomerTypes
 
 
 def imports(request):
@@ -13,8 +13,8 @@ def imports(request):
     cst_date = datetime.date.fromtimestamp(cst_date)
     customers = ImportCustomers.objects.all()
     customers_imported = customers.count()
-    customers_new = customers.filter(internal=False, new=True).count()
-    customers_changed = customers.filter(internal=False, changed=True).count()
+    customers_new = customers.filter(new=True).count()
+    customers_changed = customers.filter(changed=True).count()
     context = {'navi': navi, 'cst_date': cst_date, 'customers_imported': customers_imported,
                'customers_new': customers_new, 'customers_changed': customers_changed}
     return render(request, 'import.html', context)
@@ -104,18 +104,18 @@ def edit_temporary_base(request):
     :returns
     new_customers — количество новых клиентов в базе,
     updated_customers — количество измеененных клиентов в базе"""
-    customers_list = ImportCustomers.objects.filter(internal=False)
+    customers_list = ImportCustomers.objects.all()
     customers_list = map(check_new_updated, customers_list)
     ImportCustomers.objects.bulk_update(list(customers_list), ['new', 'changed'])
-    new_customers = ImportCustomers.objects.filter(new=True, internal=False).count()
-    updated_customers = ImportCustomers.objects.filter(changed=True, internal=False).count()
+    new_customers = ImportCustomers.objects.filter(new=True).count()
+    updated_customers = ImportCustomers.objects.filter(changed=True).count()
     return JsonResponse({'new_customers': new_customers, 'updated_customers': updated_customers})
 
 
-def check_new_updated(customer):
+def check_new_updated(customer: ImportCustomers):
     """проверка временной базы на наличие новых клиентов или изменения старых
     :return customer — объект с расставленными флагами"""
-    old_customers_list = Customer.objects.filter(internal=False)
+    old_customers_list = Customer.objects.all()
     try:
         old_customer = old_customers_list.get(frigat_id=customer.frigat_id)
         customer.new = False
@@ -127,3 +127,91 @@ def check_new_updated(customer):
     except:
         customer.new = True
     return customer
+
+
+def customers_new_to_main_db(request):
+    """импорт новых записей из ImportCustomer в  Customer
+    :return количество импортированных записей"""
+    customers_old = Customer.objects.filter(new=True)
+    customers_old = list(map(lambda customer: customer.__setattr__('new', False), customers_old))
+    Customer.objects.bulk_update(customers_old, ['new'])
+    customers_new = ImportCustomers.objects.filter(new=True)
+    customers_new_reformatted = list(map(import_customer_to_customer, customers_new))
+    result = len(customers_new_reformatted)
+    if result:
+        Customer.objects.bulk_create(customers_new_reformatted)
+    return JsonResponse({'result': result})
+
+
+def import_customer_to_customer(import_customer: ImportCustomers):
+    """преобразование объекта ImportCustomer в Customer (все поля) для новых"""
+    customer = Customer(
+        frigat_id=import_customer.frigat_id,
+        name=import_customer.name,
+        form=import_customer.form,
+        inn=import_customer.inn,
+        region=import_customer.region,
+        address=import_customer.address,
+        phone=import_customer.phone,
+        mail=import_customer.mail,
+        comment=import_customer.comment,
+        our_manager=import_customer.our_manager,
+        all_mails=import_customer.all_mails,
+        all_phones=import_customer.all_phones,
+        internal=import_customer.internal,
+        new=import_customer.new,
+        date_import=datetime.date.today(),
+    )
+    customer_type = customer_type_choose(import_customer.customer_type, import_customer.region)
+    if customer_type:
+        customer.customer_type = customer_type
+    return customer
+
+
+def customer_type_choose(customer_type, region):
+    """определение типа клиента по его названию в Фрегате"""
+    if 'Конечник' in customer_type:
+        type_obj = CustomerTypes.objects.get(
+            type_name='Конечник Москва') if region == '77' else CustomerTypes.objects.get(type_name='Конечник Регион')
+    elif 'рекламщик' in customer_type:
+        type_obj = CustomerTypes.objects.get(
+            type_name='Рекламщик Москва') if region == '77' else CustomerTypes.objects.get(type_name='Рекламщик Регион')
+    elif 'Агентство' in customer_type:
+        type_obj = CustomerTypes.objects.get(
+            type_name='Агентство Москва') if region == '77' else CustomerTypes.objects.get(type_name='Агентство Регион')
+    elif 'Дилер' in customer_type:
+        type_obj = CustomerTypes.objects.get(type_name='Дилер Москва') if region == '77' else CustomerTypes.objects.get(
+            type_name='Дилер Регион')
+    elif 'точка' in customer_type:
+        type_obj = CustomerTypes.objects.get(type_name='Розничная Точка')
+    else:
+        type_obj = ''
+    return type_obj
+
+
+def customer_change_to_customer(request):
+    """импорт измененных записей из ImportCustomer в  Customer
+    :return количество импортированных записей"""
+    customers_changed = ImportCustomers.objects.filter(changed=True)
+    old_customer_changed = list(map(update_customer_from_changed, customers_changed))
+    result = len(old_customer_changed)
+    if result:
+        Customer.objects.bulk_update(old_customer_changed,
+                                     ['form', 'name', 'inn', 'region', 'address', 'phone', 'all_phones', 'mail',
+                                      'all_mails'])
+    return JsonResponse({'result': result})
+
+
+def update_customer_from_changed(customer: ImportCustomers):
+    """преобразование объекта ImportCustomer в Customer для измененных"""
+    new_customer = Customer.objects.get(frigat_id=customer.frigat_id)
+    new_customer.name = customer.name
+    new_customer.form = customer.form
+    new_customer.address = customer.address
+    new_customer.inn = customer.inn
+    new_customer.region = customer.region
+    new_customer.phone = customer.phone
+    new_customer.all_phones = customer.all_phones
+    new_customer.mail = customer.mail
+    new_customer.all_mails = customer.all_mails
+    return new_customer

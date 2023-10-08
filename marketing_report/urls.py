@@ -22,6 +22,8 @@ urlpatterns = [
     path('imports/', views.imports, name='imports'),
     path('import_file/', views.import_file, name='import_file'),
     path('edit_temporary_base/', views.edit_temporary_base, name='edit_temporary_base'),
+    path('import_new_customers/', views.customers_new_to_main_db, name='import_new_customers'),
+    path('import_changed_customers/', views.customer_change_to_customer, name='import_changed_customers'),
 
     path('admin/', views.admin, name='admin_site'),
     path('customer_export/', views.customer_export, name='customer_export'),
