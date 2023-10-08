@@ -41,6 +41,9 @@
     align-items: center;
     gap: 10px;
     width: 100%;
+    &__double{
+      grid-column: span 2;
+    }
   }
 
   &-select {
@@ -190,11 +193,9 @@
   top: -14px;
   &_down{
     top: calc(100% - 14px);
-    //bottom: -14px;
   }
 }
 
 .alert{
   color: $colorNeutral400;
-  font-weight: bold;
 }

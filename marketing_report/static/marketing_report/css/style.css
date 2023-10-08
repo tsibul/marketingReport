@@ -73,6 +73,9 @@
   gap: 10px;
   width: 100%;
 }
+.form-row__double {
+  grid-column: span 2;
+}
 .form-select {
   margin-bottom: 6px;
   border: 1px solid #293D32;
@@ -209,7 +212,6 @@
 
 .alert {
   color: #86A0AC;
-  font-weight: bold;
 }
 
 .imports {
