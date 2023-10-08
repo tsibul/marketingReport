@@ -8,7 +8,7 @@
                 <summary class="active dict-block__header">Операции с клиентами</summary>
                 <div class="imports__block">
                     <div class="form-row__import">
-                        <h4 class="active border-title">Загрузить клиентов во временную базу </h4>
+                        <h4 class="active border-title">1. Загрузить клиентов во временную базу </h4>
                         <div class="import-block__description">загрузить файл с csv</div>
                         <div>импортировано {{ cst_date|date:'d.m.Y' }}</div>
                         <div>записей в базе {{ customers_imported }}</div>
@@ -18,19 +18,18 @@
                         </button>
                     </div>
                     <div class="form-row__import">
-                        <h4 class="active border-title">Импорт клиентов</h4>
-                        <div class="import-block__description">импорт клиентов во временную базу</div>
-                        <div></div>
-                        {#                    <label for="customer_export">дата последней продажи</label>#}
-                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                        <button type="submit" class="btn btn-save">импорт</button>
+                        <h4 class="active border-title">2. Обработка временной базы</h4>
+                        <div class="import-block__description form-row__double">Поиск новых, измененных и внутренних клиентов</div>
+                        <div id="clients-new"></div>
+                        <div id="clients-edited"></div>
+                        <button type="button" class="btn btn-save">обработать</button>
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">Импорт новых клиентов</h4>
                         <div class="import-block__description">импорт новых клиентов в основную базу</div>
                         <div></div>
-                        {#                    <label for="customer_export">дата последней продажи</label>#}
-                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
+                        <div></div>
+                        <div></div>
                         <button type="submit" class="btn btn-save">импорт</button>
                     </div>
                     <div class="form-row__import">
