@@ -20,4 +20,5 @@ class ImportCustomers (models.Model):
     our_manager = models.CharField(max_length=255, blank=True)
     changed = models.BooleanField(default=True)
     new = models.BooleanField(default=True)
+    internal = models.BooleanField(default=False)
 

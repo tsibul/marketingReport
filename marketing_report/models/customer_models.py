@@ -25,6 +25,7 @@ class Customer(models.Model):
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
     active = models.BooleanField(default=True)
     internal = models.BooleanField(default=False)
+    new = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.name
