@@ -19,26 +19,29 @@
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">2. Обработка временной базы</h4>
-                        <div class="import-block__description form-row__double">Поиск новых, измененных и внутренних клиентов</div>
-                        <div id="clients-new"></div>
-                        <div id="clients-edited"></div>
-                        <button type="button" class="btn btn-save">обработать</button>
+                        <div class="import-block__description form-row__double">Поиск новых, измененных и внутренних
+                            клиентов
+                        </div>
+                        <div id="new-customers" class="alert"></div>
+                        <div id="updated-customers" class="alert"></div>
+                        <button type="button" class="btn btn-save" onclick="editTemporaryBase();">обработать</button>
                     </div>
                     <div class="form-row__import">
-                        <h4 class="active border-title">Импорт новых клиентов</h4>
-                        <div class="import-block__description">импорт новых клиентов в основную базу</div>
-                        <div></div>
-                        <div></div>
+                        <h4 class="active border-title">3.1 Импорт новых клиентов в БД</h4>
+                        <div class="import-block__description form-row__double">импорт новых клиентов в основную базу
+                        </div>
+                        <div>новые клиенты {{ customers_new }}</div>
                         <div></div>
                         <button type="submit" class="btn btn-save">импорт</button>
                     </div>
                     <div class="form-row__import">
-                        <h4 class="active border-title">Проверка изменений в клиентах</h4>
-                        <div class="import-block__description">проверка изменений в клиентах</div>
+                        <h4 class="active border-title">3.2 Импорт измененных клиентов в БД</h4>
+                        <div class="import-block__description form-row__double">импорт измененных клиентов в основную
+                            базу (опционально)
+                        </div>
+                        <div>измененные клиенты {{ customers_changed }}</div>
                         <div></div>
-                        {#                    <label for="customer_export">дата последней продажи</label>#}
-                        {#                    <input type="date" class="form-input" id="last_cst_date" name="date_last" value="2022-01-01" required>#}
-                        <button type="submit" class="btn btn-save">проверить</button>
+                        <button type="submit" class="btn btn-save">импорт</button>
                     </div>
                 </div>
             </details>

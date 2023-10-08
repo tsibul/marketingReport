@@ -19,6 +19,16 @@ function importFileModal(thisButton, fileName) {
     }, 0);
 }
 
+async function editTemporaryBase() {
+    const counts = await fetchJsonData('/marketing/edit_temporary_base');
+    console.log(counts)
+    const newCustomers = document.getElementById('new-customers');
+    const updatedCustomers = document.getElementById('updated-customers');
+    newCustomers.textContent = `новые ${counts.new_customers}`;
+    updatedCustomers.textContent = `измененные ${counts.updated_customers}`;
+
+}
+
 document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
     e.preventDefault();
     const modal = document.getElementById('import-file-modal');
