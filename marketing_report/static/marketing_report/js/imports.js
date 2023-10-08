@@ -37,9 +37,8 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
         .then(data => {
             // Обновление элемента с результатом
             const resultElement = document.getElementById('result');
-            setTimeout(() => {
-                resultElement.textContent = 'импортировано ' + data.result + ' записей';
-            }, 5000);
+            const curentDate = new Date()
+            resultElement.textContent = `${curentDate.getHours()}:${curentDate.getMinutes()} — ${data.result} записей импортировано`;
         })
         .catch(error => {
             console.error('Ошибка:', error);
