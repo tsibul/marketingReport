@@ -46,13 +46,18 @@ def cst_to_temp_db():
         for row in csv_reader:
             try:
                 if customer_check_row(row):
-                    fr_id, name, form, inn, _, address, phone, mail, comment, _, our_manager, customer_type, all_mails, all_phones = row
+                    (frigat_id, name, form, inn, _, address, phone, mail, comment, _, our_manager, customer_type,
+                        all_mails, all_phones) = row
                     if len(inn) == 9 or len(inn) == 11:
                         inn = '0' + inn
                     region = inn[:2]
                     region = region_mapping.get(region, region)
+                    internal = False
+                    if (inn == '' and address == '' and phone == '' and mail == '' and comment == ''
+                            and our_manager == '' and customer_type == '' and all_mails == '' and all_phones == ''):
+                        internal = True
                     customer = ImportCustomers(
-                        frigat_id=fr_id,
+                        frigat_id=frigat_id,
                         name=name.replace('"', ''),
                         form=form,
                         inn=inn,
@@ -64,12 +69,12 @@ def cst_to_temp_db():
                         our_manager=our_manager,
                         customer_type=customer_type,
                         all_mails=all_mails,
-                        all_phones=all_phones
+                        all_phones=all_phones,
+                        internal=internal
                     )
                     customers.append(customer)
             except Exception as e:
                 print(f"ошибка в записи {e}")
-
     result = ImportCustomers.objects.bulk_create(customers)
     return len(result)
 
