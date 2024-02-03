@@ -7,9 +7,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Маркетинг</title>
-     <link rel="icon" type="image/x-icon" href="{% static 'marketing_report/icon/people-robbery-solid.svg' %}">
+    <link rel="icon" type="image/x-icon" href="{% static 'marketing_report/icon/people-robbery-solid.svg' %}">
 
-    <script src="{% static 'marketing_report/js/main.js' %}" defer></script>
+    <script type="module" src="{% static 'marketing_report/js/login.js' %}" defer></script>
     <script src="https://kit.fontawesome.com/e2a5b405b2.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="{% static 'marketing_report/css/style.css' %}">
 
@@ -20,33 +20,44 @@
 
 <header class="header">
     <div class="container">
+        <div class="menu__mobile menu__item"><i class="fa fa-solid fa-bars"></i></div>
         <menu class="menu">
-            <div class="menu-left">
+            <div class="menu__left">
+                <a href="http://10.0.1.17/wcenter/"
+                   class="menu__item"><span class="mobile__hide"><i class="fa fa-solid fa-arrows-to-circle"></i></span>
+                    <span class="mobile__show">&nbsp;Центр</span>
+                </a>
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'marketing_report:main' %}"
-                       class="menu-item {% if navi == 'main' %}active{% endif %}">Главная</a>
+                       class="menu__item {% if navi == 'main' %}active{% endif %}">Главная</a>
                     <a href="{% url 'marketing_report:reports' %}"
-                       class="menu-item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
+                       class="menu__item {% if navi == 'reports' %}active{% endif %}">Отчеты</a>
                     <a href="{% url 'marketing_report:customer' %}"
-                       class="menu-item {% if navi == 'customer' %}active{% endif %}">Клиенты</a>
+                       class="menu__item {% if navi == 'customer' %}active{% endif %}">Клиенты</a>
                     <a href="{% url 'marketing_report:dictionary' %}"
-                       class="menu-item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
+                       class="menu__item {% if navi == 'dictionary' %}active{% endif %}">Настройки</a>
                     <a href="{% url 'marketing_report:imports' %}"
-                       class="menu-item {% if navi == 'imports' %}active{% endif %}">Импорт</a>
+                       class="menu__item {% if navi == 'imports' %}active{% endif %}">Импорт</a>
                 {% else %}
-                    <p class="menu-item">Макетинг V2.0. <strong>Авторизуйтесь</strong></p>
+                    <p class="menu__item">Макетинг V2.0. <strong>Авторизуйтесь</strong></p>
                 {% endif %}
                 {% if request.user.is_superuser %}
-                    <a href="{%  url 'marketing_report:admin_site' %}" class="menu-item">Админ</a>
+                    <a href="{% url 'marketing_report:admin_site' %}" class="menu__item">Админ</a>
                 {% endif %}
             </div>
-            <nav class="menu-right">
+            <nav class="menu__right">
                 {% if request.user.is_authenticated %}
-                    <a href="#" class="menu-item"><i class="fa fa-regular fa-user"></i>&nbsp;{{ request.user.username }}
-                    </a>
+                    <div class="menu__item active"
+                         id="logout-button">{{ request.user.first_name }}&nbsp;{{ request.user.last_name }}<i
+                            class="fa fa-solid fa-arrow-right-from-bracket"></i></div>
+                    <div class="menu__item" id="login-button" hidden> вход</div>
                 {% else %}
-                    <a href="#" class="menu-item"><i class="fa fa-solid fa-power-off"></i>&nbsp;Войти</a>
+                    <div class="menu__item active" id="login-button"><i
+                            class="fa fa-solid fa-arrow-right-to-bracket"></i>&nbsp;вход
+                    </div>
+                    <div class="menu__item" hidden> выход</div>
                 {% endif %}
+                <div class="menu__item">ver 2.0.0</div>
             </nav>
         </menu>
     </div>
@@ -71,6 +82,39 @@
         </div>
     </div>
 {% endif %}
+
+<!-- Модальное окно для входа и выхода -->
+<div id="authModal" class="login">
+    <div class="login__content">
+        <!-- Форма для входа -->
+        <form method="post" id="login-form" action="{% url 'marketing_report:custom_login' %}">
+            {% csrf_token %}
+            <div class="login__header">
+                <p class="active">Вход</p>
+                <span class="login__close">&times;</span>
+            </div>
+
+            <input type="text" name="username" placeholder="Имя пользователя" required class="login__input">
+            <input type="password" name="password" placeholder="Пароль" required class="login__input">
+            <div class="login__buttons">
+                <button type="submit" class="btn btn-save">Войти</button>
+            </div>
+        </form>
+
+        <!-- Форма для выхода -->
+        <form method="post" id="logout-form" action="{% url 'marketing_report:custom_logout' %}">
+            {% csrf_token %}
+            <div class="login__header">
+                <p class="active">Выход</p>
+                <span class="login__close">&times;</span>
+            </div>
+            <p class="login__text">Вы уверены, что хотите выйти?</p>
+            <div class="login__buttons">
+                <button type="submit" class="btn btn-save">Выйти</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 </body>
 </html>

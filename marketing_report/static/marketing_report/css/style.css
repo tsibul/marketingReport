@@ -9,21 +9,43 @@
   display: flex;
   justify-content: space-between;
 }
-.menu-left {
+.menu__left {
   display: flex;
 }
-.menu-right {
+.menu__right {
   display: flex;
 }
-.menu-item {
-  padding: 20px 10px;
+.menu__mobile {
+  display: none;
+}
+.menu__item {
+  padding: 20px 14px;
   text-decoration: none;
   border: 1px solid transparent;
   border-radius: 10px;
   margin: 4px;
   transition: all 0.3s ease-out;
 }
-.menu-item:hover {
+.menu__item_badge {
+  position: relative;
+}
+.menu__item_badge::after {
+  position: absolute;
+  top: 8px;
+  right: 1px;
+  content: attr(data-badge);
+  color: #E1EAE5;
+  font-size: 10px;
+  font-weight: normal;
+  background-color: #293D32;
+  border: 1px solid transparent;
+  border-radius: 19px;
+  padding: 2px 5px;
+}
+.menu__item_badge:not([data-badge]):after {
+  display: none;
+}
+.menu__item:hover {
   color: #293D32;
   background-color: #EFE7DC;
   box-shadow: 4px 4px 8px #293D32;
@@ -33,6 +55,112 @@
   font-weight: 900;
 }
 
+.login {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  overflow: auto;
+}
+.login__header {
+  padding: 4px;
+  justify-content: space-between;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #BF9F73;
+  display: flex;
+  flex-direction: row;
+  color: #293D32;
+  align-items: center;
+}
+.login__content {
+  margin: 15% auto;
+  padding: 16px;
+  border: 1px solid #293D32;
+  width: 300px;
+  border-radius: 10px;
+  background-color: #DFCFB9;
+  box-shadow: 6px 6px 12px #293D32;
+}
+.login__text {
+  margin: 6px;
+  tab-size: 16px;
+}
+.login__input {
+  font: inherit;
+  padding: 4px;
+  border-radius: 10px;
+  border-style: solid;
+  margin: 4px;
+}
+.login__buttons {
+  width: 100%;
+  text-align: right;
+}
+.login__close {
+  color: #EFE7DC;
+  float: right;
+  font-size: 16px;
+  padding: 8px;
+}
+.login__close:hover, .login__close:focus {
+  color: #293D32;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.mobile__show {
+  display: none;
+}
+.mobile__hide {
+  display: inline;
+}
+
+@media (max-width: 767px) {
+  .mobile__show {
+    display: inline;
+  }
+  .mobile__hide {
+    display: none;
+  }
+  .menu {
+    padding: 0 10px;
+    position: relative;
+  }
+  .menu__item {
+    padding: 10px 10px 10px 10px;
+    font-size: 14px;
+  }
+  .menu__left {
+    display: none;
+  }
+  .menu__left:hover {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 43px;
+    border: 1px transparent solid;
+    border-radius: 10px;
+    background-color: #BF9F73;
+  }
+  .menu__mobile {
+    display: block;
+    padding-right: 108px;
+  }
+  .menu__mobile:hover + .menu__left {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 44px;
+    border: 1px transparent solid;
+    border-radius: 10px;
+    background-color: #BF9F73;
+  }
+}
 * {
   padding: 0;
   margin: 0;
@@ -42,7 +170,7 @@
 }
 
 .auth-needed {
-  margin-top: 18vh;
+  padding-top: 18vh;
   display: flex;
   justify-content: center;
 }
@@ -64,6 +192,10 @@
 
 .id-hidden {
   display: none;
+}
+
+.visible {
+  display: block;
 }
 
 .form-row {
@@ -90,8 +222,15 @@
   padding: 8px 4px;
   background-color: #EFE7DC;
 }
+.form-input_stop {
+  width: 100%;
+}
 .form-input__inactive {
   opacity: 0.5;
+}
+
+.checkbox-out {
+  display: none;
 }
 
 .btn {
@@ -159,11 +298,14 @@
   border-radius: 10px;
   background-color: #EFE7DC;
 }
+.dropdown__input-block_start {
+  margin-top: 20px;
+}
 .dropdown__input {
   background-color: transparent;
   width: 100%;
   font-size: 16px;
-  padding: 8px 10px;
+  padding: 7px 10px;
   border: 1px solid transparent;
 }
 .dropdown__input:focus {
@@ -214,6 +356,44 @@
   color: #86A0AC;
 }
 
+.digit {
+  text-align: end;
+}
+
+.table-center {
+  text-align: center;
+}
+
+.hex {
+  font-size: 1.8rem;
+  border: 0.2px solid #A4C1B1;
+  border-radius: 6px;
+  height: 28px;
+  width: 28px;
+}
+
+.font-normal {
+  font-size: 16px;
+}
+
+.fulfilled {
+  opacity: 0.6;
+  background-color: #E1E7EA;
+}
+
+@media (max-width: 767px) {
+  .full-content {
+    padding-top: 60px;
+  }
+  .btn {
+    padding: 8px 2px;
+    font-size: 14px;
+  }
+  .hex {
+    width: 21px;
+    height: 21px;
+  }
+}
 .imports {
   display: flex;
   border: 1px solid #151E19;

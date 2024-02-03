@@ -4,7 +4,11 @@ from . import views
 app_name = 'marketing_report'
 
 urlpatterns = [
+    path('accounts/login/', views.custom_login, name='custom_login'),
+    path('accounts/logout/', views.custom_logout, name='custom_logout'),
+
     path('', views.index, name='main'),
+
     path('report/', views.reports, name='reports'),
     path('json_report/<int:report_no>/<str:report_type>/<str:period>/<str:date_begin>/<str:date_end>/<str:argument>',
          views.json_periods, name='json_report'),
@@ -24,6 +28,7 @@ urlpatterns = [
     path('edit_temporary_base/', views.edit_temporary_base, name='edit_temporary_base'),
     path('import_new_customers/', views.customers_new_to_main_db, name='import_new_customers'),
     path('import_changed_customers/', views.customer_change_to_customer, name='import_changed_customers'),
+    path('reassign_periods/', views.reassign_report_periods, name='reassign_periods'),
 
     path('admin/', views.admin, name='admin_site'),
     path('customer_export/', views.customer_export, name='customer_export'),

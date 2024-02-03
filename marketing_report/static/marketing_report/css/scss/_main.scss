@@ -10,7 +10,7 @@
 }
 
 .auth-needed {
-  margin-top: 18vh;
+  padding-top: 18vh;
   display: flex;
   justify-content: center
 }
@@ -34,6 +34,10 @@
   display: none;
 }
 
+.visible {
+  display: block;
+}
+
 .form {
   &-row {
     display: grid;
@@ -41,7 +45,8 @@
     align-items: center;
     gap: 10px;
     width: 100%;
-    &__double{
+
+    &__double {
       grid-column: span 2;
     }
   }
@@ -59,6 +64,10 @@
     padding: 8px 4px;
     background-color: $colorSecondary100;
 
+    &_stop {
+      width: 100%;
+    }
+
     &__inactive {
       opacity: 0.5;
     }
@@ -66,6 +75,9 @@
 
 }
 
+.checkbox-out {
+  display: none;
+}
 
 .btn {
   border: 1px solid;
@@ -140,13 +152,17 @@
     border: 1px solid $colorPrimary800;
     border-radius: 10px;
     background-color: $colorSecondary100;
+
+    &_start {
+      margin-top: 20px;
+    }
   }
 
   &__input {
     background-color: transparent;
     width: 100%;
     font-size: 16px;
-    padding: 8px 10px;
+    padding: 7px 10px;
     border: 1px solid transparent;
 
     &:focus {
@@ -191,11 +207,52 @@
   width: auto;
   position: absolute;
   top: -14px;
-  &_down{
+
+  &_down {
     top: calc(100% - 14px);
   }
 }
 
-.alert{
+.alert {
   color: $colorNeutral400;
+}
+
+.digit {
+  text-align: end;
+}
+
+.table-center {
+  text-align: center;
+}
+
+.hex {
+  font-size: 1.8rem;
+  border: 0.2px solid $colorPrimary300;
+  border-radius: 6px;
+  height: 28px;
+  width: 28px;
+}
+
+.font-normal {
+  font-size: 16px;
+}
+
+.fulfilled {
+  opacity: 0.6;
+  background-color: $colorNeutral100;
+  //pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  .full-content {
+    padding-top: 60px;
+  }
+  .btn {
+    padding: 8px 2px;
+    font-size: 14px;
+  }
+  .hex {
+    width: 21px;
+    height: 21px;
+  }
 }

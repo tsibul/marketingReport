@@ -1,3 +1,7 @@
+const buttonClose = document.querySelector('.modal.close');
+
+// buttonClose.onclick(buttonClose => importFileModalClose(buttonClose));
+
 function importFileModalClose(element) {
     const modal = element.closest('#import-file-modal');
     modal.classList.remove('import-file-modal_open');
@@ -35,6 +39,35 @@ async function importCustomers(url) {
 }
 
 
+function reassignPeriods(button) {
+    button.preventDefault();
+    const currentForm = this.closest('form')
+    const dateBeginPrev = currentForm.querySelectorAll('.alert')[0];
+    const dateBeginPrevValue = dateBeginPrev.textContent.split('.')[2] + '-' +
+        dateBeginPrev.textContent.split('.')[1] + '-' + dateBeginPrev.textContent.split('.')[0];
+    const dateEndPrev = currentForm.querySelectorAll('.alert')[1];
+    const dateEndPrevValue = dateEndPrev.textContent.split('.')[2] + '-' +
+        dateEndPrev.textContent.split('.')[1] + '-' + dateEndPrev.textContent.split('.')[0];
+    const formData = new FormData(this);
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (dateBeginPrevValue > data.period_begin) {
+                dateBeginPrev.textContent = data.period_begin;
+            }
+            if (dateEndPrevValue < data.period_end) {
+                dateEndPrev.textContent = data.period_end;
+            }
+        })
+        .catch(error => {
+            console.error('Ошибка:', error);
+        });
+}
+
+
 document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
     e.preventDefault();
     const modal = document.getElementById('import-file-modal');
@@ -53,8 +86,8 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
         .then(data => {
             // Обновление элемента с результатом
             const resultElement = document.getElementById('result');
-            const curentDate = new Date()
-            resultElement.textContent = `${curentDate.getHours()}:${curentDate.getMinutes()} — ${data.result} записей импортировано`;
+            const currentDate = new Date()
+            resultElement.textContent = `${currentDate.getHours()}:${currentDate.getMinutes()} — ${data.result} записей импортировано`;
         })
         .catch(error => {
             console.error('Ошибка:', error);

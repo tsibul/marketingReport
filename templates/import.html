@@ -5,7 +5,7 @@
     <div class="full-content">
         <div class="container">
             <details class="imports">
-                <summary class="active dict-block__header">Операции с клиентами</summary>
+                <summary class="active dict-block__header">Операции импорта клиентов</summary>
                 <div class="imports__block">
                     <div class="form-row__import">
                         <h4 class="active border-title">1. Загрузить клиентов во временную базу </h4>
@@ -50,8 +50,37 @@
                 </div>
             </details>
             <details class="imports">
-                <summary class="active dict-block__header">Операции с продажами</summary>
-                <div class="imports__block"></div>
+                <summary class="active dict-block__header">Операции импорта продаж</summary>
+                <div class="imports__block">
+                    <div class="form-row__import">
+                        <h4 class="active border-title">1. Загрузить отгрузки во временный файл</h4>
+                        <div class="import-block__description">загрузить файл с csv</div>
+                        <div>импортировано {{ sales_date|date:'d.m.Y' }}</div>
+                        <div>записей в базе {{ sales_imported }}</div>
+                        <div id="result" class="import-block__description alert"></div>
+                        <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'sales');">
+                            импорт
+                        </button>
+                    </div>
+
+                </div>
+            </details>
+            <details class="imports">
+                <summary class="active dict-block__header">Периоды расчета</summary>
+                <div class="imports__block">
+                    <form class="form-row__import" method="post" action="{% url 'marketing_report:reassign_periods' %}">
+                    {% csrf_token %}
+                        <h4 class="active border-title">1. Пересоздать периоды расчета</h4>
+                        <label for="period-begin">начало периода (<span class="alert">{{ period_begin|date:'d.m.Y' }}</span>)</label>
+                        <input type="date" id="period-begin" class="form-input" name="start_date" required>
+                        <label for="period-end">конец периода (<span class="alert">{{ period_end|date:'d.m.Y' }}</span>)</label>
+                        <input type="date" id="period-end" class="form-input" name="end_date" required>
+                        <button type="submit" class="btn btn-save" onclick="reassignPeriods(this);">
+                            пересоздать
+                        </button>
+                    </form>
+
+                </div>
             </details>
         </div>
     </div>
@@ -66,8 +95,8 @@
                 <input type="file" accept=".csv" required class="import-file-modal__input" name="loaded_file">
             </div>
             <div class="import-file-modal__buttons">
-                <button type="button" class="btn btn-close" onclick="importFileModalClose(this);">закрыть</button>
-                <button type="submit" class="btn btn-save">загрузить</button>
+                <button type="button" class="btn btn-close modal-close" onclick="importFileModalClose(this);">закрыть</button>
+                <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'sales')">загрузить</button>
             </div>
         </form>
     </div>
