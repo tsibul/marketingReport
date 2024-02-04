@@ -1,0 +1,23 @@
+.service-dict {
+  grid-template-columns: 3fr 1fr;
+}
+
+.color {
+  grid-template-columns: 1fr 6fr 4fr 2fr 4fr 1fr 2fr;
+}
+
+.customer-type {
+  grid-template-columns: 4fr 1fr 1fr 1fr;
+}
+
+.customer-group {
+  grid-template-columns: 300px 210px 3fr 4fr 105px 105px 90px 90px;
+}
+
+.customer {
+  grid-template-columns: 80px 190px 140px 100px 190px 1fr 160px 90px 100px 120px;
+}
+
+.goods {
+  grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
+}

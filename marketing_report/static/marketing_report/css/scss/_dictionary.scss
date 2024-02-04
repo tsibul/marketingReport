@@ -1,11 +1,87 @@
 @import "vars";
 @import "mixins";
 
-.dict {
+.dict-main {
+  display: flex;
+}
+
+.dict-menu {
+  border: 1px solid $colorPrimary800;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  margin-right: 20px;
+  height: fit-content;
+
+  &__details {
+    max-height: 64px;
+    transition: max-height 0.3s ease-in-out;
+
+    &[open] {
+      max-height: 360px;
+    }
+  }
+
+  &__header {
+    padding: 16px 10px;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    text-align: start;
+    transition: scaleY 0.2s ease, font-weight 0.2s ease;
+    width: 100%;
+    cursor: pointer;
+
+    &:hover {
+      transform: scaleY(1.03);
+      font-weight: bold;
+      background-color: $colorSecondary200;
+    }
+  }
+
+  &__item {
+
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 10px;
+    background-color: $colorSecondary100;
+    font-size: 16px;
+    text-align: start;
+
+    & label {
+      padding: 16px 10px 16px 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    & i {
+      font-size: 10px;
+    }
+
+    &:hover {
+      font-weight: bold;
+      background-color: $colorSecondary200;
+    }
+  }
+
+}
+
+.dict-right {
+  position: relative;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   grid-auto-flow: dense;
   gap: 20px;
+  width: 100%;
+
+}
+
+.dict {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  grid-auto-flow: dense;
+  gap: 20px;
+  width: 100%;
 }
 
 .dict-block {
@@ -13,12 +89,20 @@
   @include brd-standard;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  max-height: 143px;
-  transition: scale 2s ease, max-height 0.6s ease-in-out, max-width 0.4s ease-in-out;
+  height: 80px;
+  //max-height: 80px;
+  transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
   overflow: hidden;
   box-shadow: 6px 6px 12px $colorPrimary800;
-  cursor: pointer;
+  cursor: move;
+
+  &_long {
+    max-width: 600px;
+  }
+
+  &_adm {
+    max-width: 100%;
+  }
 
   &:hover {
     transform: scale(1.03);
@@ -26,17 +110,31 @@
 
   &__active {
     font-weight: 800;
+    margin-right: 16px;
   }
 
   &__header {
-    padding: 60px;
+    padding: 29px;
     background-color: $colorSecondary200;
     border-radius: 10px;
     @include d-flex-center(center);
+    cursor: pointer;
+
+    &_open {
+      padding: 20px;
+      justify-content: space-between;
+    }
+
   }
 
   &__search {
     display: none;
+
+    &_open {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
   }
 
   &__form-input {
@@ -57,6 +155,7 @@
     gap: 10px;
     padding: 8px 8px;
     border-radius: 10px;
+    cursor: pointer;
 
     &_right-margin {
       margin-right: 19px;
@@ -65,14 +164,22 @@
     &:not(.dict-block__active):hover {
       background-color: $colorPrimary200;
     }
-    &_hidden{
+
+    &_hidden {
       display: none;
     }
   }
 
   &__content {
-    overflow: auto;
+    overflow-y: scroll;
     height: calc(100% - 130px);
+    min-height: 160px;
+
+    &_adm {
+      //height: calc(100vh - 200px);
+      overflow-y: scroll;
+      min-height: 220px;
+    }
   }
 
   &__text {
@@ -80,10 +187,24 @@
     font-weight: inherit;
   }
 
-
   &[open] {
-    max-height: 632px;
+    height: 770px;
     grid-row: span 4;
+
+    &:hover {
+      transform: scale(1);
+    }
+  }
+
+  &__open {
+    max-height: calc(100vh - 120px);
+    height: fit-content;
+    grid-row: span 4;
+    max-width: 1600px;
+    grid-column: 1 / 5;
+    border: none;
+    box-shadow: none;
+    overflow: auto;
 
     &:hover {
       transform: scale(1);
@@ -114,37 +235,122 @@
     max-width: 1600px;
     grid-column: 1 / 5;
   }
+
+  &__5[open] {
+    //position: absolute;
+    max-width: 1600px;
+    grid-column: 1 / 6;
+    //z-index: 10;
+    //left: -226px;
+    background-color: $colorSecondary100;
+  }
+
+  &__adm {
+    max-width: 100%;
+
+    &_full {
+      grid-column: span 4;
+    }
+
+    &_half {
+      grid-column: span 2;
+    }
+
+
+    &[open] {
+      max-height: calc(100vh - 120px);
+      //overflow-y: auto;
+    }
+  }
 }
 
-.service-dict {
-  grid-template-columns: 3fr 1fr;
+.production {
+  grid-template-columns: 0.2fr 0.8fr 1fr repeat(6, 0.6fr) 1.5fr 0.4fr 0.6fr;
+
+  &_adm {
+    font-size: 14px;
+    grid-template-columns: 0.3fr repeat(12, 1fr);
+  }
 }
 
-.customer-type {
-  grid-template-columns: 4fr 1fr 1fr 1fr;
+.in-production {
+  grid-template-columns: 0.4fr 2fr repeat(7, 1fr) repeat(2, 0.8fr);
 }
 
-.customer-group {
-  grid-template-columns: 300px 210px 3fr 4fr 105px 105px 90px 90px;
+.production-list {
+  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
 }
 
-.customer {
-  grid-template-columns: 80px 190px 140px 100px 190px 1fr 160px 90px 100px 120px;
+
+.quality-content {
+  border: 1px solid transparent;
+  border-radius: 10px;
+  background-color: $colorPrimary50;
+  font-size: 15px;
+
+  &__row {
+    grid-template-columns: 0.5fr repeat(7, 1fr)  2fr repeat(2, 1fr);
+  }
 }
 
-.color {
-  grid-template-columns: 1fr 8fr 4fr 2fr 4fr 2fr;
-}
-
-.goods {
-  grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
-}
 
 .dropdown_dict {
-  height: 29px;
+  height: 33px;
   font-size: 13px;
 }
 
 .dropdown__input_dict {
   font-size: inherit;
+}
+
+.over {
+  //border: 3px dotted;
+  background-color: $colorSecondary100;
+}
+
+@media (max-width: 1600px) {
+  .dict {
+    padding: 20px;
+  }
+  .dict-block {
+    &__5[open] {
+      max-width: 1600px;
+      grid-column: 1 / 5;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .dict {
+      &__header {
+        padding: 30px;
+      }
+    }
+    .dict-block {
+      &__header {
+        padding: 20px;
+        font-size: 12px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+
+      &__form-input {
+        min-width: 200px;
+      }
+    }
+    .production {
+      grid-template-columns: 0.2fr repeat(4, 1fr);
+      font-size: 12px;
+    }
+
+    .in-production {
+      grid-template-columns: 0.4fr repeat(6, 1fr);
+      font-size: 13px;
+    }
+    .production-list {
+      grid-template-columns: 0.2fr repeat(9, 1fr);
+      font-size: 13px;
+    }
+
+  }
 }
