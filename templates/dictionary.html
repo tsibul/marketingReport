@@ -2,643 +2,347 @@
 {% load static %}
 {% block title %}Настройки{% endblock %}
 {% block content %}
+    <script type="module" src="{% static 'marketing_report/js/dictionary.js' %}" defer></script>
+
     <div class="full-content">
         <div class="container">
-            <div class="dict">
-                <details class="dict-block dict-block__3">
-                    <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active">Цвета</div>
-                        <div class="dict-block__search">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+            <div class="dict-main">
+                <div class="dict-menu">
+                    <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Клиенты
+                        </summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="customer">
+                            <label for="customer"><i class="fa fa-solid fa-sack-xmark"></i>&nbsp;Клиенты</label>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active color dict-block__row_right-margin">
-                        <div>Код</div>
-                        <div>Название</div>
-                        <div>Pantone</div>
-                        <div>#HEX</div>
-                        <div>Группа</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content">
-                        <div class="dict-block__row color dict-block__row_hidden" data-id="0"
-                             id="color-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="color_id" data-field="color_id"></div>
-                            <div class="dict-block__text"
-                                 data-name="color_name" data-field="color_name"></div>
-                            <div class="dict-block__text"
-                                 data-name="pantone" data-field="pantone"></div>
-                            <div class="dict-block__text"
-                                 data-name="color_code" data-field="color_code"></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="color_scheme" data-field="color_scheme"
-                                 data-id=""></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="customerGroup">
+                            <label for="customerGroup"><i class="fa fa-solid fa-sack-xmark"></i>&nbsp;Группы
+                                клиентов</label>
                         </div>
-                        {% for item in color %}
-                            <div class="dict-block__row color" data-id="{{ item.id }}" data-last=""
-                                 id="color-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="color_id">{{ item.color_id }}</div>
-                                <div class="dict-block__text"
-                                     data-name="color_name">{{ item.color_name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="pantone">{{ item.pantone }}</div>
-                                <div class="dict-block__text"
-                                     data-name="color_code">{{ item.color_code }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme"
-                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                        {% for item in color_end %}
-                            <div class="dict-block__row color" data-id="{{ item.id }}"
-                                 id="color-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="color_id">{{ item.color_id }}</div>
-                                <div class="dict-block__text"
-                                     data-name="color_name">{{ item.color_name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="pantone">{{ item.pantone }}</div>
-                                <div class="dict-block__text"
-                                     data-name="color_code">{{ item.color_code }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme"
-                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- цвета -->
-                <details class="dict-block">
-                    <summary class="dict-block__header">
-                        <div class="dict-block__active">Цветовая группа</div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active service-dict">
-                        <div>Цветовая группа</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="colorScheme-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="scheme_name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="customerType">
+                            <label for="customerType"><i
+                                    class="fa fa-solid fa-sack-xmark"></i>&nbsp;Типы клиентов</label>
                         </div>
-                        {% for item in color_group %}
-                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="colorScheme-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="scheme_name">{{ item.scheme_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- Цветовая группа -->
-                <details class="dict-block">
-                    <summary class="dict-block__header">
-                        <div class="dict-block__active">Товарная матрица</div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active service-dict dict-block__row_right-margin">
-                        <div>Товарная матрица</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="matrix-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="matrix_name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details>
+                    <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Товары
+                        </summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="goods">
+                            <label for="goods"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Товары</label>
                         </div>
-                        {% for item in matrix %}
-                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="matrix-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="matrix_name">{{ item.matrix_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- Товарная матрица -->
-                <details class="dict-block">
-                    <summary class="dict-block__header">
-                        <div class="dict-block__active">Группы товаров</div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active service-dict">
-                        <div>Группы товаров</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="crm-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text" data-name="crm_name">{{ item.crm_name }}</div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="matrixType">
+                            <label for="matrixType"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Товарная
+                                матрица</label>
                         </div>
-                        {% for item in crm %}
-                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="crm-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text" data-name="crm_name">{{ item.crm_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- Группы товаров -->
-                <details class="dict-block">
-                    <summary class="dict-block__header">
-                        <div class="dict-block__active">Тип печати</div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active service-dict">
-                        <div>Тип печати</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
-                             id="printType-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="type_name"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="crmType">
+                            <label for="crmType"><i class="fa fa-regular fa-pen-to-square"></i>&nbsp;Товарные
+                                группы</label>
                         </div>
-                        {% for item in print_type %}
-                            <div class="dict-block__row service-dict" data-id="{{ item.id }}"
-                                 id="printType-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="type_name">{{ item.type_name }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- Тип печати -->
-                <details class="dict-block dict-block__2">
-                    <summary class="dict-block__header">
-                        <div class="dict-block__active">Типы клиентов</div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active customer-type dict-block__row_right-margin">
-                        <div>Тип клиента</div>
-                        <div>Скидка</div>
-                        <div>Код</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content ">
-                        <div class="dict-block__row customer-type dict-block__row_hidden" data-id="0"
-                             id="customerType-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="type_name"></div>
-                            <div class="dict-block__text"
-                                 data-name="group_discount"></div>
-                            <div class="dict-block__text"
-                                 data-name="code"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details>
+                    <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Цвета
+                        </summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="colorScheme">
+                            <label for="colorScheme"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цветовая
+                                группа</label>
                         </div>
-                        {% for item in customer_type %}
-                            <div class="dict-block__row customer-type" data-id="{{ item.id }}"
-                                 id="customerType-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="type_name">{{ item.type_name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="group_discount">{{ item.group_discount }}</div>
-                                <div class="dict-block__text"
-                                     data-name="code">{{ item.code }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- типы клиентов -->
-                <details class="dict-block dict-block__4">
-                    <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active">Группы клиентов</div>
-                        <div class="dict-block__search">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input" placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="color">
+                            <label for="color"><i class=" fa fa-solid fa-paintbrush"></i>&nbsp;Цвета</label>
                         </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active customer-group dict-block__row_right-margin">
-                        <div>Группа</div>
-                        <div>Тип группы</div>
-                        <div>Телефон</div>
-                        <div>E-mail</div>
-                        <div>Первая продажа</div>
-                        <div>Последняя продажа</div>
-                        <div></div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content">
-                        <div class="dict-block__row customer-group dict-block__row_hidden" data-id="0"
-                             id="customerGroup-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="group_name" data-field="group_name"></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="group_type" data-field="group_type"
-                                 data-id=""></div>
-                            <div class="dict-block__text"
-                                 data-name="phone" data-field="phone"></div>
-                            <div class="dict-block__text"
-                                 data-name="mail" data-field="mail"></div>
-                            <div class="dict-block__text" data-field="date_first"></div>
-                            <div class="dict-block__text" data-field="date_last"></div>
-                            <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
-                                состав
-                            </button>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
+                    </details>
+                    <details class="dict-menu__details">
+                        <summary class="dict-menu__header">Прочие справочники</summary>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="printType">
+                            <label for="printType"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Тип печати</label>
                         </div>
-                        {% for item in customer_group %}
-                            <div class="dict-block__row customer-group" data-id="{{ item.id }}"
-                                 id="customerGroup-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="group_name">{{ item.group_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="group_type"
-                                     data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="phone">{{ item.phone }}</div>
-                                <div class="dict-block__text"
-                                     data-name="mail">{{ item.mail }}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
-                                    состав
-                                </button>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                        {% for item in customer_group_end %}
-                            <div class="dict-block__row customer-group" data-id="{{ item.id }}"
-                                 id="customerGroup-{{ item.id }}" onclick="editDictionary(this);" data-last="20">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="group_name">{{ item.group_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="group_type"
-                                     data-id="{{ item.group_type.id }}">{{ item.group_type.type_name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="phone">{{ item.phone }}</div>
-                                <div class="dict-block__text"
-                                     data-name="mail">{{ item.mail }}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-save" type="button" onclick="event.stopPropagation();">
-                                    состав
-                                </button>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- группы клиентов -->
-                <details class="dict-block dict-block__4">
-                    <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active">Клиенты</div>
-                        <div class="dict-block__search">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
-                        </div>
-                    </summary>
-                    <div class="dict-block__row customer  dict-block__active dict-block__row_right-margin">
-                        <div>Название</div>
-                        <div></div>
-                        <div>ИНН</div>
-                        <div>Тип</div>
-                        <div>Группа</div>
-                        <div>Адрес</div>
-                        <div>Телефон</div>
-                        <div>Первая продажа</div>
-                        <div>Последняя продажа</div>
-                        <div></div>
-                    </div>
-                    <div class="dict-block__content">
-                        <div class="dict-block__row customer dict-block__row_hidden" data-id="0"
-                             id="customer-0">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text" data-field="form"></div>
-                            <div class="dict-block__text" data-field="name"></div>
-                            <div class="dict-block__text" data-field="inn"></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="customer_type" data-field="customer_type"
-                                 data-id=""></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="customer_group" data-field="customer_group"
-                                 data-id=""></div>
-                            <div class="dict-block__text" data-field="address"></div>
-                            <div class="dict-block__text" data-field="phone"></div>
-                            <div class="dict-block__text" data-field="date_first"></div>
-                            <div class="dict-block__text" data-field="date_last"></div>
-                            <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
-                                полная информация
-                            </button>
-                        </div>
-                        {% for item in customer %}
-                            <div class="dict-block__row customer" data-id="{{ item.id }}"
-                                 id="customer-{{ item.id }}">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text">{{ item.form }}</div>
-                                <div class="dict-block__text">{{ item.name }}</div>
-                                <div class="dict-block__text">{{ item.inn }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="customer_type"
-                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="customer_group"
-                                     data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>
-                                <div class="dict-block__text">{{ item.address }}</div>
-                                <div class="dict-block__text">{{ item.phone }}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
-                                    полная информация
-                                </button>
-                            </div>
-                        {% endfor %}
-                        {% for item in customer_end %}
-                            <div class="dict-block__row customer" data-id="{{ item.id }}"
-                                 id="customer-{{ item.id }}" data-last="20">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text">{{ item.form }}</div>
-                                <div class="dict-block__text">{{ item.name }}</div>
-                                <div class="dict-block__text">{{ item.inn }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="customer_type"
-                                     data-id="{{ item.customer_type.id }}">{{ item.customer_type.type_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="customer_group"
-                                     data-id="{{ item.customer_group.id }}">{{ item.customer_group.group_name }}</div>
-                                <div class="dict-block__text">{{ item.address }}</div>
-                                <div class="dict-block__text">{{ item.phone }}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close" type="button" onclick="event.stopPropagation();">
-                                    полная информация
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- клиенты -->
-                <details class="dict-block dict-block__4">
-                    <summary class="dict-block__header dict-block__header_block-space">
-                        <div class="dict-block__active">Товары</div>
-                        <div class="dict-block__search">
-                            <i class="fa fa-solid fa-magnifying-glass"></i>
-                            <input type="search" class="form-input dict-block__form-input"
-                                   placeholder="искать...">
-                            <button class="btn btn-save search_submit" type="button">поиск</button>
-                            <button class="btn btn-close search_clear" type="button">очистить</button>
-                        </div>
-                    </summary>
-                    <div class="dict-block__row dict-block__active goods dict-block__row_right-margin">
-                        <div>Название</div>
-                        <div>Артикул</div>
-                        <div>Эко</div>
-                        <div>Тип</div>
-                        <div>Группа</div>
-                        <div>Цветовая группа</div>
-                        <div>Многоцветный</div>
-                        <div>Первая продажа</div>
-                        <div>Последняя продажа</div>
-                        <button class="btn btn-save btn_add">добавить</button>
-                    </div>
-                    <div class="dict-block__content">
-                        <div class="dict-block__row goods dict-block__row_hidden" data-id="0"
-                             id="goods-0" onclick="editDictionary(this);">
-                            <input class="id-hidden" name="id" value="0">
-                            <div class="dict-block__text"
-                                 data-name="name" data-field="name"></div>
-                            <div class="dict-block__text"
-                                 data-name="item_name" data-field="item_name"></div>
-                            <div class="dict-block__text bool-field"
-                                 data-name="eco" data-field="eco" data-id=""></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="matrix" data-field="matrix"
-                                 data-id=""></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="crm" data-field="crm" data-id=""></div>
-                            <div class="dict-block__text foreign-key"
-                                 data-name="color_scheme" data-field="color_scheme"
-                                 data-id=""></div>
-                            <div class="dict-block__text bool-field"
-                                 data-name="multicolor" data-field="multicolor" data-id=""></div>
-                            <div class="dict-block__text" data-field="date_first"></div>
-                            <div class="dict-block__text" data-field="date_last"></div>
-                            <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                удалить
-                            </button>
-                        </div>
-                        {% for item in goods %}
-                            <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" onclick="editDictionary(this);">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="name">{{ item.name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="item_name">{{ item.item_name }}</div>
-                                <div class="dict-block__text bool-field"
-                                     data-name="eco" data-id="{% if item.eco %}1{% else %}0{% endif %}">
-                                    {% if item.eco %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="matrix"
-                                     data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="crm" data-id="{{ item.crm.id }}">{{ item.crm.crm_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme"
-                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <div class="dict-block__text bool-field"
-                                     data-name="multicolor" data-id="{% if item.multicolor %}1{% else %}0{% endif %}">
-                                    {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                        {% for item in goods_end %}
-                            <div class="dict-block__row goods" data-id="{{ item.id }}"
-                                 id="goods-{{ item.id }}" data-last="20">
-                                <input class="id-hidden" name="id" value="{{ item.id }}">
-                                <div class="dict-block__text"
-                                     data-name="name">{{ item.name }}</div>
-                                <div class="dict-block__text"
-                                     data-name="item_name">{{ item.item_name }}</div>
-                                <div class="dict-block__text bool-field"
-                                     data-name="eco" data-id="{% if item.eco %}1{% else %}0{% endif %}">
-                                    {% if item.eco %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="matrix"
-                                     data-id="{{ item.matrix.id }}">{{ item.matrix.matrix_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="crm" data-id="{{ item.crm.id }}">{{ item.crm.crm_name }}</div>
-                                <div class="dict-block__text foreign-key"
-                                     data-name="color_scheme"
-                                     data-id="{{ item.color_scheme.id }}">{{ item.color_scheme.scheme_name }}</div>
-                                <div class="dict-block__text bool-field"
-                                     data-name="multicolor" data-id="{% if item.multicolor %}1{% else %}0{% endif %}">
-                                    {% if item.multicolor %}Да{% else %}Нет{% endif %}</div>
-                                <div class="dict-block__text">{{ item.date_first|date:'d.m.Y' }}</div>
-                                <div class="dict-block__text">{{ item.date_last|date:'d.m.Y' }}</div>
-                                <button class="btn btn-close btn_delete" type="button" onclick="event.stopPropagation();">
-                                    удалить
-                                </button>
-                            </div>
-                        {% endfor %}
-                    </div>
-                </details><!-- товары -->
-            </div>
-        </div>
-    </div>
+                    </details>
+                </div>
+                <div class="dict-right">
 
-    <div id="technical-data" hidden>
-        <div id="color_scheme">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="color_scheme" type="text" class="dropdown__hidden"
-                       value="{{ color_group.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
-                           value="{{ color_group.0.scheme_name }}"
-                           data-value="{{ color_group.0.scheme_name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
                 </div>
-                <ul class="dropdown__content">
-                    {% for report in color_group %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.scheme_name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="matrix">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="matrix" type="text" class="dropdown__hidden"
-                       value="{{ matrix.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
-                           value="{{ matrix.0.matrix_name }}"
-                           data-value="{{ matrix.0.matrix_name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
+                <div class="dict" style="display: none;">
+                    <details class="dict-block dict-block__3">
+                        <summary class="dict-block__header dict-block__header_block-space">
+                            <div class="dict-block__active"><i class=" fa fa-solid fa-paintbrush"></i>Цвета</div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active color dict-block__row_right-margin">
+                            <div>Код</div>
+                            <div>Название</div>
+                            <div>Pantone</div>
+                            <div>#HEX</div>
+                            <div>Группа</div>
+                            <div>Стандарт</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content">
+                            <div class="dict-block__row color dict-block__row_hidden" data-id="0"
+                                 id="color-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-name="code" data-field="code"></div>
+                                <div class="dict-block__text" data-name="name" data-field="name"></div>
+                                <div class="dict-block__text" data-name="pantone" data-field="pantone"></div>
+                                <div class="dict-block__text" data-name="hex" data-field="hex"></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="color_scheme" data-field="color_scheme" data-id=""></div>
+                                <div class="dict-block__text bool-field" data-name="standard" data-field="standard"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- цвета -->
+                    <details class="dict-block">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-paintbrush"></i>Цветовая
+                                группа
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict">
+                            <div>Цветовая группа</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="colorScheme-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name"
+                                     data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Цветовая группа -->
+                    <details class="dict-block">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-earth-africa"></i>Тип
+                                печати
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict">
+                            <div>Тип печати</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="printType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name"
+                                     data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Тип печати -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header dict-block__header_block-space">
+                            <div class="dict-block__active"><i class=" fa-flip fa fa-regular fa-pen-to-square"></i>Товары
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active goods dict-block__row_right-margin">
+                            <div>Название</div>
+                            <div>Артикул</div>
+                            <div>Эко</div>
+                            <div>Тип</div>
+                            <div>Группа</div>
+                            <div>Цветовая группа</div>
+                            <div>Многоцветный</div>
+                            <div>Первая продажа</div>
+                            <div>Последняя продажа</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content">
+                            <div class="dict-block__row goods dict-block__row_hidden" data-id="0"
+                                 id="goods-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-name="name" data-field="name"></div>
+                                <div class="dict-block__text"
+                                     data-name="item_name" data-field="item_name"></div>
+                                <div class="dict-block__text bool-field"
+                                     data-name="eco" data-field="eco" data-id=""></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="matrix_type" data-field="matrix_type" data-id=""></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="crm_type" data-field="crm_type" data-id=""></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="color_scheme" data-field="color_scheme" data-id=""></div>
+                                <div class="dict-block__text bool-field"
+                                     data-name="multicolor" data-field="multicolor" data-id=""></div>
+                                <div class="dict-block__text" data-field="date_first"></div>
+                                <div class="dict-block__text" data-field="date_last"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- товары -->
+                    <details class="dict-block">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class=" fa-flip fa fa-regular fa-pen-to-square"></i>Товарная
+                                матрица
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict dict-block__row_right-margin">
+                            <div>Товарная матрица</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="matrixType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Товарная матрица -->
+                    <details class="dict-block">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class=" fa-flip fa fa-regular fa-pen-to-square"></i>Группы
+                                товаров
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict">
+                            <div>Группы товаров</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0" id="crmType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-name="name" data-field="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Группы товаров -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Типы&nbsp;клиентов
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active customer-type dict-block__row_right-margin">
+                            <div>Тип клиента</div>
+                            <div>Скидка</div>
+                            <div>Код</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row customer-type dict-block__row_hidden" data-id="0"
+                                 id="customerType-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <div class="dict-block__text" data-field="group_discount"
+                                     data-name="group_discount"></div>
+                                <div class="dict-block__text" data-field="code" data-name="code"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- типы клиентов -->
+
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Группы&nbsp;клиентов
+                            </div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input" placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active customer-group dict-block__row_right-margin">
+                            <div>Группа</div>
+                            <div>Тип группы</div>
+                            <div>Телефон</div>
+                            <div>E-mail</div>
+                            <div>Первая продажа</div>
+                            <div>Последняя продажа</div>
+                            <div></div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content">
+                            <div class="dict-block__row customer-group dict-block__row_hidden" data-id="0"
+                                 id="customerGroup-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-name="name" data-field="name"></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="customer_type" data-field="customer_type" data-id=""></div>
+                                <div class="dict-block__text" data-name="phone" data-field="phone"></div>
+                                <div class="dict-block__text" data-name="mail" data-field="mail"></div>
+                                <div class="dict-block__text" data-field="date_first"></div>
+                                <div class="dict-block__text" data-field="date_last"></div>
+                                <button class="btn btn-save" type="button">состав</button>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- группы клиентов -->
+                    <details class="dict-block dict-block__4">
+                        <summary class="dict-block__header dict-block__header_block-space">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Клиенты</div>
+                            <div class="dict-block__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                            </div>
+                        </summary>
+                        <div class="dict-block__row customer  dict-block__active dict-block__row_right-margin">
+                            <div>Название</div>
+                            <div></div>
+                            <div>ИНН</div>
+                            <div>Тип</div>
+                            <div>Группа</div>
+                            <div>Адрес</div>
+                            <div>Телефон</div>
+                            <div>Первая продажа</div>
+                            <div>Последняя продажа</div>
+                            <div></div>
+                        </div>
+                        <div class="dict-block__content">
+                            <div class="dict-block__row customer dict-block__row_hidden" data-id="0"
+                                 id="customer-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="form"></div>
+                                <div class="dict-block__text" data-field="name"></div>
+                                <div class="dict-block__text" data-field="inn"></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="customer_type" data-field="customer_type"
+                                     data-id=""></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="customer_group" data-field="customer_group"
+                                     data-id=""></div>
+                                <div class="dict-block__text" data-field="address"></div>
+                                <div class="dict-block__text" data-field="phone"></div>
+                                <div class="dict-block__text" data-field="date_first"></div>
+                                <div class="dict-block__text" data-field="date_last"></div>
+                                <button class="btn btn-close" type="button">полная информация</button>
+                            </div>
+                        </div>
+                    </details><!-- клиенты -->
                 </div>
-                <ul class="dropdown__content">
-                    {% for report in matrix %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.matrix_name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="crm">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="crm" type="text" class="dropdown__hidden"
-                       value="{{ crm.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
-                           value="{{ crm.0.crm_name }}"
-                           data-value="{{ crm.0.crm_name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in crm %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.crm_name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="group_type">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="group_type" type="text" class="dropdown__hidden"
-                       value="{{ customer_type.0.id }}">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
-                           value="{{ customer_type.0.type_name }}"
-                           data-value="{{ customer_type.0.type_name }}" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    {% for report in customer_type %}
-                        <li data-value="{{ report.id }}"
-                            onclick="event.stopPropagation(); selectFromList(this);">{{ report.type_name }} </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-        <div id="boolean">
-            <div class="dropdown report_dropdown dropdown_dict">
-                <input name="bool" type="text" class="dropdown__hidden"
-                       value="1">
-                <div class="dropdown__input-block">
-                    <input type="text" class="dropdown__input dropdown__input_dict"
-                           placeholder="Поиск.." onchange="changeArgumentList(this)"
-                           value="Да"
-                           data-value="Да" readonly>
-                    <i class="fa fa-solid fa-angle-down"></i>
-                </div>
-                <ul class="dropdown__content">
-                    <li data-value="1"
-                        onclick="event.stopPropagation(); selectFromList(this);">Да
-                    </li>
-                    <li data-value="0"
-                        onclick="event.stopPropagation(); selectFromList(this);">Нет
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
-    <script src="{% static 'marketing_report/js/dictionary.js' %}"></script>
 {% endblock %}
