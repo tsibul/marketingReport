@@ -7,7 +7,7 @@ from datetime import datetime
 from django.db.models import Min, Max
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
-from marketing_report.models import ImportCustomers, Customer, CustomerTypes, ReportPeriod
+from marketing_report.models import ImportCustomers, Customer, CustomerType, ReportPeriod
 
 
 def imports(request):
@@ -183,19 +183,19 @@ def import_customer_to_customer(import_customer: ImportCustomers):
 def customer_type_choose(customer_type, region):
     """определение типа клиента по его названию в Фрегате"""
     if 'Конечник' in customer_type:
-        type_obj = CustomerTypes.objects.get(
-            type_name='Конечник Москва') if region == '77' else CustomerTypes.objects.get(type_name='Конечник Регион')
+        type_obj = CustomerType.objects.get(
+            type_name='Конечник Москва') if region == '77' else CustomerType.objects.get(type_name='Конечник Регион')
     elif 'рекламщик' in customer_type:
-        type_obj = CustomerTypes.objects.get(
-            type_name='Рекламщик Москва') if region == '77' else CustomerTypes.objects.get(type_name='Рекламщик Регион')
+        type_obj = CustomerType.objects.get(
+            type_name='Рекламщик Москва') if region == '77' else CustomerType.objects.get(type_name='Рекламщик Регион')
     elif 'Агентство' in customer_type:
-        type_obj = CustomerTypes.objects.get(
-            type_name='Агентство Москва') if region == '77' else CustomerTypes.objects.get(type_name='Агентство Регион')
+        type_obj = CustomerType.objects.get(
+            type_name='Агентство Москва') if region == '77' else CustomerType.objects.get(type_name='Агентство Регион')
     elif 'Дилер' in customer_type:
-        type_obj = CustomerTypes.objects.get(type_name='Дилер Москва') if region == '77' else CustomerTypes.objects.get(
+        type_obj = CustomerType.objects.get(type_name='Дилер Москва') if region == '77' else CustomerType.objects.get(
             type_name='Дилер Регион')
     elif 'точка' in customer_type:
-        type_obj = CustomerTypes.objects.get(type_name='Розничная Точка')
+        type_obj = CustomerType.objects.get(type_name='Розничная Точка')
     else:
         type_obj = ''
     return type_obj
