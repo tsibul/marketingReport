@@ -1,3 +1,5 @@
+'use strict'
+
 const buttonClose = document.querySelector('.modal.close');
 
 // buttonClose.onclick(buttonClose => importFileModalClose(buttonClose));
