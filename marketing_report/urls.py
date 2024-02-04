@@ -22,6 +22,8 @@ urlpatterns = [
     path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
     path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>', views.dictionary_json,
          name='dictionary_json'),
+    path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
+         views.dictionary_json_filter, name='dictionary_json_filter'),
 
     path('imports/', views.imports, name='imports'),
     path('import_file/', views.import_file, name='import_file'),
