@@ -1,5 +1,5 @@
 import json
-from datetime import timedelta, date
+from datetime import timedelta, date, datetime
 
 from django.core.serializers import serialize
 from django.db.models import Max
@@ -8,32 +8,15 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from marketing_report import models
-from marketing_report.models import PrintType, ColorScheme, GoodCrmType, GoodMatrixType, CustomerTypes, Customer, \
-    CustomerGroups, Color, Goods
+from marketing_report.models import CustomerGroup, Color
+
+from marketing_report.service_functions import linking_filter
 
 
 def dictionary(request):
     border_date = date.today() - timedelta(days=1100)
     navi = 'dictionary'
-    matrix = GoodMatrixType.objects.filter(deleted=False).order_by('matrix_name')
-    crm = GoodCrmType.objects.filter(deleted=False).order_by('crm_name')
-    print_type = PrintType.objects.filter(deleted=False).order_by('type_name')
-    color_group = ColorScheme.objects.filter(deleted=False).order_by('scheme_name')
-    customer_type = CustomerTypes.objects.filter(deleted=False).order_by('id')
-    customer_group = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[
-                     0:19]
-    customer_group_end = CustomerGroups.objects.filter(date_last__gt=border_date, deleted=False).order_by('group_name')[
-                         19:20]
-    customer = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[0:19]
-    customer_end = Customer.objects.filter(internal=False, date_last__gt=border_date).order_by('name')[19:20]
-    color = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[0:19]
-    color_end = Color.objects.filter(deleted=False).order_by('color_scheme', 'color_id')[19:20]
-    goods = Goods.objects.filter(deleted=False).order_by('item_name')[0:19]
-    goods_end = Goods.objects.filter(deleted=False).order_by('item_name')[19:20]
-    context = {'navi': navi, 'matrix': matrix, 'crm': crm, 'print_type': print_type, 'color_group': color_group,
-               'customer_type': customer_type, 'customer_group': customer_group, 'color': color,
-               'color_end': color_end, 'customer_group_end': customer_group_end, 'customer': customer,
-               'customer_end': customer_end, 'goods': goods, 'goods_end': goods_end}
+    context = {'navi': navi, 'border_date': border_date}
     return render(request, 'dictionary.html', context)
 
 
@@ -63,8 +46,32 @@ def dictionary_update(request, dict_type):
 
 def dictionary_json(request, dict_type, id_no, order, search_string):
     dict_items = dict_additional_filter(dict_type, order, id_no, search_string)
-    json_dict = serialize('python', dict_items)
-    json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
+    formatted_dict_items = [format_datetime_fields(item) for item in dict_items]
+    return JsonResponse(formatted_dict_items, safe=False)
+
+
+def dictionary_json_filter(request, dict_type, filter_dictionary, filter_dictionary_id):
+    """
+    Using for table connection if we find item in second table in second table
+    filter parent table by it
+    :param request:
+    :param dict_type:
+    :param filter_dictionary:
+    :param filter_dictionary_id:
+    :return:
+    """
+    if dict_type == 'default':
+        formatted_dict_items = []
+        json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
+        return JsonResponse(json_dict, safe=False)
+    dict_model = getattr(models, dict_type)
+    if filter_dictionary != 'default':
+        filter_model = getattr(models, filter_dictionary)
+        filter_item = linking_filter(dict_model, filter_model, filter_dictionary_id)
+    else:
+        filter_item = dict_model.objects.all()
+    formatted_dict_items = [{item.id: str(item)} for item in filter_item]
+    json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 
 
@@ -104,7 +111,7 @@ def dict_additional_filter(dict_type, order, id_no, search_string):  # кост�
 
 
 def customer_group_json(request):
-    customer_groups = CustomerGroups.objects.filter(deleted=False).order_by('group_name')
+    customer_groups = CustomerGroup.objects.filter(deleted=False).order_by('group_name')
     json_dict = serialize('python', customer_groups)
     json_dict = json.dumps(json_dict, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
@@ -121,6 +128,32 @@ def dictionary_delete(request, dict_type, id_no):
 def dictionary_last_id(request, dict_type):
     dict_model = getattr(models, dict_type)
     last_id = dict_model.objects.filter(deleted=False).aggregate(Max('id'))
-    # json_dict = serialize('python', last_id)
     json_dict = json.dumps(last_id, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
+
+
+def format_datetime_fields(item):
+    """
+    Format date field and return hex color if exists
+    :param item:
+    :return:
+    change datetime param fo js, returns hex color if exists
+    """
+    formatted_item = {}
+    item_dict = item.__dict__
+    try:
+        formatted_item['hex'] = Color.objects.get(id=item.color.id).color_code
+    except:
+        pass
+    for field in item_dict.keys():
+        if isinstance(item_dict[field], datetime):
+            formatted_item[field] = item_dict[field].strftime('%d.%m.%y %H:%M')
+        else:
+            if field[0:1] != "_":
+                formatted_item[field] = item_dict[field]
+                if field[-3:] == "_id":
+                    if type(getattr(item, field[0:-3])).__name__ == 'User':
+                        formatted_item[field[0:-3]] = getattr(getattr(item, field[0:-3]), 'last_name')
+                    else:
+                        formatted_item[field[0:-3]] = str(getattr(item, field[0:-3]))
+    return formatted_item
