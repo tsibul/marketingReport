@@ -1,18 +1,18 @@
 from django.db import models
 import datetime
-from marketing_report.models import CustomerTypes, CustomerGroups
+from marketing_report.models import CustomerType, CustomerGroup
+from marketing_report.models import SettingsDictionary
 
 
-class Customer(models.Model):
+class Customer(SettingsDictionary):
     """type - agency, dealer, etc.
         number of Region"""
     form = models.CharField(max_length=255, blank=True)
-    name = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True)
     inn = models.CharField(max_length=20, null=True)
     region = models.CharField(max_length=2)
-    customer_group = models.ForeignKey(CustomerGroups, models.SET_NULL, null=True, default=None)
-    customer_type = models.ForeignKey(CustomerTypes, models.SET_NULL, null=True, default=None)
+    customer_group = models.ForeignKey(CustomerGroup, models.SET_NULL, null=True, default=None)
+    customer_type = models.ForeignKey(CustomerType, models.SET_NULL, null=True, default=None)
     frigat_id = models.CharField(max_length=30, default='', db_index=True)
     phone = models.CharField(max_length=255, blank=True)
     all_phones = models.CharField(max_length=600, null=True, blank=True)
@@ -26,13 +26,3 @@ class Customer(models.Model):
     active = models.BooleanField(default=True)
     internal = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
-
-    def __repr__(self):
-        return self.name
-
-    def __str__(self):
-        return str(self.name)
-
-    @staticmethod
-    def order_default():
-        return ['name']

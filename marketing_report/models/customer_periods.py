@@ -1,21 +1,20 @@
 from django.db import models
-from marketing_report.models.customer_group_models import CustomerGroups
+from marketing_report.models.customer_group_models import CustomerGroup
 from marketing_report.models.customer_models import Customer
 from marketing_report.models.report_period import ReportPeriod
 
 
 class CustomerPeriods(models.Model):
-
     class Meta:
         abstract = True
         verbose_name = 'periods where was transactions with Client'
 
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    group = models.ForeignKey(CustomerGroups, models.SET_NULL, null=True)
+    group = models.ForeignKey(CustomerGroup, models.SET_NULL, null=True)
     name = models.CharField(max_length=100, null=True, default=customer.name, db_index=True)
-    quantity = models.IntegerField(default=0 , verbose_name='количество')
-    quantity_eco = models.IntegerField(default=0 , verbose_name='количество эко')
-    quantity_no_eco = models.IntegerField(default=0 , verbose_name='количество неэко')
+    quantity = models.IntegerField(default=0, verbose_name='количество')
+    quantity_eco = models.IntegerField(default=0, verbose_name='количество эко')
+    quantity_no_eco = models.IntegerField(default=0, verbose_name='количество неэко')
     sales_with_vat = models.FloatField(default=0, null=True, verbose_name='продажи с НДС')
     sales_with_vat_eco = models.FloatField(default=0, null=True, verbose_name='продажи эко с НДС')
     sales_with_vat_no_eco = models.FloatField(default=0, null=True, verbose_name='продажи неэко с НДС')
@@ -75,7 +74,6 @@ class CustomerPeriods(models.Model):
 
 
 class CustomerPeriodsMonth(CustomerPeriods):
-
     class Meta(CustomerPeriods.Meta):
         verbose_name = 'ежемесячные данные'
 
@@ -89,7 +87,6 @@ class CustomerPeriodsMonth(CustomerPeriods):
 
 
 class CustomerPeriodsQuarter(CustomerPeriods):
-
     class Meta(CustomerPeriods.Meta):
         verbose_name = 'ежевартальные данные'
 
@@ -103,7 +100,6 @@ class CustomerPeriodsQuarter(CustomerPeriods):
 
 
 class CustomerPeriodsYear(CustomerPeriods):
-
     class Meta(CustomerPeriods.Meta):
         verbose_name = 'ежегодные данные'
 

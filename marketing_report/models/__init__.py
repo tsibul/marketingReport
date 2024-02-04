@@ -1,3 +1,4 @@
+from marketing_report.models.settings_dictionary import SettingsDictionary
 from marketing_report.models.color_models import *
 from marketing_report.models.customer_group_models import *
 from marketing_report.models.customer_models import *
