@@ -24,7 +24,7 @@ def imports(request):
     period_end = ReportPeriod.objects.aggregate(Max('date_end'))['date_end__max']
     context = {'navi': navi, 'cst_date': cst_date, 'customers_imported': customers_imported,
                'customers_new': customers_new, 'customers_changed': customers_changed, 'sales_date': sales_date,
-               'period_begin':period_begin, 'period_end': period_end}
+               'period_begin': period_begin, 'period_end': period_end}
     return render(request, 'import.html', context)
 
 
@@ -184,18 +184,18 @@ def customer_type_choose(customer_type, region):
     """определение типа клиента по его названию в Фрегате"""
     if 'Конечник' in customer_type:
         type_obj = CustomerType.objects.get(
-            type_name='Конечник Москва') if region == '77' else CustomerType.objects.get(type_name='Конечник Регион')
+            name='Конечник Москва') if region == '77' else CustomerType.objects.get(name='Конечник Регион')
     elif 'рекламщик' in customer_type:
         type_obj = CustomerType.objects.get(
-            type_name='Рекламщик Москва') if region == '77' else CustomerType.objects.get(type_name='Рекламщик Регион')
+            name='Рекламщик Москва') if region == '77' else CustomerType.objects.get(name='Рекламщик Регион')
     elif 'Агентство' in customer_type:
         type_obj = CustomerType.objects.get(
-            type_name='Агентство Москва') if region == '77' else CustomerType.objects.get(type_name='Агентство Регион')
+            name='Агентство Москва') if region == '77' else CustomerType.objects.get(name='Агентство Регион')
     elif 'Дилер' in customer_type:
-        type_obj = CustomerType.objects.get(type_name='Дилер Москва') if region == '77' else CustomerType.objects.get(
-            type_name='Дилер Регион')
+        type_obj = CustomerType.objects.get(name='Дилер Москва') if region == '77' else CustomerType.objects.get(
+            name='Дилер Регион')
     elif 'точка' in customer_type:
-        type_obj = CustomerType.objects.get(type_name='Розничная Точка')
+        type_obj = CustomerType.objects.get(name='Розничная Точка')
     else:
         type_obj = ''
     return type_obj
