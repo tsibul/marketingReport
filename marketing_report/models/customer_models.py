@@ -1,19 +1,19 @@
 from django.db import models
 import datetime
 from marketing_report.models import CustomerType, CustomerGroup
-from marketing_report.models import SettingsDictionary
 
 
-class Customer(SettingsDictionary):
+class Customer(models.Model):
     """type - agency, dealer, etc.
         number of Region"""
     form = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True)
     inn = models.CharField(max_length=20, null=True)
     region = models.CharField(max_length=2)
     customer_group = models.ForeignKey(CustomerGroup, models.SET_NULL, null=True, default=None)
     customer_type = models.ForeignKey(CustomerType, models.SET_NULL, null=True, default=None)
-    frigat_id = models.CharField(max_length=30, default='', db_index=True)
+    frigat_code = models.CharField(max_length=30, default='', db_index=True)
     phone = models.CharField(max_length=255, blank=True)
     all_phones = models.CharField(max_length=600, null=True, blank=True)
     mail = models.CharField(max_length=255, null=True, blank=True)
@@ -26,3 +26,16 @@ class Customer(SettingsDictionary):
     active = models.BooleanField(default=True)
     internal = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return self.name
+
+    class Meta:
+        ordering = ['name']
+
+    @staticmethod
+    def order_default():
+        return ['name']
