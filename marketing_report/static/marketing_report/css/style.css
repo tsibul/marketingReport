@@ -902,7 +902,7 @@
 }
 
 .color {
-  grid-template-columns: 1fr 6fr 4fr 2fr 4fr 1fr 2fr;
+  grid-template-columns: 2fr 6fr 2fr 2fr 3fr 2fr 2fr;
 }
 
 .customer-type {
