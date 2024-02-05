@@ -1,8 +1,11 @@
-function selectFromListMod(obj) {
+import {selectFromList} from "./func/dropdown/selectFromList.js";
+import {periodsList, goodsReports, customerReports, timeArguments, moneyArguments} from "./func/reports.js";
+
+async function selectFromListMod(obj) {
     const parentObj = obj.parentElement.parentElement;
     const valuePrevious = parentObj.querySelector('.dropdown__hidden').value;
     const valueCurrent = obj.dataset.value;
-    selectFromList(obj);
+    await selectFromList(obj);
     const moneyReports = document.querySelector('#money-reports').value.split(',');
     const paramContent = parentObj.parentElement.querySelector('[id^="parameter-select"]')
         .parentElement.querySelector('.dropdown__content');
@@ -10,11 +13,11 @@ function selectFromListMod(obj) {
     if (moneyReports.includes(valuePrevious) && !moneyReports.includes(valueCurrent)) {
         newLines = document.querySelector('#time-arguments');
         paramContent.innerHTML = newLines.innerHTML;
-        selectFromList(paramContent.querySelector('li'))
+        await selectFromList(paramContent.querySelector('li'))
     } else if (!moneyReports.includes(valuePrevious) && moneyReports.includes(valueCurrent)) {
         newLines = document.querySelector('#money-arguments');
         paramContent.innerHTML = newLines.innerHTML;
-        selectFromList(paramContent.querySelector('li'))
+        await selectFromList(paramContent.querySelector('li'))
     }
 }
 
