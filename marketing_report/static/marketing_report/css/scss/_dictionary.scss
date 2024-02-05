@@ -112,7 +112,8 @@
     //font-weight: 800;
     margin-right: 16px;
     color: $colorSecondary400;
-    & i{
+
+    & i {
       color: $colorSecondary400;
     }
   }
@@ -139,7 +140,8 @@
       gap: 12px;
       align-items: center;
     }
-    & i{
+
+    & i {
       color: $colorSecondary400;
     }
   }
@@ -271,36 +273,6 @@
   }
 }
 
-.production {
-  grid-template-columns: 0.2fr 0.8fr 1fr repeat(6, 0.6fr) 1.5fr 0.4fr 0.6fr;
-
-  &_adm {
-    font-size: 14px;
-    grid-template-columns: 0.3fr repeat(12, 1fr);
-  }
-}
-
-.in-production {
-  grid-template-columns: 0.4fr 2fr repeat(7, 1fr) repeat(2, 0.8fr);
-}
-
-.production-list {
-  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
-}
-
-
-.quality-content {
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background-color: $colorPrimary50;
-  font-size: 15px;
-
-  &__row {
-    grid-template-columns: 0.5fr repeat(7, 1fr)  2fr repeat(2, 1fr);
-  }
-}
-
-
 .dropdown_dict {
   height: 33px;
   font-size: 13px;
@@ -314,6 +286,16 @@
   //border: 3px dotted;
   background-color: $colorSecondary100;
 }
+
+.modal__check {
+  font-size: 15px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  accent-color: $colorSecondary400;
+}
+
 
 @media (max-width: 1600px) {
   .dict {

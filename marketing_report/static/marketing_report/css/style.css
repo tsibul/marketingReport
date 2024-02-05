@@ -827,32 +827,6 @@
   max-height: calc(100vh - 120px);
 }
 
-.production {
-  grid-template-columns: 0.2fr 0.8fr 1fr repeat(6, 0.6fr) 1.5fr 0.4fr 0.6fr;
-}
-.production_adm {
-  font-size: 14px;
-  grid-template-columns: 0.3fr repeat(12, 1fr);
-}
-
-.in-production {
-  grid-template-columns: 0.4fr 2fr repeat(7, 1fr) repeat(2, 0.8fr);
-}
-
-.production-list {
-  grid-template-columns: 0.2fr 1fr 1.5fr 1.5fr 1.5fr 0.6fr 1.5fr repeat(7, 1fr);
-}
-
-.quality-content {
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background-color: #F0F3F5;
-  font-size: 15px;
-}
-.quality-content__row {
-  grid-template-columns: 0.5fr repeat(7, 1fr) 2fr repeat(2, 1fr);
-}
-
 .dropdown_dict {
   height: 33px;
   font-size: 13px;
@@ -864,6 +838,15 @@
 
 .over {
   background-color: #EFE7DC;
+}
+
+.modal__check {
+  font-size: 15px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-start;
+  accent-color: #CFB796;
 }
 
 @media (max-width: 1600px) {
@@ -927,11 +910,19 @@
 }
 
 .customer-group {
-  grid-template-columns: 300px 210px 3fr 4fr 105px 105px 90px 90px;
+  font-size: 14px;
+  grid-template-columns: 3fr 2fr 1.5fr 3fr 1fr 1fr 1fr 1fr;
+}
+.customer-group .btn {
+  font-size: 14px;
 }
 
 .customer {
-  grid-template-columns: 80px 190px 140px 100px 190px 1fr 160px 90px 100px 120px;
+  font-size: 14px;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr 3fr 2fr 1.5fr 1.5fr 1.5fr;
+}
+.customer .btn {
+  font-size: 14px;
 }
 
 .goods {
