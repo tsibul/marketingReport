@@ -1,5 +1,5 @@
 import csv
-import datetime
+# import datetime
 import os
 
 from datetime import datetime
@@ -172,7 +172,7 @@ def import_customer_to_customer(import_customer: ImportCustomers):
         all_phones=import_customer.all_phones,
         internal=import_customer.internal,
         new=import_customer.new,
-        date_import=datetime.date.today(),
+        date_import=datetime.today().date(),
     )
     customer_type = customer_type_choose(import_customer.customer_type, import_customer.region)
     if customer_type:
