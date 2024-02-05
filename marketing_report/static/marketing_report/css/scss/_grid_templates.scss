@@ -11,11 +11,21 @@
 }
 
 .customer-group {
-  grid-template-columns: 300px 210px 3fr 4fr 105px 105px 90px 90px;
+  font-size: 14px;
+  grid-template-columns: 3fr 2fr 1.5fr 3fr 1fr 1fr 1fr 1fr;
+
+  & .btn {
+    font-size: 14px;
+  }
 }
 
 .customer {
-  grid-template-columns: 80px 190px 140px 100px 190px 1fr 160px 90px 100px 120px;
+  font-size: 14px;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr 3fr 2fr 1.5fr 1.5fr 1.5fr;
+
+  & .btn {
+    font-size: 14px;
+  }
 }
 
 .goods {
