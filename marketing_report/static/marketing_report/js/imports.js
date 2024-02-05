@@ -1,8 +1,27 @@
 'use strict'
 
-const buttonClose = document.querySelector('.modal.close');
+import {fetchJsonData} from "./func/fetchJsonData.js";
 
-// buttonClose.onclick(buttonClose => importFileModalClose(buttonClose));
+const buttonClose = document.querySelector('.modal.close');
+const importModal = document.querySelector('#import-file-modal');
+
+document.querySelector('#result').nextElementSibling
+    .addEventListener('click', e => importFileModal(e.target, 'customers'));
+document.querySelector('#updated-customers').nextElementSibling
+    .addEventListener('click', () => editTemporaryBase());
+
+document.querySelector('#import_new_customers').nextElementSibling
+    .addEventListener('click', () => importCustomers('import_new_customers'));
+
+document.querySelector('#import_changed_customers').nextElementSibling
+    .addEventListener('click', () => importCustomers('import_changed_customers'));
+
+importModal.querySelector('.btn-close')
+    .addEventListener('click', e => importFileModalClose(e.target));
+
+importModal.querySelector('.btn-save')
+    .addEventListener('click', e => importFileModal(e.target, 'sales'));
+
 
 function importFileModalClose(element) {
     const modal = element.closest('#import-file-modal');

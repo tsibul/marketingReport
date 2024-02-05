@@ -2,6 +2,7 @@
 {% load static %}
 {% block title %}Импорт{% endblock %}
 {% block content %}
+    <script src="{% static 'marketing_report/js/imports.js' %}" defer type="module"></script>
     <div class="full-content">
         <div class="container">
             <details class="imports">
@@ -13,9 +14,7 @@
                         <div>импортировано {{ cst_date|date:'d.m.Y' }}</div>
                         <div>записей в базе {{ customers_imported }}</div>
                         <div id="result" class="import-block__description alert"></div>
-                        <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'customers');">
-                            импорт
-                        </button>
+                        <button type="button" class="btn btn-save">импорт</button>
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">2. Обработка временной базы</h4>
@@ -24,7 +23,7 @@
                         </div>
                         <div id="new-customers" class="alert"></div>
                         <div id="updated-customers" class="alert"></div>
-                        <button type="button" class="btn btn-save" onclick="editTemporaryBase();">обработать</button>
+                        <button type="button" class="btn btn-save">обработать</button>
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">3.1 Импорт новых клиентов в БД</h4>
@@ -32,9 +31,7 @@
                         </div>
                         <div>новые клиенты {{ customers_new }}</div>
                         <div id="import_new_customers"></div>
-                        <button type="button" class="btn btn-save" onclick="importCustomers('import_new_customers');">
-                            импорт
-                        </button>
+                        <button type="button" class="btn btn-save">импорт</button>
                     </div>
                     <div class="form-row__import">
                         <h4 class="active border-title">3.2 Импорт измененных клиентов в БД</h4>
@@ -43,9 +40,7 @@
                         </div>
                         <div>измененные клиенты {{ customers_changed }}</div>
                         <div id="import_changed_customers"></div>
-                        <button type="button" class="btn btn-save"
-                                onclick="importCustomers('import_changed_customers')">импорт
-                        </button>
+                        <button type="button" class="btn btn-save">импорт</button>
                     </div>
                 </div>
             </details>
@@ -57,7 +52,7 @@
                         <div class="import-block__description">загрузить файл с csv</div>
                         <div>импортировано {{ sales_date|date:'d.m.Y' }}</div>
                         <div>записей в базе {{ sales_imported }}</div>
-                        <div id="result" class="import-block__description alert"></div>
+                        <div id="resultSales" class="import-block__description alert"></div>
                         <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'sales');">
                             импорт
                         </button>
@@ -69,9 +64,10 @@
                 <summary class="active__menu dict-block__header">Периоды расчета</summary>
                 <div class="imports__block">
                     <form class="form-row__import" method="post" action="{% url 'marketing_report:reassign_periods' %}">
-                    {% csrf_token %}
+                        {% csrf_token %}
                         <h4 class="active border-title">1. Пересоздать периоды расчета</h4>
-                        <label for="period-begin">начало периода (<span class="alert">{{ period_begin|date:'d.m.Y' }}</span>)</label>
+                        <label for="period-begin">начало периода (<span
+                                class="alert">{{ period_begin|date:'d.m.Y' }}</span>)</label>
                         <input type="date" id="period-begin" class="form-input" name="start_date" required>
                         <label for="period-end">конец периода (<span class="alert">{{ period_end|date:'d.m.Y' }}</span>)</label>
                         <input type="date" id="period-end" class="form-input" name="end_date" required>
@@ -95,8 +91,8 @@
                 <input type="file" accept=".csv" required class="import-file-modal__input" name="loaded_file">
             </div>
             <div class="import-file-modal__buttons">
-                <button type="button" class="btn btn-close modal-close" onclick="importFileModalClose(this);">закрыть</button>
-                <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'sales')">загрузить</button>
+                <button type="button" class="btn btn-close modal-close">закрыть</button>
+                <button type="submit" class="btn btn-save">загрузить</button>
             </div>
         </form>
     </div>
@@ -104,5 +100,4 @@
     <div hidden id="technical-data">
         <div id="periods">{{ json_period }}</div>
     </div>
-    <script src="{% static 'marketing_report/js/imports.js' %}"></script>
 {% endblock %}
