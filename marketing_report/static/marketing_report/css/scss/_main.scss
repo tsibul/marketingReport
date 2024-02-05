@@ -94,22 +94,22 @@
   }
 
   &-save {
-    background-color: $colorPrimary800;
-    border-color: $colorPrimary800;
+    background-color: $colorSecondary500;
+    border-color: $colorSecondary100;
 
     &:hover {
-      color: $colorPrimary800;
+      color: $colorSecondary500;
       background-color: transparent;
       //box-shadow: 6px 6px 12px $colorPrimary800;
     }
   }
 
   &-close {
-    background-color: $colorNeutral400;
-    border-color: $colorNeutral400;
+    background-color: $colorPrimary400;
+    border-color: $colorPrimary100;
 
     &:hover {
-      color: $colorNeutral400;
+      color: $colorPrimary400;
       background-color: transparent;
     }
   }

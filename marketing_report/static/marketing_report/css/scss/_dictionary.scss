@@ -35,7 +35,7 @@
     &:hover {
       transform: scaleY(1.03);
       font-weight: bold;
-      background-color: $colorSecondary200;
+      background-color: $colorPrimary200;
     }
   }
 
@@ -60,7 +60,7 @@
 
     &:hover {
       font-weight: bold;
-      background-color: $colorSecondary200;
+      background-color: $colorPrimary200;
     }
   }
 
@@ -109,13 +109,17 @@
   }
 
   &__active {
-    font-weight: 800;
+    //font-weight: 800;
     margin-right: 16px;
+    color: $colorSecondary400;
+    & i{
+      color: $colorSecondary400;
+    }
   }
 
   &__header {
     padding: 29px;
-    background-color: $colorSecondary200;
+    background-color: $colorPrimary600;
     border-radius: 10px;
     @include d-flex-center(center);
     cursor: pointer;
@@ -134,6 +138,9 @@
       display: flex;
       gap: 12px;
       align-items: center;
+    }
+    & i{
+      color: $colorSecondary400;
     }
   }
 

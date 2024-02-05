@@ -1,7 +1,7 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: #BF9F73;
+  background-color: #2A363C;
   z-index: 20;
 }
 
@@ -25,6 +25,7 @@
   border-radius: 10px;
   margin: 4px;
   transition: all 0.3s ease-out;
+  color: #EFE7DC;
 }
 .menu__item_badge {
   position: relative;
@@ -34,10 +35,10 @@
   top: 8px;
   right: 1px;
   content: attr(data-badge);
-  color: #E1EAE5;
+  color: #E1E7EA;
   font-size: 10px;
   font-weight: normal;
-  background-color: #293D32;
+  background-color: #BF9F73;
   border: 1px solid transparent;
   border-radius: 19px;
   padding: 2px 5px;
@@ -46,13 +47,19 @@
   display: none;
 }
 .menu__item:hover {
-  color: #293D32;
+  color: #242F34;
   background-color: #EFE7DC;
-  box-shadow: 4px 4px 8px #293D32;
+  box-shadow: 4px 4px 8px #242F34;
+}
+.menu__item:hover i {
+  color: #242F34;
 }
 
 .active {
   font-weight: 900;
+}
+.active__menu {
+  color: #CFB796;
 }
 
 .login {
@@ -71,20 +78,20 @@
   justify-content: space-between;
   width: 100%;
   border-radius: 10px;
-  background-color: #BF9F73;
+  background-color: #CFB796;
   display: flex;
   flex-direction: row;
-  color: #293D32;
+  color: #242F34;
   align-items: center;
 }
 .login__content {
   margin: 15% auto;
   padding: 16px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   width: 300px;
   border-radius: 10px;
-  background-color: #DFCFB9;
-  box-shadow: 6px 6px 12px #293D32;
+  background-color: #EFE7DC;
+  box-shadow: 6px 6px 12px #242F34;
 }
 .login__text {
   margin: 6px;
@@ -108,7 +115,7 @@
   padding: 8px;
 }
 .login__close:hover, .login__close:focus {
-  color: #293D32;
+  color: #242F34;
   text-decoration: none;
   cursor: pointer;
 }
@@ -118,6 +125,10 @@
 }
 .mobile__hide {
   display: inline;
+}
+
+.light-color {
+  color: #CFB796;
 }
 
 @media (max-width: 767px) {
@@ -145,7 +156,7 @@
     top: 43px;
     border: 1px transparent solid;
     border-radius: 10px;
-    background-color: #BF9F73;
+    background-color: #CFB796;
   }
   .menu__mobile {
     display: block;
@@ -158,14 +169,14 @@
     top: 44px;
     border: 1px transparent solid;
     border-radius: 10px;
-    background-color: #BF9F73;
+    background-color: #CFB796;
   }
 }
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  color: #151E19;
+  color: #151B1E;
   font-family: "Montserrat", sans-serif;
 }
 
@@ -210,14 +221,14 @@
 }
 .form-select {
   margin-bottom: 6px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   font-size: 16px;
   padding: 8px 6px;
   background-color: #EFE7DC;
 }
 .form-input {
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   padding: 8px 4px;
   background-color: #EFE7DC;
@@ -247,16 +258,16 @@
   color: inherit;
 }
 .btn-save {
-  background-color: #293D32;
-  border-color: #293D32;
+  background-color: #BF9F73;
+  border-color: #EFE7DC;
 }
 .btn-save:hover {
-  color: #293D32;
+  color: #BF9F73;
   background-color: transparent;
 }
 .btn-close {
   background-color: #86A0AC;
-  border-color: #86A0AC;
+  border-color: #E1E7EA;
 }
 .btn-close:hover {
   color: #86A0AC;
@@ -275,7 +286,7 @@
   width: 100%;
   list-style: none;
   overflow: auto;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   position: absolute;
   background-color: #EFE7DC;
@@ -289,12 +300,12 @@
 }
 .dropdown__content li:hover {
   color: #EFE7DC;
-  background-color: #293D32;
+  background-color: #242F34;
 }
 .dropdown__input-block {
   display: flex;
   align-items: center;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   background-color: #EFE7DC;
 }
@@ -338,7 +349,7 @@
 
 .border-title {
   margin-left: 20px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   border-color: transparent;
   padding: 2px 8px;
@@ -353,7 +364,7 @@
 }
 
 .alert {
-  color: #86A0AC;
+  color: #85AD96;
 }
 
 .digit {
@@ -366,7 +377,7 @@
 
 .hex {
   font-size: 1.8rem;
-  border: 0.2px solid #A4C1B1;
+  border: 0.2px solid #A5B8C0;
   border-radius: 6px;
   height: 28px;
   width: 28px;
@@ -378,7 +389,7 @@
 
 .fulfilled {
   opacity: 0.6;
-  background-color: #E1E7EA;
+  background-color: #E1EAE5;
 }
 
 @media (max-width: 767px) {
@@ -396,12 +407,12 @@
 }
 .imports {
   display: flex;
-  border: 1px solid #151E19;
+  border: 1px solid #151B1E;
   border-radius: 12px;
   margin-bottom: 20px;
   max-height: 160px;
   transition: scale 2s ease, max-height 0.3s ease-in-out;
-  box-shadow: 6px 6px 12px #293D32;
+  box-shadow: 6px 6px 12px #242F34;
 }
 .imports .dict-block__header {
   transition: padding 0.2s ease-in-out;
@@ -432,10 +443,10 @@
   top: 25%;
   left: 30%;
   padding: 6px;
-  background-color: #DFCFB9;
+  background-color: #EFE7DC;
   border-radius: 12px;
   display: none;
-  box-shadow: 6px 6px 12px #293D32;
+  box-shadow: 6px 6px 12px #242F34;
   transition: max-height 0.4s ease;
   max-height: 0;
   overflow: hidden;
@@ -445,7 +456,7 @@
 }
 .import-file-modal__body {
   position: relative;
-  border: 1px solid #151E19;
+  border: 1px solid #151B1E;
   border-radius: 10px;
   margin: 6px;
   padding: 20px;
@@ -454,14 +465,14 @@
   max-width: 400px;
 }
 .import-file-modal__header {
-  background-color: #DFCFB9;
+  background-color: #EFE7DC;
 }
 .import-file-modal__input {
-  border: 1px solid #151E19;
+  border: 1px solid #151B1E;
   border-radius: 10px;
   padding: 6px 8px;
   font-size: 16px;
-  color: #293D32;
+  color: #242F34;
   margin: 20px 0 10px 0;
   width: 100%;
 }
@@ -472,7 +483,7 @@
 }
 
 .form-row__import {
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   padding: 20px 30px;
   display: grid;
@@ -501,12 +512,12 @@
   margin: 20px;
   min-width: 360px;
   min-height: 360px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   padding: 12px;
   text-decoration: none;
   transition: all 0.3s ease-out;
-  box-shadow: 6px 6px 12px #293D32;
+  box-shadow: 6px 6px 12px #242F34;
   position: relative;
 }
 .report-block:hover {
@@ -525,17 +536,17 @@
   opacity: 1;
 }
 .report-block-hoverable:hover .border-title {
-  border-color: #293D32;
+  border-color: #242F34;
 }
 .report-block-hoverable:hover {
-  background-color: #293D32;
+  background-color: #86A0AC;
 }
 
 .temp-block {
   margin: 20px;
   width: 0px;
   min-height: 360px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   transition: width 0.3s ease-out;
 }
@@ -567,12 +578,12 @@
   min-width: 1160px;
 }
 .report-long__header {
-  background-color: #DFCFB9;
+  background-color: #EFE7DC;
   padding: 2px 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
 }
 .report-long_parameter {
@@ -597,7 +608,7 @@
 }
 
 .dict-menu {
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
@@ -624,7 +635,7 @@
 .dict-menu__header:hover {
   transform: scaleY(1.03);
   font-weight: bold;
-  background-color: #DFCFB9;
+  background-color: #C3CFD5;
 }
 .dict-menu__item {
   cursor: pointer;
@@ -644,7 +655,7 @@
 }
 .dict-menu__item:hover {
   font-weight: bold;
-  background-color: #DFCFB9;
+  background-color: #C3CFD5;
 }
 
 .dict-right {
@@ -666,14 +677,14 @@
 
 .dict-block {
   max-width: 382.5px;
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   height: 80px;
   transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
   overflow: hidden;
-  box-shadow: 6px 6px 12px #293D32;
+  box-shadow: 6px 6px 12px #242F34;
   cursor: move;
 }
 .dict-block_long {
@@ -686,12 +697,15 @@
   transform: scale(1.03);
 }
 .dict-block__active {
-  font-weight: 800;
   margin-right: 16px;
+  color: #CFB796;
+}
+.dict-block__active i {
+  color: #CFB796;
 }
 .dict-block__header {
   padding: 29px;
-  background-color: #DFCFB9;
+  background-color: #3F525A;
   border-radius: 10px;
   display: flex;
   align-items: center;
@@ -709,6 +723,9 @@
   display: flex;
   gap: 12px;
   align-items: center;
+}
+.dict-block__search i {
+  color: #CFB796;
 }
 .dict-block__form-input {
   min-width: 390px;
@@ -732,7 +749,7 @@
   margin-right: 19px;
 }
 .dict-block__row:not(.dict-block__active):hover {
-  background-color: #C2D6CB;
+  background-color: #C3CFD5;
 }
 .dict-block__row_hidden {
   display: none;
@@ -829,7 +846,7 @@
 .quality-content {
   border: 1px solid transparent;
   border-radius: 10px;
-  background-color: #F0F5F2;
+  background-color: #F0F3F5;
   font-size: 15px;
 }
 .quality-content__row {
@@ -886,7 +903,7 @@
   }
 }
 .form-row__export {
-  border: 1px solid #293D32;
+  border: 1px solid #242F34;
   border-radius: 10px;
   padding: 20px 30px;
   display: grid;

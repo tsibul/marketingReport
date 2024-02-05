@@ -4,7 +4,7 @@
 .header {
   position: fixed;
   width: 100%;
-  background-color: $colorSecondary400;
+  background-color: $colorPrimary700;
   z-index: 20;
 }
 
@@ -31,6 +31,7 @@
     border-radius: 10px;
     margin: 4px;
     transition: all 0.3s ease-out;
+    color: $colorSecondary100;
 
     &_badge {
       position: relative;
@@ -43,7 +44,7 @@
         color: $colorPrimary100;
         font-size: 10px;
         font-weight: normal;
-        background-color: $colorPrimary800;
+        background-color: $colorSecondary600;
         border: 1px solid transparent;
         border-radius: 19px;
         padding: 2px 5px;
@@ -60,11 +61,20 @@
       background-color: $colorSecondary100;
       box-shadow: 4px 4px 8px $colorPrimary800;
     }
+
+    &:hover i {
+      color: $colorPrimary800;
+    }
+
   }
 }
 
 .active {
   font-weight: 900;
+
+  &__menu {
+    color: $colorSecondary400;
+  }
 }
 
 .login {
@@ -142,6 +152,11 @@
   }
 }
 
+.light-color {
+  color: $colorSecondary400;
+
+}
+
 
 @media (max-width: 767px) {
   .mobile {
@@ -193,4 +208,5 @@
     }
   }
 }
+
 
