@@ -99,7 +99,8 @@
                                 <div class="dict-block__text" data-name="hex" data-field="hex"></div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="color_scheme" data-field="color_scheme" data-id=""></div>
-                                <div class="dict-block__text bool-field" data-name="standard" data-field="standard"></div>
+                                <div class="dict-block__text bool-field" data-name="standard"
+                                     data-field="standard"></div>
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
                         </div>
@@ -265,6 +266,10 @@
                             <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Группы&nbsp;клиентов
                             </div>
                             <div class="dict-block__search">
+                                <div class="modal__check">
+                                    <input type="checkbox" id="unclosed" checked>
+                                    <label for="unclosed" class="light-color">скрыть неактивных</label>
+                                </div>
                                 <i class="fa fa-solid fa-magnifying-glass"></i>
                                 <input type="search" class="form-input dict-block__form-input" placeholder="искать...">
                                 <button class="btn btn-save search_submit" type="button">поиск</button>
@@ -299,8 +304,14 @@
                     </details><!-- группы клиентов -->
                     <details class="dict-block dict-block__4">
                         <summary class="dict-block__header dict-block__header_block-space">
-                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Клиенты</div>
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Клиенты
+                            </div>
                             <div class="dict-block__search">
+                                <div class="modal__check">
+                                    <input type="checkbox" id="unclosed" checked>
+                                    <label for="unclosed" class="light-color">скрыть неактивных</label>
+                                </div>
+
                                 <i class="fa fa-solid fa-magnifying-glass"></i>
                                 <input type="search" class="form-input dict-block__form-input"
                                        placeholder="искать...">
