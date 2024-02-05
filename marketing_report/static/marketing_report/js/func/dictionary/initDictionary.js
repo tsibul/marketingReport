@@ -5,6 +5,7 @@ import {appendNewRows} from "../appendNewRows.js";
 /**
  *
  * @param eventTarget
+ * @param shDeleted
  * @returns {Promise<void>}
  */
 export async function initDictionary(eventTarget, shDeleted){
