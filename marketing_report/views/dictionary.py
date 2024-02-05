@@ -83,16 +83,27 @@ def dict_additional_filter(dict_type, order, id_no, search_string):  # кост�
     if search_string == 'default':
         if dict_type == 'Customer':
             dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+            # dict_items = dict_model.objects.filter(internal=False).order_by(*order)
         elif dict_type == 'CustomerGroups':
             dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+            # dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
         else:
+            dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+    elif search_string == '%inactive%':
+        if dict_type == 'Customer':
+            # dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+            dict_items = dict_model.objects.filter(internal=False).order_by(*order)
+        elif dict_type == 'CustomerGroups':
+            # dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
             dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
     else:
         search_string = search_string.replace('_', ' ')
         if dict_type == 'Customer':
-            filter_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+            # filter_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+            filter_items = dict_model.objects.filter(internal=False).order_by(*order)
         elif dict_type == 'CustomerGroups':
-            filter_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+            # filter_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+            filter_items = dict_model.objects.filter(date_last__gt=border_date).order_by(*order)
         else:
             filter_items = dict_model.objects.filter(deleted=False).order_by(*order)
         dict_items = filter_items.filter(id=0)
