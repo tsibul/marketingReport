@@ -3,153 +3,14 @@
 {% block title %}Отчеты{% endblock %}
 {% block content %}
     <script src="{% static 'marketing_report/js/report_page.js' %}" defer type="module"></script>
-{#    <script src="{% static 'marketing_report/js/reports.js' %}" defer type="module"></script>#}
     <div class="full-content">
         <div class="container">
             <section class="report-content">
-                <div class="report-block" id="report-1">
-                    <h4 class="border-title active">Отчет по клиентам</h4>
-                    <div class="report-header"></div>
-                    <div class="report-block-content">
-                        <label for="report-select-1" class="top-label">тип отчета</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="report-select-1"
-                                   value="{{ cst_reports.0.code }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ cst_reports.0.description }}"
-                                       data-value="{{ cst_reports.0.description }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for report in cst_reports %}
-                                    <li data-value="{{ report.code }}"
-                                        onclick="event.stopPropagation(); selectFromListMod(this);">{{ report.description }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <label for="period-select-1" class="top-label">период</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="period-select-1"
-                                   value="{{ periods.0.value }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ periods.0.label }}"
-                                       data-value="{{ periods.0.label }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for period in periods %}
-                                    <li data-value="{{ period.value }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ period.label }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div class="date-row">
-                            <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
-                            <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
-                        </div>
-                        <label for="parameter-select-1" class="top-label">показатель</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="parameter-select-1"
-                                   value="{{ money_arguments.0.code }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ money_arguments.0.description }}"
-                                       data-value="{{ money_arguments.0.description }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for argument in money_arguments %}
-                                    <li data-value="{{ argument.code }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="button-block report_button-block">
-                        <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
-                        </button>
-                        <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
-                    </div>
-                </div>
-                <div onclick="newReport(this, 0)" class="report-block report-block-hoverable" id="report-2">
+                <div class="report-block report-block-hoverable" id="customer-report" data-id="0">
                     <h4 class="border-title active">Отчет по клиентам</h4>
                     <p class="big-plus">+</p>
                 </div>
-                <div class="report-block" id="report-10001">
-                    <h4 class="border-title active">Отчет по товарам</h4>
-                    <div class="report-header"></div>
-                    <div class="report-block-content">
-                        <label for="report-select-10001" class="top-label">тип отчета</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="report-select-10001"
-                                   value="{{ goods_reports.0.code }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ goods_reports.0.description }}"
-                                       data-value="{{ goods_reports.0.description }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for report in goods_reports %}
-                                    <li data-value="{{ report.code }}"
-                                        onclick="event.stopPropagation(); selectFromListMod(this);">{{ report.description }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <label for="period-select-10001" class="top-label">период</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="period-select-10001"
-                                   value="{{ periods.0.value }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ periods.0.label }}"
-                                       data-value="{{ periods.0.label }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for period in periods %}
-                                    <li data-value="{{ period.value }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ period.label }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                        <div class="date-row">
-                            <div>c&nbsp;<input type="date" class="form-input report__form-input"></div>
-                            <div>&nbsp;до&nbsp;<input type="date" class="form-input report__form-input"></div>
-                        </div>
-                        <label for="parameter-select-10001" class="top-label">показатель</label>
-                        <div class="dropdown report_dropdown">
-                            <input name="id" type="text" class="dropdown__hidden" id="parameter-select-10001"
-                                   value="{{ money_arguments.0.code }}">
-                            <div class="dropdown__input-block">
-                                <input type="text" class="dropdown__input"
-                                       placeholder="Поиск.."
-                                       value="{{ money_arguments.0.description }}"
-                                       data-value="{{ money_arguments.0.description }}" readonly>
-                                <i class="fa fa-solid fa-angle-down"></i>
-                            </div>
-                            <ul class="dropdown__content">
-                                {% for argument in money_arguments %}
-                                    <li data-value="{{ argument.code }}"
-                                        onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="button-block report_button-block">
-                        <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет
-                        </button>
-                        <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
-                    </div>
-                </div>
-                <div onclick="newReport(this, 10000)" class="report-block report-block-hoverable" id="report-10002">
+                <div class="report-block report-block-hoverable" id="goods-report" data-id="10000">
                     <h4 class="border-title active">Отчет по товарам</h4>
                     <p class="big-plus">+</p>
                 </div>
@@ -212,15 +73,14 @@
                     </div>
                     <ul class="dropdown__content">
                         {% for argument in money_arguments %}
-                            <li data-value="{{ argument.code }}"
-                                onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="button-block report_button-block">
-                <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
-                <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
+                <button type="button" class="btn btn-close">Уничтожить отчет</button>
+                <button type="button" class="btn btn-save">Создать отчет</button>
             </div>
         </div>
         <div class="report-block" id="report-10000">
@@ -272,27 +132,24 @@
                     </div>
                     <ul class="dropdown__content">
                         {% for argument in money_arguments %}
-                            <li data-value="{{ argument.code }}"
-                                onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>
                         {% endfor %}
                     </ul>
                 </div>
             </div>
             <div class="button-block report_button-block">
-                <button type="button" class="btn btn-close" onclick="reportRemove(this)">Уничтожить отчет</button>
-                <button type="button" class="btn btn-save" onclick="buildReport(this)">Создать отчет</button>
+                <button type="button" class="btn btn-close">Уничтожить отчет</button>
+                <button type="button" class="btn btn-save">Создать отчет</button>
             </div>
         </div>
         <div id="money-arguments">
             {% for argument in money_arguments %}
-                <li data-value="{{ argument.code }}"
-                    onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                <li data-value="{{ argument.code }}">{{ argument.description }} </li>
             {% endfor %}
         </div>
         <div id="time-arguments">
             {% for argument in time_arguments %}
-                <li data-value="{{ argument.code }}"
-                    onclick="event.stopPropagation(); selectFromList(this);">{{ argument.description }} </li>
+                <li data-value="{{ argument.code }}">{{ argument.description }} </li>
             {% endfor %}
         </div>
     </div>

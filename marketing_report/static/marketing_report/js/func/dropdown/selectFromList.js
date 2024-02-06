@@ -8,7 +8,7 @@ export async function selectFromList(obj) {
     const parentDropdown = obj.closest('.dropdown');
     const parentForm = parentDropdown.closest('form');
     const inputName = parentDropdown.querySelector('.dropdown__hidden').name;
-    const dataFilter = parentForm.querySelector(`[data-filter="${inputName}"]`);
+    const dataFilter = parentForm ? parentForm.querySelector(`[data-filter="${inputName}"]`) : null;
     parentDropdown.querySelector('.dropdown__input').value = obj.textContent.trim().replace(/\s+/g, ' ');
     parentDropdown.querySelector('.dropdown__input').dataset.value = obj.textContent.trim().replace(/\s+/g, ' ');
     parentDropdown.querySelector('.dropdown__hidden').value = obj.dataset.value;
@@ -22,7 +22,7 @@ export async function selectFromList(obj) {
         filterBlockUl.closest('.report_dropdown').querySelector(`.dropdown__input`).value = '';
         filterBlockUl.closest('.report_dropdown').querySelector(`.dropdown__input`).dataset.value = '';
         const jsonUrl =
-            `/production/dictionary_json_filter/${dictList[dataFilterName]}/${dictList[inputName]}/${Number.parseInt(obj.dataset.value)}`;
+            `/marketing/dictionary_json_filter/${dictList[dataFilterName]}/${dictList[inputName]}/${Number.parseInt(obj.dataset.value)}`;
         const jsonData = await fetchJsonData(jsonUrl);
         const dictionaryList = JSON.parse(jsonData);
         fillLines(filterBlockUl, dictionaryList);
