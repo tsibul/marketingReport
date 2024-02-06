@@ -94,7 +94,7 @@
   transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
   overflow: hidden;
   box-shadow: 6px 6px 12px $colorPrimary800;
-  cursor: move;
+  //cursor: move;
 
   &_long {
     max-width: 600px;
@@ -282,10 +282,10 @@
   font-size: inherit;
 }
 
-.over {
-  //border: 3px dotted;
-  background-color: $colorSecondary100;
-}
+//.over {
+//  //border: 3px dotted;
+//  background-color: $colorSecondary100;
+//}
 
 .modal__check {
   font-size: 15px;

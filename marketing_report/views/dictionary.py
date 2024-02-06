@@ -44,8 +44,8 @@ def dictionary_update(request, dict_type):
     return HttpResponse()
 
 
-def dictionary_json(request, dict_type, id_no, order, search_string):
-    dict_items = dict_additional_filter(dict_type, order, id_no, search_string)
+def dictionary_json(request, dict_type, id_no, order, search_string, sh_deleted):
+    dict_items = dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted)
     formatted_dict_items = [format_datetime_fields(item) for item in dict_items]
     return JsonResponse(formatted_dict_items, safe=False)
 
@@ -75,33 +75,30 @@ def dictionary_json_filter(request, dict_type, filter_dictionary, filter_diction
     return JsonResponse(json_dict, safe=False)
 
 
-def dict_additional_filter(dict_type, order, id_no, search_string):  # костыль
+def dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted):  # костыль
     border_date = date.today() - timedelta(days=1100)
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
     if search_string == 'default':
         if dict_type == 'Customer':
-            dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
-            # dict_items = dict_model.objects.filter(internal=False).order_by(*order)
-        elif dict_type == 'CustomerGroups':
-            dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
-            # dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+            if not sh_deleted:
+                dict_items = dict_model.objects.filter(internal=False).order_by(*order)
+            else:
+                dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
+        elif dict_type == 'CustomerGroup':
+            if not sh_deleted:
+                dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+            else:
+                dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
         else:
-            dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
-    elif search_string == '%inactive%':
-        if dict_type == 'Customer':
-            # dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
-            dict_items = dict_model.objects.filter(internal=False).order_by(*order)
-        elif dict_type == 'CustomerGroups':
-            # dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
             dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
     else:
         search_string = search_string.replace('_', ' ')
         if dict_type == 'Customer':
             # filter_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
             filter_items = dict_model.objects.filter(internal=False).order_by(*order)
-        elif dict_type == 'CustomerGroups':
+        elif dict_type == 'CustomerGroup':
             # filter_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
             filter_items = dict_model.objects.filter(date_last__gt=border_date).order_by(*order)
         else:

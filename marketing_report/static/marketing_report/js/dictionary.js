@@ -9,7 +9,7 @@ import {deleteRecord} from "./func/deleteRecord.js";
 import {userRights} from "./func/userRights.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {clearSearch} from "./func/clearSearch.js";
-import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
+// import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
 import {hideDict} from "./func/dictionary/hideDict.js";
 import {showDict} from "./func/dictionary/showDict.js";
 import {initDictionary} from "./func/dictionary/initDictionary.js";
@@ -18,7 +18,7 @@ import {initDictionary} from "./func/dictionary/initDictionary.js";
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchClearButtons = document.querySelectorAll('.search_clear')
-const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
+// const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 const dictBlockContent = document.querySelectorAll('.dict-block__content');
 const dictBlockList = document.querySelectorAll('.dict-block');
 const dictStartChecks = document.querySelectorAll('.checkbox-out');
@@ -39,7 +39,7 @@ dictStartChecks.forEach(chck => {
         }
     });
     chck.addEventListener('click', async e => {
-        await initDictionary(e.target, showDeleted);
+        await initDictionary(e.target);
     }, {once: true});
 
 });
@@ -64,14 +64,14 @@ userRights();
 /**
  * listener for DnD
  */
-dictBlockList.forEach(block => {
-    block.addEventListener('dragstart', handleDragStart, false);
-    block.addEventListener('dragover', handleDragOver, false);
-    block.addEventListener('dragenter', handleDragEnter);
-    block.addEventListener('dragleave', handleDragLeave);
-    block.addEventListener('drop', handleDrop, false);
-    block.addEventListener('dragend', handleDragEnd);
-});
+// dictBlockList.forEach(block => {
+//     block.addEventListener('dragstart', handleDragStart, false);
+//     block.addEventListener('dragover', handleDragOver, false);
+//     block.addEventListener('dragenter', handleDragEnter);
+//     block.addEventListener('dragleave', handleDragLeave);
+//     block.addEventListener('drop', handleDrop, false);
+//     block.addEventListener('dragend', handleDragEnd);
+// });
 
 /**
  * listener if your click outside the form — close form
@@ -98,7 +98,10 @@ dictBlockContent.forEach(block => {
             if (!searchString) {
                 searchString = '';
             }
-            await appendNewRows(lastRecord, block, searchString, 0, 0);
+            const nearestCheck = block.querySelector('.unclosed');
+            const shDeleted = nearestCheck && nearestCheck.checked ? 1 : 0;
+
+            await appendNewRows(lastRecord, block, searchString, shDeleted, 0);
         }
     });
 });
@@ -138,7 +141,9 @@ dictBlockContent.forEach(block => {
 searchButtons.forEach((btn) => {
     btn.addEventListener('mousedown', async (search) => {
         const btnEvent = searchButtonEvent(btn, search);
-        await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
+        const nearestCheck = btn.closest('.dict-block').querySelector('.unclosed');
+        const shDeleted = nearestCheck && nearestCheck.checked ? 1 : 0;
+        await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], shDeleted, 0);
         btnEvent[0].remove();
     });
 });
@@ -159,8 +164,10 @@ searchClearButtons.forEach(btn => {
  */
 async function editDeleteRow(e, row) {
     if (row === e.target.closest('.dict-block__row')) {
+        const nearestCheck = row('.dict-block').querySelector('.unclosed');
+        const shDeleted = nearestCheck && nearestCheck.checked ? 1 : 0;
         if (e.target.classList.contains('btn_delete')) {
-            await deleteRecord(row, showDeleted);
+            await deleteRecord(row, shDeleted);
         } else {
             await createEditForm(e.target.closest('.dict-block__row'));
         }
@@ -200,127 +207,127 @@ async function addButtonEvent(event, btn) {
     }
 }
 
-/**
- * DnD handler functions
- */
-
-/**
- * handle drag start function
- * obtain data from dragged element
- * @param event
- */
-function handleDragStart(event) {
-    dragSrcEl = this;
-    event.dataTransfer.effectAllowed = 'move';
-    event.dataTransfer.setData('text/html', this.innerHTML);
-}
-
-
-/**
- * handle drag drop functions
- * exchange inner HTML's between blocks
- * then return event listeners to elements
- * @param event
- * @returns {boolean}
- */
-function handleDrop(event) {
-    if (dragSrcEl !== this) {
-        const sourceClasses = dragSrcEl.className;
-        dragSrcEl.className = this.className;
-        this.className = sourceClasses;
-
-        dragSrcEl.innerHTML = this.innerHTML;
-        this.innerHTML = event.dataTransfer.getData('text/html');
-
-        /**
-         * return listeners for target block
-         */
-        const thisSearchSubmit = this.querySelector('.search_submit');
-        const thisBlock = this.querySelector('.dict-block__content');
-        thisBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', async e => {
-                await editDeleteRow(e, row);
-            });
-        });
-        this.querySelector('.btn_add').addEventListener('click', async e => {
-            await addButtonEvent(e, this.querySelector('.btn_add'));
-        });
-        if (thisSearchSubmit) {
-            thisSearchSubmit.addEventListener('click', async e => {
-                const btnEvent = searchButtonEvent(thisSearchSubmit, e);
-                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
-                btnEvent[0].remove();
-            });
-            thisSearchSubmit.nextElementSibling.addEventListener('click', e => {
-                clearSearch(e.target);
-            });
-        }
-        thisBlock.addEventListener('mouseover', async e => {
-            const lastRecord = thisBlock.querySelector('div[data-last]:not([data-last = ""])')
-            if (e.target === lastRecord) {
-                let searchString = normalizeSearchString(lastRecord);
-                if (!searchString) {
-                    searchString = '';
-                }
-                const nextRecords = await appendNewRows(lastRecord, thisBlock, searchString, 0, 0);
-                for (let i = 0; i < nextRecords.length; i++) {
-                    nextRecords[i].addEventListener('click', e => {
-                        editDeleteRow(e, nextRecords[i]);
-                    });
-                }
-            }
-        });
-        /**
-         * return listeners for source block
-         */
-        const srcSearchSubmit = dragSrcEl.querySelector('.search_submit');
-        const dragBlock = dragSrcEl.querySelector('.dict-block__content');
-        dragBlock.querySelectorAll('div').forEach(row => {
-            row.addEventListener('click', async e => {
-                await editDeleteRow(e, row);
-            });
-        });
-        dragSrcEl.querySelector('.btn_add').addEventListener('click', async e => {
-            await addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
-        });
-        if (srcSearchSubmit) {
-            srcSearchSubmit.addEventListener('click', async e => {
-                const btnEvent = searchButtonEvent(srcSearchSubmit, e);
-                await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
-                btnEvent[0].remove();
-            });
-            srcSearchSubmit.nextElementSibling.addEventListener('click', e => {
-                clearSearch(e.target);
-            });
-        }
-        dragBlock.addEventListener('mouseover', async e => {
-            const lastRecord = dragBlock.querySelector('div[data-last]:not([data-last = ""])')
-            if (e.target === lastRecord) {
-                e.preventDefault();
-                let searchString = normalizeSearchString(lastRecord);
-                if (!searchString) {
-                    searchString = '';
-                }
-                const nextRecords = await appendNewRows(lastRecord, dragBlock, searchString, 0, 0);
-                for (let i = 0; i < nextRecords.length; i++) {
-                    nextRecords[i].addEventListener('click', e => {
-                        editDeleteRow(e, nextRecords[i]);
-                    });
-                }
-            }
-        });
-    }
-    return false;
-}
-
-/**
- * handle drag function
- * remove class 'over' from draggable elements
- * when dropped
- * @param event
- */
-function handleDragEnd(event) {
-    dictBlockList.forEach(block => {
-        block.querySelector('.dict-block__header').classList.remove('over')
-    });
-}
+// /**
+//  * DnD handler functions
+//  */
+//
+// /**
+//  * handle drag start function
+//  * obtain data from dragged element
+//  * @param event
+//  */
+// function handleDragStart(event) {
+//     dragSrcEl = this;
+//     event.dataTransfer.effectAllowed = 'move';
+//     event.dataTransfer.setData('text/html', this.innerHTML);
+// }
+//
+//
+// /**
+//  * handle drag drop functions
+//  * exchange inner HTML's between blocks
+//  * then return event listeners to elements
+//  * @param event
+//  * @returns {boolean}
+//  */
+// function handleDrop(event) {
+//     if (dragSrcEl !== this) {
+//         const sourceClasses = dragSrcEl.className;
+//         dragSrcEl.className = this.className;
+//         this.className = sourceClasses;
+//
+//         dragSrcEl.innerHTML = this.innerHTML;
+//         this.innerHTML = event.dataTransfer.getData('text/html');
+//
+//         /**
+//          * return listeners for target block
+//          */
+//         const thisSearchSubmit = this.querySelector('.search_submit');
+//         const thisBlock = this.querySelector('.dict-block__content');
+//         thisBlock.querySelectorAll('div').forEach(row => {
+//             row.addEventListener('click', async e => {
+//                 await editDeleteRow(e, row);
+//             });
+//         });
+//         this.querySelector('.btn_add').addEventListener('click', async e => {
+//             await addButtonEvent(e, this.querySelector('.btn_add'));
+//         });
+//         if (thisSearchSubmit) {
+//             thisSearchSubmit.addEventListener('click', async e => {
+//                 const btnEvent = searchButtonEvent(thisSearchSubmit, e);
+//                 await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
+//                 btnEvent[0].remove();
+//             });
+//             thisSearchSubmit.nextElementSibling.addEventListener('click', e => {
+//                 clearSearch(e.target);
+//             });
+//         }
+//         thisBlock.addEventListener('mouseover', async e => {
+//             const lastRecord = thisBlock.querySelector('div[data-last]:not([data-last = ""])')
+//             if (e.target === lastRecord) {
+//                 let searchString = normalizeSearchString(lastRecord);
+//                 if (!searchString) {
+//                     searchString = '';
+//                 }
+//                 const nextRecords = await appendNewRows(lastRecord, thisBlock, searchString, 0, 0);
+//                 for (let i = 0; i < nextRecords.length; i++) {
+//                     nextRecords[i].addEventListener('click', e => {
+//                         editDeleteRow(e, nextRecords[i]);
+//                     });
+//                 }
+//             }
+//         });
+//         /**
+//          * return listeners for source block
+//          */
+//         const srcSearchSubmit = dragSrcEl.querySelector('.search_submit');
+//         const dragBlock = dragSrcEl.querySelector('.dict-block__content');
+//         dragBlock.querySelectorAll('div').forEach(row => {
+//             row.addEventListener('click', async e => {
+//                 await editDeleteRow(e, row);
+//             });
+//         });
+//         dragSrcEl.querySelector('.btn_add').addEventListener('click', async e => {
+//             await addButtonEvent(e, dragSrcEl.querySelector('.btn_add'));
+//         });
+//         if (srcSearchSubmit) {
+//             srcSearchSubmit.addEventListener('click', async e => {
+//                 const btnEvent = searchButtonEvent(srcSearchSubmit, e);
+//                 await appendNewRows(btnEvent[0], btnEvent[2], btnEvent[1], showDeleted, 0);
+//                 btnEvent[0].remove();
+//             });
+//             srcSearchSubmit.nextElementSibling.addEventListener('click', e => {
+//                 clearSearch(e.target);
+//             });
+//         }
+//         dragBlock.addEventListener('mouseover', async e => {
+//             const lastRecord = dragBlock.querySelector('div[data-last]:not([data-last = ""])')
+//             if (e.target === lastRecord) {
+//                 e.preventDefault();
+//                 let searchString = normalizeSearchString(lastRecord);
+//                 if (!searchString) {
+//                     searchString = '';
+//                 }
+//                 const nextRecords = await appendNewRows(lastRecord, dragBlock, searchString, 0, 0);
+//                 for (let i = 0; i < nextRecords.length; i++) {
+//                     nextRecords[i].addEventListener('click', e => {
+//                         editDeleteRow(e, nextRecords[i]);
+//                     });
+//                 }
+//             }
+//         });
+//     }
+//     return false;
+// }
+//
+// /**
+//  * handle drag function
+//  * remove class 'over' from draggable elements
+//  * when dropped
+//  * @param event
+//  */
+// function handleDragEnd(event) {
+//     dictBlockList.forEach(block => {
+//         block.querySelector('.dict-block__header').classList.remove('over')
+//     });
+// }

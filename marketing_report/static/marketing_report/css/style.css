@@ -685,7 +685,6 @@
   transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
   overflow: hidden;
   box-shadow: 6px 6px 12px #242F34;
-  cursor: move;
 }
 .dict-block_long {
   max-width: 600px;
@@ -834,10 +833,6 @@
 
 .dropdown__input_dict {
   font-size: inherit;
-}
-
-.over {
-  background-color: #EFE7DC;
 }
 
 .modal__check {
