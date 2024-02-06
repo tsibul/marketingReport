@@ -53,11 +53,8 @@
                         <div>импортировано {{ sales_date|date:'d.m.Y' }}</div>
                         <div>записей в базе {{ sales_imported }}</div>
                         <div id="resultSales" class="import-block__description alert"></div>
-                        <button type="submit" class="btn btn-save" onclick="importFileModal(this, 'sales');">
-                            импорт
-                        </button>
+                        <button type="submit" class="btn btn-save">импорт</button>
                     </div>
-
                 </div>
             </details>
             <details class="imports">
@@ -71,9 +68,7 @@
                         <input type="date" id="period-begin" class="form-input" name="start_date" required>
                         <label for="period-end">конец периода (<span class="alert">{{ period_end|date:'d.m.Y' }}</span>)</label>
                         <input type="date" id="period-end" class="form-input" name="end_date" required>
-                        <button type="submit" class="btn btn-save" onclick="reassignPeriods(this);">
-                            пересоздать
-                        </button>
+                        <button type="submit" class="btn btn-save">пересоздать</button>
                     </form>
 
                 </div>

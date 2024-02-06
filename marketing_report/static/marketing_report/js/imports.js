@@ -1,12 +1,19 @@
 'use strict'
 
-import {fetchJsonData} from "./func/fetchJsonData.js";
+import {importFileModalClose} from "./func/import/importFileModalClose.js";
+import {importFileModal} from "./func/import/importFileModal.js";
+import {importCustomers} from "./func/import/importCustomers.js";
+import {editTemporaryBase} from "./func/import/editTemporaryBase.js";
+import {reassignPeriods} from "./func/import/reassignPeriods.js";
 
 const buttonClose = document.querySelector('.modal.close');
 const importModal = document.querySelector('#import-file-modal');
 
 document.querySelector('#result').nextElementSibling
     .addEventListener('click', e => importFileModal(e.target, 'customers'));
+document.querySelector('#resultSales').nextElementSibling
+    .addEventListener('click', e => importFileModal(e.target, 'sales'));
+
 document.querySelector('#updated-customers').nextElementSibling
     .addEventListener('click', () => editTemporaryBase());
 
@@ -16,77 +23,14 @@ document.querySelector('#import_new_customers').nextElementSibling
 document.querySelector('#import_changed_customers').nextElementSibling
     .addEventListener('click', () => importCustomers('import_changed_customers'));
 
+document.querySelector('#period-end').nextElementSibling
+    .addEventListener('click', e => reassignPeriods(e.target));
+
 importModal.querySelector('.btn-close')
     .addEventListener('click', e => importFileModalClose(e.target));
 
-importModal.querySelector('.btn-save')
-    .addEventListener('click', e => importFileModal(e.target, 'sales'));
-
-
-function importFileModalClose(element) {
-    const modal = element.closest('#import-file-modal');
-    modal.classList.remove('import-file-modal_open');
-    setTimeout(() => {
-        modal.style.display = 'none';
-        modal.querySelector('#file-name').value = '';
-        modal.querySelector('.import-file-modal__header').textContent = 'Что-то пошло не так';
-    }, 250);
-}
-
-function importFileModal(thisButton, fileName) {
-    const header = thisButton.closest('.form-row__import').querySelector('.import-block__description');
-    const modal = document.getElementById('import-file-modal');
-    modal.querySelector('#file-name').value = fileName;
-    modal.style.display = 'block';
-    modal.querySelector('.import-file-modal__header').textContent = header.textContent;
-    setTimeout(() => {
-        modal.classList.add('import-file-modal_open');
-    }, 0);
-}
-
-async function editTemporaryBase() {
-    const counts = await fetchJsonData('/marketing/edit_temporary_base');
-    console.log(counts)
-    const newCustomers = document.getElementById('new-customers');
-    const updatedCustomers = document.getElementById('updated-customers');
-    newCustomers.textContent = `новые ${counts.new_customers}`;
-    updatedCustomers.textContent = `измененные ${counts.updated_customers}`;
-}
-
-async function importCustomers(url) {
-    const counts = await fetchJsonData('/marketing/' + url);
-    const newCustomers = document.getElementById(url);
-    newCustomers.textContent = `импортировано ${counts.result}`;
-}
-
-
-function reassignPeriods(button) {
-    button.preventDefault();
-    const currentForm = this.closest('form')
-    const dateBeginPrev = currentForm.querySelectorAll('.alert')[0];
-    const dateBeginPrevValue = dateBeginPrev.textContent.split('.')[2] + '-' +
-        dateBeginPrev.textContent.split('.')[1] + '-' + dateBeginPrev.textContent.split('.')[0];
-    const dateEndPrev = currentForm.querySelectorAll('.alert')[1];
-    const dateEndPrevValue = dateEndPrev.textContent.split('.')[2] + '-' +
-        dateEndPrev.textContent.split('.')[1] + '-' + dateEndPrev.textContent.split('.')[0];
-    const formData = new FormData(this);
-    fetch(this.action, {
-        method: 'POST',
-        body: formData
-    })
-        .then(response => response.json())
-        .then(data => {
-            if (dateBeginPrevValue > data.period_begin) {
-                dateBeginPrev.textContent = data.period_begin;
-            }
-            if (dateEndPrevValue < data.period_end) {
-                dateEndPrev.textContent = data.period_end;
-            }
-        })
-        .catch(error => {
-            console.error('Ошибка:', error);
-        });
-}
+// importModal.querySelector('.btn-save')
+//     .addEventListener('click', e => importFileModal(e.target, 'sales'));
 
 
 document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
