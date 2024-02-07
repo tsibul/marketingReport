@@ -62,13 +62,16 @@
                 <div class="imports__block">
                     <form class="form-row__import" method="post" action="{% url 'marketing_report:reassign_periods' %}">
                         {% csrf_token %}
-                        <h4 class="active border-title">1. Пересоздать периоды расчета</h4>
-                        <label for="period-begin">начало периода (<span
-                                class="alert">{{ period_begin|date:'d.m.Y' }}</span>)</label>
-                        <input type="date" id="period-begin" class="form-input" name="start_date" required>
-                        <label for="period-end">конец периода (<span class="alert">{{ period_end|date:'d.m.Y' }}</span>)</label>
-                        <input type="date" id="period-end" class="form-input" name="end_date" required>
-                        <button type="submit" class="btn btn-save">пересоздать</button>
+                        <h4 class="active border-title">1. Добавить периоды расчета</h4>
+                        <label for="period-begin">первый год диапазона (<span
+                                class="alert">{{ period_begin|date:'Y' }}</span>)</label>
+                        <input type="number" min="1900" max="2500" step="1" id="period-begin" class="form-input"
+                               name="start_date" required>
+                        <label for="period-end">последний год диапазона (<span
+                                class="alert">{{ period_end|date:'Y' }}</span>)</label>
+                        <input type="number" min="1900" max="2500" step="1" id="period-end" class="form-input"
+                               name="end_date" required>
+                        <button type="submit" class="btn btn-save">добавить</button>
                     </form>
 
                 </div>
