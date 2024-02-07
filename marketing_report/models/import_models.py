@@ -69,6 +69,7 @@ class ImportSales(models.Model):
     customer_frigat_id = models.IntegerField(null=True)
     customer_name = models.CharField(max_length=255, null=True)
     customer = models.ForeignKey(Customer, models.SET_NULL, null=True)
+    no_vat = models.BooleanField(default=False)
 
     def __repr__(self):
         return self.code
