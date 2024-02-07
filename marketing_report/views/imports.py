@@ -1,10 +1,12 @@
 import os
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.db.models import Min, Max
-from django.http import JsonResponse, HttpResponse
+from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
+
 from marketing_report.models import ImportCustomers, Customer, ReportPeriod
 from marketing_report.service_functions import (cst_to_temp_db, check_new_updated, import_customer_to_customer,
                                                 update_customer_from_changed, sales_to_temp_db)
@@ -94,19 +96,35 @@ def customer_change_to_customer(request):
 
 
 def reassign_report_periods(request):
-    begin_period = datetime.strptime(request.POST['start_date'], '%Y-%m-%d').date()
-    end_period = datetime.strptime(request.POST['end_date'], '%Y-%m-%d').date()
-    try:
-        del_periods = ReportPeriod.objects.filter(date_end__gte=begin_period, date_begin__lte=end_period)
-        del_periods.delete()
-    except:
-        pass
-    per = ReportPeriod()
-    for period_type in per.calculable_list():
-        per.set_period(begin_period, period_type)
-        while per.date_begin < end_period:
-            per.copy().save()
-            per.plus(1)
-    period_begin = ReportPeriod.objects.aggregate(Min('date_begin'))['date_begin__min']
-    period_end = ReportPeriod.objects.aggregate(Max('date_end'))['date_end__max']
-    return JsonResponse({'period_end': period_end, 'period_begin': period_begin})
+    begin_year = int(request.POST['start_date'])
+    end_year = int(request.POST['end_date'])
+    begin_period = datetime(begin_year, 1, 1).date()
+    end_period = datetime(end_year, 12, 31).date()
+    old_period_begin = ReportPeriod.objects.aggregate(Min('date_begin'))['date_begin__min']
+    old_period_end = ReportPeriod.objects.aggregate(Max('date_end'))['date_end__max']
+    if not old_period_begin:
+        per = ReportPeriod()
+        for period_type in per.calculable_list():
+            per.set_period(begin_period, period_type)
+            while per.date_begin < end_period:
+                per.copy().save()
+                per.plus(1)
+    else:
+        if begin_period < old_period_begin:
+            per = ReportPeriod()
+            for period_type in per.calculable_list():
+                per.set_period(begin_period, period_type)
+                while per.date_begin < old_period_begin:
+                    per.copy().save()
+                    per.plus(1)
+        if end_period > old_period_end:
+            per = ReportPeriod()
+            for period_type in per.calculable_list():
+                per.set_period(old_period_end + timedelta(days=1), period_type)
+                while per.date_begin < end_period:
+                    per.copy().save()
+                    per.plus(1)
+    # period_begin = ReportPeriod.objects.aggregate(Min('date_begin'))['date_begin__min']
+    # period_end = ReportPeriod.objects.aggregate(Max('date_end'))['date_end__max']
+    return HttpResponseRedirect(reverse('marketing_report:imports'))
+    # return JsonResponse({'period_end': period_end, 'period_begin': period_begin})
