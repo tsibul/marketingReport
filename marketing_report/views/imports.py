@@ -7,7 +7,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 from marketing_report.models import ImportCustomers, Customer, ReportPeriod
 from marketing_report.service_functions import (cst_to_temp_db, check_new_updated, import_customer_to_customer,
-                                                update_customer_from_changed)
+                                                update_customer_from_changed, sales_to_temp_db)
 
 
 def imports(request):
@@ -77,7 +77,6 @@ def customers_new_to_main_db(request):
     return JsonResponse({'result': result})
 
 
-
 def customer_change_to_customer(request):
     """ импорт измененных записей из ImportCustomer в  Customer
     :return
@@ -92,12 +91,6 @@ def customer_change_to_customer(request):
                                      ['form', 'name', 'inn', 'region', 'address', 'phone', 'all_phones', 'mail',
                                       'all_mails'])
     return JsonResponse({'result': result})
-
-
-def sales_to_temp_db():
-    """импорт данных о продажах во временную базу"""
-    result = ''
-    return len(result)
 
 
 def reassign_report_periods(request):
