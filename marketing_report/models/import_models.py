@@ -1,10 +1,15 @@
+import datetime
+
 from django.core.files.storage import FileSystemStorage
 from django.db import models
+
+from marketing_report.models import Goods, Color, Customer
 
 fs = FileSystemStorage(location="/static/marketing_report/files")
 
 
 class ImportCustomers (models.Model):
+    import_date = models.DateField(default=datetime.date(2024, 1, 31))
     frigat_id = models.IntegerField(db_index=True)
     form = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255)
