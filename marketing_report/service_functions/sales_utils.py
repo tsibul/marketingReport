@@ -6,8 +6,10 @@ from marketing_report.models import ImportSales, Customer, Goods, Color
 
 def sales_to_temp_db():
     """импорт данных о продажах во временную базу"""
-    ImportSales.objects.all().delete()
+    # ImportSales.objects.all().delete()
     sales = []
+    min_date = datetime.datetime.strptime('01.01.2500', '%d.%m.%Y')
+    max_date = datetime.datetime.strptime('01.01.1900', '%d.%m.%Y')
     with open('marketing_report/uploaded/sales.csv', newline='', encoding='utf-8', errors='replace') as sales_csv:
         csv_reader = csv.reader(sales_csv, delimiter=';')
         for row in csv_reader:
@@ -28,6 +30,11 @@ def sales_to_temp_db():
                 color_code = full_code[len(code) + 1:]
                 color = Color.objects.filter(code=main_color).first()
                 no_vat = sale_with_vat == sale_without_vat
+                sales_doc_date = datetime.datetime.strptime(sales_doc_date, '%d.%m.%Y')
+                if sales_doc_date > max_date:
+                    max_date = sales_doc_date
+                if sales_doc_date < min_date:
+                    min_date = sales_doc_date
                 sale = ImportSales(
                     import_date=datetime.date.today(),
                     code=full_code,
@@ -37,7 +44,7 @@ def sales_to_temp_db():
                     color=color,
                     quantity=quantity.replace(',', '.'),
                     sales_doc_no=sales_doc_no,
-                    sales_doc_date=datetime.datetime.strptime(sales_doc_date,'%d.%m.%Y'),
+                    sales_doc_date=sales_doc_date,
                     purchase_without_vat=purchase_without_vat.replace(',', '.'),
                     purchase_with_vat=purchase_with_vat.replace(',', '.'),
                     sale_without_vat=sale_without_vat.replace(',', '.'),
@@ -51,5 +58,7 @@ def sales_to_temp_db():
                 sales.append(sale)
             except Exception as e:
                 print(f"ошибка в записи {e}")
+    ImportSales.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
     result = ImportSales.objects.bulk_create(sales)
+    print(len(result))
     return len(result)
