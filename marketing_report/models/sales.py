@@ -1,12 +1,13 @@
+import datetime
+
 from django.db import models
-from datetime import datetime
 from marketing_report.models.report_period import ReportPeriod
 from marketing_report.models.customer_models import Customer
 from marketing_report.models.goods_models import Goods
 from marketing_report.models.color_models import Color
 
 
-class SalesDocs(models.Model):
+class SalesDoc(models.Model):
 
     class Meta:
         verbose_name = 'отгрузочные документы'
@@ -59,10 +60,10 @@ class Sales(models.Model):
 
     import_date = models.DateField(default=datetime.date(2000, 1, 1))
     code = models.CharField(max_length=30)
-    detail_set = models.ForeignKey(Goods, models.SET_NULL, null=True, db_index=True)
+    goods = models.ForeignKey(Goods, models.SET_NULL, null=True, db_index=True)
     color_code = models.CharField(max_length=40, null=True)
     main_color = models.CharField(max_length=12, null=True)
-    item_color = models.ForeignKey(Color, models.SET_NULL, null=True)
+    color = models.ForeignKey(Color, models.SET_NULL, null=True)
     series_id = models.IntegerField(null=True)
     good_id = models.IntegerField(null=True)
     good_group_id = models.IntegerField(null=True)
@@ -83,10 +84,12 @@ class Sales(models.Model):
     customer_name = models.CharField(max_length=255, null=True)
     customer_frigat_id = models.IntegerField(null=True)
     customer_all = models.ForeignKey(Customer, models.SET_NULL, null=True)
-    sales_doc = models.ForeignKey(SalesDocs, models.SET_NULL, null=True, db_index=True)
+    sales_doc = models.ForeignKey(SalesDoc, models.SET_NULL, null=True, db_index=True)
 
     def __repr__(self):
         return self.code
 
     def __str__(self):
         return str(self.code)
+
+
