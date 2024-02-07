@@ -53,7 +53,8 @@ def sales_to_temp_db():
                     customer_frigat_id=customer_frigat_id,
                     customer_name=customer_name.replace('"', ''),
                     customer=customer,
-                    no_vat=no_vat
+                    no_vat=no_vat,
+                    profit=int(sale_without_vat) - int(purchase_without_vat)
                 )
                 sales.append(sale)
             except Exception as e:

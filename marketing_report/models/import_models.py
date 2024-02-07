@@ -50,6 +50,8 @@ class ImportSales(models.Model):
     customer_frigat_id: код клиента фрегат [21]
     customer_name: название клиента [22]
     customer: клиент (ссылка)
+    no_vat: если продажа без НДС
+    profit: прибыль
     """
 
     import_date = models.DateField(default=datetime.date(2024, 1, 31))
@@ -70,6 +72,8 @@ class ImportSales(models.Model):
     customer_name = models.CharField(max_length=255, null=True)
     customer = models.ForeignKey(Customer, models.SET_NULL, null=True)
     no_vat = models.BooleanField(default=False)
+    profit = models.FloatField(default=0)
+
 
     def __repr__(self):
         return self.code
