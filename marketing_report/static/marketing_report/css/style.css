@@ -924,4 +924,8 @@
   grid-template-columns: 6fr 3fr 2fr 5fr 5fr 4fr 3fr 3fr 3fr 3fr;
 }
 
+.business-unit {
+  grid-template-columns: 2fr 2fr 1fr;
+}
+
 /*# sourceMappingURL=style.css.map */
