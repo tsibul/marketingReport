@@ -13,6 +13,7 @@ export const dictList = {
     customerType: 'CustomerType',
     customerGroup: 'CustomerGroup',
     customer: 'Customer',
+    businessUnit: 'BusinessUnit',
 
     detailName: 'DetailName',
     detailInGoods: 'DetailInGoods',
@@ -26,6 +27,7 @@ export const dictList = {
     crm_type: 'CrmType',
     customer_type: 'CustomerType',
     customer_group: 'CustomerGroup',
+    business_unit: 'BusinessUnit',
 
     detail_in_goods: 'DetailInGoods',
     detail_name: 'DetailName',
