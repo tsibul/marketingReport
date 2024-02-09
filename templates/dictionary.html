@@ -63,6 +63,11 @@
                             <input type="checkbox" class="checkbox-out" id="printType">
                             <label for="printType"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Тип печати</label>
                         </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="businessUnit">
+                            <label for="businessUnit"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Направление
+                                деятельности</label>
+                        </div>
                     </details>
                 </div>
                 <div class="dict-right">
@@ -217,20 +222,23 @@
                             </div>
                         </div>
                     </details><!-- Товарная матрица -->
-                    <details class="dict-block">
+                    <details class="dict-block dict-block__2">
                         <summary class="dict-block__header">
                             <div class="dict-block__active"><i class=" fa-flip fa fa-regular fa-pen-to-square"></i>Группы
                                 товаров
                             </div>
                         </summary>
-                        <div class="dict-block__row dict-block__active service-dict">
+                        <div class="dict-block__row dict-block__active business-unit">
                             <div>Группы товаров</div>
+                            <div>Направление</div>
                             <button class="btn btn-save btn_add">добавить</button>
                         </div>
                         <div class="dict-block__content ">
-                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0" id="crmType-0">
+                            <div class="dict-block__row business-unit dict-block__row_hidden" data-id="0" id="crmType-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text" data-name="name" data-field="name"></div>
+                                <div class="dict-block__text foreign-key" data-name="business_unit"
+                                     data-field="business_unit"></div>
                                 <button class="btn btn-close btn_delete" type="button">
                                     удалить
                                 </button>
@@ -352,6 +360,29 @@
                             </div>
                         </div>
                     </details><!-- клиенты -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class=" fa-flip fa fa-regular fa-pen-to-square"></i>ТНаправление
+                                деятельности
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active business-unit dict-block__row_right-margin">
+                            <div>код</div>
+                            <div>направление</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row business-unit dict-block__row_hidden" data-id="0"
+                                 id="businessUnit-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="code" data-name="code"></div>
+                                <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Направление деятельности -->
                 </div>
             </div>
         </div>
