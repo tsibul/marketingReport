@@ -7,9 +7,9 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from marketing_report.models import ImportCustomers, Customer, ReportPeriod, ImportSales
+from marketing_report.models import ImportCustomers, Customer, ReportPeriod, SalesTransactions
 from marketing_report.service_functions import (cst_to_temp_db, check_new_updated, import_customer_to_customer,
-                                                update_customer_from_changed, sales_to_temp_db)
+                                                update_customer_from_changed, sales_import_management)
 
 
 def imports(request):
@@ -24,7 +24,7 @@ def imports(request):
     customers_changed = customers.filter(changed=True).count()
     period_begin = ReportPeriod.objects.aggregate(Min('date_begin'))['date_begin__min']
     period_end = ReportPeriod.objects.aggregate(Max('date_end'))['date_end__max']
-    import_sales = ImportSales.objects.all().count()
+    import_sales = SalesTransactions.objects.all().count()
     context = {'navi': navi, 'cst_date': cst_date, 'customers_imported': customers_imported,
                'customers_new': customers_new, 'customers_changed': customers_changed, 'sales_date': sales_date,
                'period_begin': period_begin, 'period_end': period_end, 'import_sales': import_sales}
@@ -47,7 +47,7 @@ def import_file(request):
     if file_name == 'customers.csv':
         result = cst_to_temp_db()
     elif file_name == 'sales.csv':
-        result = sales_to_temp_db()
+        result = sales_import_management()
     return JsonResponse({'result': result})
 
 
