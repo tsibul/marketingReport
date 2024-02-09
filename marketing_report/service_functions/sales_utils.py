@@ -1,10 +1,19 @@
 import csv
 import datetime
 
-from marketing_report.models import ImportSales, Customer, Goods, Color
+from django.db.models import Sum, Subquery, OuterRef, Count, Max, Min
+
+from marketing_report.models import SalesTransactions, Customer, Goods, Color, SalesDoc, find_all_period_by_date_range, \
+    ReportPeriod, BusinessUnit
 
 
-def sales_to_temp_db():
+def sales_import_management():
+    sales_transactions, min_date, max_date = sales_to_sales_transactions()
+    sales_docs = sales_to_sales_doc(min_date, max_date)
+    periods = find_all_period_by_date_range(min_date, max_date)
+
+
+def sales_to_sales_transactions():
     """импорт данных о продажах во временную базу"""
     # ImportSales.objects.all().delete()
     sales = []
@@ -35,7 +44,8 @@ def sales_to_temp_db():
                     max_date = sales_doc_date
                 if sales_doc_date < min_date:
                     min_date = sales_doc_date
-                sale = ImportSales(
+                goods_no_error = True if goods else False
+                sale = SalesTransactions(
                     import_date=datetime.date.today(),
                     code=full_code,
                     goods=goods,
@@ -54,12 +64,64 @@ def sales_to_temp_db():
                     customer_name=customer_name.replace('"', ''),
                     customer=customer,
                     no_vat=no_vat,
-                    profit=int(sale_without_vat) - int(purchase_without_vat)
+                    good_no_error=goods_no_error,
+                    profit=float(sale_without_vat.replace(',', '.')) - float(purchase_without_vat.replace(',', '.')),
+                    business_unit=goods.crm_type.business_unit
                 )
+                sale.set_periods()
                 sales.append(sale)
             except Exception as e:
                 print(f"ошибка в записи {e}")
-    ImportSales.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
-    result = ImportSales.objects.bulk_create(sales)
-    print(len(result))
-    return len(result)
+    SalesTransactions.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
+    sales_transactions = SalesTransactions.objects.bulk_create(sales)
+    return sales_transactions, min_date.date(), max_date.date()
+
+
+def sales_to_sales_doc(min_date, max_date):
+    SalesDoc.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
+    sales_doc_query = SalesTransactions.objects.filter(
+        sales_doc_date__gte=min_date,
+        sales_doc_date__lte=max_date
+    ).values(
+        'sales_doc_no', 'sales_doc_date'
+    ).annotate(
+        customer=Min('customer'),
+        no_vat=Max('no_vat'),
+        good_no_error=Min('good_no_error'),
+        month=Min('month'),
+        quarter=Min('quarter'),
+        year=Min('year'),
+        quantity=Sum('quantity'),
+        sale_with_vat=Sum('sale_with_vat'),
+        sale_without_vat=Sum('sale_without_vat'),
+        purchase_with_vat=Sum('purchase_with_vat'),
+        purchase_without_vat=Sum('purchase_without_vat'),
+        profit=Sum('profit'),
+        business_unit=Subquery(
+            SalesTransactions.objects.filter(
+                sales_doc_date__gte=min_date,
+                sales_doc_date__lte=max_date,
+                business_unit=OuterRef('business_unit')
+            ).values('business_unit').annotate(count=Count('business_unit')).order_by('-count')[:1].values(
+                'business_unit')
+        )
+    ).order_by('sales_doc_date', 'sales_doc_no')
+    sales_docs = list(map(lambda item: SalesDoc(
+        sales_doc_no=item['sales_doc_no'],
+        sales_doc_date=item['sales_doc_date'],
+        customer=Customer.objects.get(id=item['customer']),
+        customer_frigat_id=Customer.objects.get(id=item['customer']).frigat_code,
+        no_vat=item['no_vat'],
+        good_no_error=item['good_no_error'],
+        month=ReportPeriod.objects.get(id=item['month']),
+        quarter=ReportPeriod.objects.get(id=item['quarter']),
+        year=ReportPeriod.objects.get(id=item['year']),
+        quantity=item['quantity'],
+        sale_with_vat=item['sale_with_vat'],
+        sale_without_vat=item['sale_without_vat'],
+        purchase_with_vat=item['purchase_with_vat'],
+        purchase_without_vat=item['purchase_without_vat'],
+        profit=item['profit'],
+        business_unit=BusinessUnit.objects.get(id=item['business_unit'])
+    ), sales_doc_query))
+    return SalesDoc.objects.bulk_create(sales_docs)
