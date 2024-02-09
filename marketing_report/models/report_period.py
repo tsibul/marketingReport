@@ -4,9 +4,7 @@ import json
 
 from django.db import models
 
-
 from django.utils.translation import gettext_lazy as _
-
 
 month_rus = {
     1: 'Январь',
@@ -105,3 +103,10 @@ def json_periods():
         period_dict.update({period.value: str(period.label)})
     return json.dumps(period_dict)
 
+
+def find_all_period_by_date_range(date_begin, date_end):
+    return ReportPeriod.objects.filter(date_begin__lte=date_begin, date_end__gte=date_end)
+
+
+def find_period_by_date_range(period, date_begin, date_end):
+    return find_all_period_by_date_range(date_begin, date_end).filter(period=period)
