@@ -1,16 +1,26 @@
 import csv
 import datetime
 
-from django.db.models import Sum, Subquery, OuterRef, Count, Max, Min
+from django.db.models import Sum, Subquery, OuterRef, Count, Max, Min, F
 
 from marketing_report.models import SalesTransactions, Customer, Goods, Color, SalesDoc, find_all_period_by_date_range, \
-    ReportPeriod, BusinessUnit
+    ReportPeriod, BusinessUnit, create_sales_period, create_sales_period_business_unit
 
 
 def sales_import_management():
-    sales_transactions, min_date, max_date = sales_to_sales_transactions()
-    sales_docs = sales_to_sales_doc(min_date, max_date)
+    min_date, max_date = sales_to_sales_transactions()
+    sales_transactions_query = SalesTransactions.objects.filter(
+        sales_doc_date__gte=min_date,
+        sales_doc_date__lte=max_date
+    )
+    sales_to_sales_doc(min_date, max_date, sales_transactions_query)
+    sales_docs_query = SalesDoc.objects.filter(
+        sales_doc_date__gte=min_date,
+        sales_doc_date__lte=max_date
+    )
     periods = find_all_period_by_date_range(min_date, max_date)
+    create_sales_period(periods, sales_docs_query)
+    create_sales_period_business_unit(periods, sales_docs_query)
 
 
 def sales_to_sales_transactions():
@@ -73,38 +83,22 @@ def sales_to_sales_transactions():
             except Exception as e:
                 print(f"ошибка в записи {e}")
     SalesTransactions.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
-    sales_transactions = SalesTransactions.objects.bulk_create(sales)
-    return sales_transactions, min_date.date(), max_date.date()
+    SalesTransactions.objects.bulk_create(sales)
+    return min_date.date(), max_date.date()
 
 
-def sales_to_sales_doc(min_date, max_date):
-    SalesDoc.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
-    sales_doc_query = SalesTransactions.objects.filter(
-        sales_doc_date__gte=min_date,
-        sales_doc_date__lte=max_date
-    ).values(
-        'sales_doc_no', 'sales_doc_date'
+def sales_to_sales_doc(min_date, max_date, sales_transactions_query):
+    sales_doc_query = sales_transactions_query.values(
+        'sales_doc_no', 'sales_doc_date', 'customer', 'no_vat', 'month', 'quarter', 'year'
     ).annotate(
-        customer=Min('customer'),
-        no_vat=Max('no_vat'),
         good_no_error=Min('good_no_error'),
-        month=Min('month'),
-        quarter=Min('quarter'),
-        year=Min('year'),
         quantity=Sum('quantity'),
         sale_with_vat=Sum('sale_with_vat'),
         sale_without_vat=Sum('sale_without_vat'),
         purchase_with_vat=Sum('purchase_with_vat'),
         purchase_without_vat=Sum('purchase_without_vat'),
         profit=Sum('profit'),
-        business_unit=Subquery(
-            SalesTransactions.objects.filter(
-                sales_doc_date__gte=min_date,
-                sales_doc_date__lte=max_date,
-                business_unit=OuterRef('business_unit')
-            ).values('business_unit').annotate(count=Count('business_unit')).order_by('-count')[:1].values(
-                'business_unit')
-        )
+        business_unit=Max('business_unit'),
     ).order_by('sales_doc_date', 'sales_doc_no')
     sales_docs = list(map(lambda item: SalesDoc(
         sales_doc_no=item['sales_doc_no'],
@@ -124,4 +118,14 @@ def sales_to_sales_doc(min_date, max_date):
         profit=item['profit'],
         business_unit=BusinessUnit.objects.get(id=item['business_unit'])
     ), sales_doc_query))
-    return SalesDoc.objects.bulk_create(sales_docs)
+    SalesDoc.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
+    SalesDoc.objects.bulk_create(sales_docs)
+
+# Subquery(
+#     SalesTransactions.objects.filter(
+#         sales_doc_date__gte=min_date,
+#         sales_doc_date__lte=max_date,
+#         business_unit=OuterRef('business_unit')
+#     ).values('business_unit').annotate(count=Count('business_unit')).order_by('-count')[:1].values(
+#         'business_unit')
+# )
