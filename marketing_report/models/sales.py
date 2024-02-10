@@ -62,29 +62,6 @@ class SalesDoc(SalesAbstract):
     class Meta:
         verbose_name = 'отгрузочные документы'
 
-    # def __init__(self, sales_doc_no, sales_doc_date, customer,
-    #              quantity, sale_with_vat, sale_without_vat, purchase_with_vat, purchase_without_vat,
-    #              profit, no_vat, good_no_error, month, quarter, year,
-    #              business_unit, *args, **kwargs):
-    #     super(SalesDoc, self).__init__(*args, **kwargs)
-    #
-    #     self.sales_doc_no = sales_doc_no
-    #     self.sales_doc_date = sales_doc_date
-    #     self.customer = Customer.objects.get(id=customer)
-    #     self.customer_frigat_id = self.customer.customer_type_id
-    #     self.quantity = quantity
-    #     self.sale_with_vat = sale_with_vat
-    #     self.sale_without_vat = sale_without_vat
-    #     self.purchase_with_vat = purchase_with_vat
-    #     self.purchase_without_vat = purchase_without_vat
-    #     self.profit = profit
-    #     self.no_vat = no_vat
-    #     self.good_no_error = good_no_error
-    #     self.business_unit = BusinessUnit.objects.get(id=business_unit)
-    #     self.month = ReportPeriod.objects.get(id=month)
-    #     self.year = ReportPeriod.objects.get(id=year)
-    #     self.quarter = ReportPeriod.objects.get(id=quarter)
-
     def __repr__(self):
         return str(self.sales_doc_no) + ' от ' + str(self.sales_doc_date)
 
