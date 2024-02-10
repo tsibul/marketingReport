@@ -88,11 +88,12 @@ def dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted): 
                 dict_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
         elif dict_type == 'CustomerGroup':
             if not sh_deleted:
-                dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+                dict_items = dict_model.objects.filter(deleted=False, default=False).order_by(*order)
             else:
-                dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
+                dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False,
+                                                       default=False).order_by(*order)
         else:
-            dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
+            dict_items = dict_model.objects.filter(deleted=False, default=False).order_by(*order)
     else:
         search_string = search_string.replace('_', ' ')
         if dict_type == 'Customer':
