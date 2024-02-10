@@ -1,10 +1,10 @@
 import csv
 import datetime
 
-from django.db.models import Sum, Subquery, OuterRef, Count, Max, Min, F
+from django.db.models import Sum, Max, Min
 
 from marketing_report.models import SalesTransactions, Customer, Goods, Color, SalesDoc, find_all_period_by_date_range, \
-    ReportPeriod, BusinessUnit, create_sales_period, create_sales_period_business_unit
+    ReportPeriod, BusinessUnit, create_sales_period, create_sales_period_business_unit, create_goods_period
 
 
 def sales_import_management():
@@ -21,6 +21,7 @@ def sales_import_management():
     periods = find_all_period_by_date_range(min_date, max_date)
     create_sales_period(periods, sales_docs_query)
     create_sales_period_business_unit(periods, sales_docs_query)
+    create_goods_period(periods, sales_transactions_query)
 
 
 def sales_to_sales_transactions():

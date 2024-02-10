@@ -33,10 +33,10 @@ def create_goods_period(periods, sales_transactions):
     sales_month = sales_transactions.values(
         period=F('month'),
         good_id=F('goods'),
-        color_id=F('main_color')
+        color_pk=F('color')
     ).annotate(
         quantity=Sum('quantity'),
-        cost_without_vat=Sum('cost_without_vat'),
+        cost_without_vat=Sum('purchase_without_vat'),
         sale_without_vat=Sum('sale_without_vat'),
         sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
@@ -45,10 +45,10 @@ def create_goods_period(periods, sales_transactions):
     sales_quarter = sales_transactions.values(
         period=F('quarter'),
         good_id=F('goods'),
-        color_id=F('main_color')
+        color_pk=F('color')
     ).annotate(
         quantity=Sum('quantity'),
-        cost_without_vat=Sum('cost_without_vat'),
+        cost_without_vat=Sum('purchase_without_vat'),
         sale_without_vat=Sum('sale_without_vat'),
         sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
@@ -57,10 +57,10 @@ def create_goods_period(periods, sales_transactions):
     sales_year = sales_transactions.values(
         period=F('year'),
         good_id=F('goods'),
-        color_id=F('main_color')
+        color_pk=F('color')
     ).annotate(
         quantity=Sum('quantity'),
-        cost_without_vat=Sum('cost_without_vat'),
+        cost_without_vat=Sum('purchase_without_vat'),
         sale_without_vat=Sum('sale_without_vat'),
         sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
@@ -69,12 +69,16 @@ def create_goods_period(periods, sales_transactions):
     sales_period = sales_month.union(sales_quarter, sales_year)
     sales_docs = list(map(lambda item: GoodsPeriod(
         period=ReportPeriod.objects.get(id=item['period']),
-        quantity=item['total_quantity'],
-        sale_without_vat=item['total_sales_without_vat'],
-        sale_with_vat=item['total_sales_with_vat'],
-        profit=item['total_profit'],
+        good=Goods.objects.get(id=item['good_id']),
+        main_color=Color.objects.filter(id=item['color_pk']).first(),
+
+        quantity=item['quantity'],
+        cost_without_vat=item['cost_without_vat'],
+        sale_without_vat=item['sale_without_vat'],
+        sale_with_vat=item['sale_with_vat'],
+        profit=item['profit'],
         sales_no=item['sales_no'],
-        price_with_vat= item['sale_with_vat'] / item['quantity']
+        price_with_vat=item['sale_with_vat'] / item['quantity']
     ), sales_period))
     GoodsPeriod.objects.filter(period__in=periods).delete()
     GoodsPeriod.objects.bulk_create(sales_docs)

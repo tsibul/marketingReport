@@ -39,3 +39,11 @@ class Customer(models.Model):
     @staticmethod
     def order_default():
         return ['name']
+
+    # def save(self, *args, **kwargs):
+        # if self.group:
+        #     self.name = self.group.name
+        # else:
+        #     self.name = self.customer.name
+        # super().save(*args, **kwargs)
+
