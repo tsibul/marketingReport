@@ -16,3 +16,8 @@ class CustomerGroup(SettingsDictionary):
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
     active = models.BooleanField(default=True)
     default = models.BooleanField(default=True)
+
+
+class CustomerGroupFrigateId(models.Model):
+    customer_group = models.ForeignKey(CustomerGroup, on_delete=models.CASCADE)
+    frigate_code = models.CharField(max_length=30, unique=True)
