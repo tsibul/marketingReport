@@ -11,7 +11,7 @@ class ImportCustomers (models.Model):
     Model for Customer Import
     """
     import_date = models.DateField(default=datetime.date(2024, 1, 31))
-    frigat_id = models.IntegerField(db_index=True)
+    frigate_code = models.CharField(max_length=30, unique=True)
     form = models.CharField(max_length=255, blank=True)
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255, blank=True)

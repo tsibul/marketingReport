@@ -13,7 +13,7 @@ class Customer(models.Model):
     region = models.CharField(max_length=2)
     customer_group = models.ForeignKey(CustomerGroup, models.SET_NULL, null=True, default=None)
     customer_type = models.ForeignKey(CustomerType, models.SET_NULL, null=True, default=None)
-    frigat_code = models.CharField(max_length=30, default='', db_index=True, unique=True, primary_key=True)
+    frigate_code = models.CharField(max_length=30, default='', db_index=True, unique=True)
     phone = models.CharField(max_length=255, blank=True)
     all_phones = models.CharField(max_length=600, null=True, blank=True)
     mail = models.CharField(max_length=255, null=True, blank=True)

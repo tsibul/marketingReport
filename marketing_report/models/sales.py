@@ -17,7 +17,7 @@ class SalesAbstract(models.Model):
     purchase_with_vat: сумма с НДС закупки [16]
     sale_without_vat: сумма без НДС продажи [17]
     sale_with_vat: сумма с НДС продажи [19]
-    customer_frigat_id: код клиента фрегат [21]
+    customer_frigate_code: код клиента фрегат [21]
     customer: клиент (ссылка)
     no_vat: если продажа без НДС
     profit: прибыль
@@ -29,7 +29,7 @@ class SalesAbstract(models.Model):
 
     sales_doc_no = models.CharField(max_length=20, null=True)
     sales_doc_date = models.DateField(default=datetime.date(2000, 1, 1))
-    customer_frigat_id = models.IntegerField(null=True)
+    customer_frigate_id = models.CharField(max_length=30, null=True, blank=True)
     customer = models.ForeignKey(Customer, models.SET_NULL, null=True)
     quantity = models.FloatField(default=0)
     sale_with_vat = models.FloatField(default=0)
@@ -43,8 +43,6 @@ class SalesAbstract(models.Model):
     year = models.ForeignKey(ReportPeriod, models.SET_NULL, null=True, default='', related_name='year_%(class)s')
     good_no_error = models.BooleanField(default=True)
     business_unit = models.ForeignKey(BusinessUnit, models.SET_NULL, null=True)
-
-
 
     def set_periods(self):
         month = ReportPeriod.objects.get(period='MT', date_begin__lte=self.sales_doc_date,
