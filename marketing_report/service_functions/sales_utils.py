@@ -35,9 +35,9 @@ def sales_to_sales_transactions():
         for row in csv_reader:
             try:
                 (full_code, _, _, _, _, _, _, _, _, _, quantity, _, sales_doc_no, sales_doc_date, purchase_without_vat,
-                 purchase_with_vat, sale_without_vat, _, sale_with_vat, price_vat, customer_frigat_id,
+                 purchase_with_vat, sale_without_vat, _, sale_with_vat, price_vat, customer_frigate_id,
                  customer_name) = row
-                customer = Customer.objects.filter(frigat_code=customer_frigat_id).first()
+                customer = Customer.objects.filter(frigate_code=customer_frigate_id).first()
                 full_code_list = full_code.split('.')
                 code = full_code_list[0]
                 if len(full_code_list) > 2:
@@ -71,7 +71,7 @@ def sales_to_sales_transactions():
                     sale_without_vat=sale_without_vat.replace(',', '.'),
                     sale_with_vat=sale_with_vat.replace(',', '.'),
                     price_vat=price_vat.replace(',', '.'),
-                    customer_frigat_id=customer_frigat_id,
+                    customer_frigate_id=customer_frigate_id,
                     customer_name=customer_name.replace('"', ''),
                     customer=customer,
                     no_vat=no_vat,
@@ -105,7 +105,7 @@ def sales_to_sales_doc(min_date, max_date, sales_transactions_query):
         sales_doc_no=item['sales_doc_no'],
         sales_doc_date=item['sales_doc_date'],
         customer=Customer.objects.get(id=item['customer']),
-        customer_frigat_id=Customer.objects.get(id=item['customer']).frigat_code,
+        customer_frigate_id=Customer.objects.get(id=item['customer']).frigate_code,
         no_vat=item['no_vat'],
         good_no_error=item['good_no_error'],
         month=ReportPeriod.objects.get(id=item['month']),

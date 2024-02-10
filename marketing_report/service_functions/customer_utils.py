@@ -52,7 +52,7 @@ def cst_to_temp_db():
         for row in csv_reader:
             try:
                 if customer_check_row(row):
-                    (frigat_id, name, form, inn, _, address, phone, mail, comment, _, our_manager, customer_type,
+                    (frigate_code, name, form, inn, _, address, phone, mail, comment, _, our_manager, customer_type,
                      all_mails, all_phones) = row
                     if len(inn) == 9 or len(inn) == 11:
                         inn = '0' + inn
@@ -63,7 +63,7 @@ def cst_to_temp_db():
                             and our_manager == '' and customer_type == '' and all_mails == '' and all_phones == ''):
                         internal = True
                     customer = ImportCustomers(
-                        frigat_id=frigat_id,
+                        frigate_code=frigate_code,
                         name=name.replace('"', ''),
                         form=form,
                         inn=inn,
@@ -106,7 +106,7 @@ def check_new_updated(customer: ImportCustomers):
     """
     old_customers_list = Customer.objects.all()
     try:
-        old_customer = old_customers_list.get(frigat_id=customer.frigat_id)
+        old_customer = old_customers_list.get(frigate_code=customer.frigate_code)
         customer.new = False
         if (old_customer.name != customer.name or old_customer.inn != customer.inn or
                 old_customer.address != customer.address or old_customer.mail != customer.mail or
@@ -124,7 +124,7 @@ def import_customer_to_customer(import_customer: ImportCustomers):
     :return:
     """
     customer = Customer(
-        frigat_id=import_customer.frigat_id,
+        frigate_code=import_customer.frigate_code,
         name=import_customer.name,
         form=import_customer.form,
         inn=import_customer.inn,
@@ -152,7 +152,7 @@ def update_customer_from_changed(customer: ImportCustomers):
     :param customer:
     :return:
     """
-    new_customer = Customer.objects.get(frigat_id=customer.frigat_id)
+    new_customer = Customer.objects.get(frigate_code=customer.frigate_code)
     new_customer.name = customer.name
     new_customer.form = customer.form
     new_customer.address = customer.address
