@@ -7,3 +7,4 @@ from marketing_report.models.goods_models import *
 from marketing_report.models.import_models import *
 from marketing_report.models.report_period import *
 from marketing_report.models.sales import *
+from marketing_report.models.sales_period import *
