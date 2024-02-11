@@ -492,6 +492,9 @@
   align-items: center;
   position: relative;
 }
+.form-row__import_reduce {
+  grid-template-columns: 9fr 1fr 1.9fr;
+}
 
 .report_button-block {
   margin: 10px 0;
