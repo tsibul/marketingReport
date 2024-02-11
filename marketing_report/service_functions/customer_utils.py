@@ -117,6 +117,7 @@ def check_new_updated(customer: ImportCustomers):
         customer.new = True
     return customer
 
+
 def import_customer_to_customer(import_customer: ImportCustomers):
     """
     преобразование объекта ImportCustomer в Customer (все поля) для новых
