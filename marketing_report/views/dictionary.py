@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from marketing_report import models
-from marketing_report.models import CustomerGroup, Color
+from marketing_report.models import CustomerGroup, Color, CustomerGroupFrigateId, Customer
 
 from marketing_report.service_functions import linking_filter
 
@@ -40,7 +40,29 @@ def dictionary_update(request, dict_type):
                     setattr(dict_element, field, True)
             else:
                 setattr(dict_element, field, request.POST[field])
+    if dict_type == 'CustomerGroup':
+        dict_element.default = False
     dict_element.save()
+    if dict_type == 'Customer':
+        customer = dict_element
+        customer_group = CustomerGroup.objects.get(id=request.POST['customer_group'])
+        if Customer.objects.filter(customer_group=customer_group).count() > 1:
+            group_frigate_id_list = Customer.objects.filter(customer_group=customer_group).values_list('frigate_code',
+                                                                                                       flat=True)
+            for frigate_id in group_frigate_id_list:
+                if not CustomerGroupFrigateId.objects.filter(frigate_code=frigate_id).first():
+                    CustomerGroupFrigateId(customer_group=customer_group, frigate_code=frigate_id).save()
+            customer_group.default = False
+            if not customer_group.phone and customer.phone:
+                customer_group.phone = customer.phone
+            if not customer_group.mail and customer.mail:
+                customer_group.mail = customer.mail
+            if customer.date_first < customer_group.date_first:
+                customer_group.date_first = customer.date_first
+            if customer_group.date_last < customer.date_last:
+                customer_group.date_last = customer.date_last
+            customer_group.save()
+        CustomerGroup.objects.filter(customer__isnull=True).delete()
     return HttpResponse()
 
 
@@ -93,7 +115,7 @@ def dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted): 
                 dict_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False,
                                                        default=False).order_by(*order)
         else:
-            dict_items = dict_model.objects.filter(deleted=False, default=False).order_by(*order)
+            dict_items = dict_model.objects.filter(deleted=False).order_by(*order)
     else:
         search_string = search_string.replace('_', ' ')
         if dict_type == 'Customer':
