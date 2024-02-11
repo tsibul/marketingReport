@@ -9,3 +9,4 @@ from marketing_report.models.report_period import *
 from marketing_report.models.sales import *
 from marketing_report.models.sales_period import *
 from marketing_report.models.goods_periods import *
+from marketing_report.models.customer_periods import *
