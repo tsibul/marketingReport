@@ -86,7 +86,7 @@ def customers_new_to_main_db(request):
             else:
                 customer.default_group()
         Customer.objects.bulk_create(customers_new_reformatted)
-        CustomerGroup.objects.filter(customer__isnull=True).delete()
+        CustomerGroup.objects.filter(customer__isnull=True, default=True).delete()
     return JsonResponse({'result': result})
 
 
