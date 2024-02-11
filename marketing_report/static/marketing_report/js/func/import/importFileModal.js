@@ -1,6 +1,8 @@
 'use strict'
 
 export function importFileModal(thisButton, fileName) {
+    thisButton.disabled = true;
+    thisButton.classList.add('form-input__inactive');
     const header = thisButton.closest('.form-row__import').querySelector('.import-block__description');
     const modal = document.getElementById('import-file-modal');
     modal.querySelector('#file-name').value = fileName;

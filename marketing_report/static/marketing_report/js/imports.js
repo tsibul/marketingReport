@@ -15,13 +15,13 @@ document.querySelector('#resultSales').nextElementSibling
     .addEventListener('click', e => importFileModal(e.target, 'sales'));
 
 document.querySelector('#updated-customers').nextElementSibling
-    .addEventListener('click', () => editTemporaryBase());
+    .addEventListener('click', e => editTemporaryBase(e.target));
 
 document.querySelector('#import_new_customers').nextElementSibling
-    .addEventListener('click', () => importCustomers('import_new_customers'));
+    .addEventListener('click', e => importCustomers(e.target, 'import_new_customers'));
 
 document.querySelector('#import_changed_customers').nextElementSibling
-    .addEventListener('click', () => importCustomers('import_changed_customers'));
+    .addEventListener('click', e => importCustomers(e.target, 'import_changed_customers'));
 
 document.querySelector('#period-end').nextElementSibling
     .addEventListener('click', e => reassignPeriods(e.target));
@@ -53,6 +53,9 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
             const resultElement = document.getElementById('result');
             const currentDate = new Date()
             resultElement.textContent = `${currentDate.getHours()}:${currentDate.getMinutes()} — ${data.result} записей импортировано`;
+            const btnDisabled = document.querySelector('.form-input__inactive');
+            btnDisabled.disabled = false;
+            btnDisabled.classList.remove('form-input__inactive');
         })
         .catch(error => {
             console.error('Ошибка:', error);
