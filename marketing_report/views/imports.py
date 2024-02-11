@@ -7,7 +7,9 @@ from django.http import JsonResponse, HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from marketing_report.models import ImportCustomers, Customer, ReportPeriod, SalesTransactions
+from marketing_report.models import ImportCustomers, Customer, ReportPeriod, SalesTransactions, CustomerGroup, \
+    CustomerGroupFrigateId
+
 from marketing_report.service_functions import (cst_to_temp_db, check_new_updated, import_customer_to_customer,
                                                 update_customer_from_changed, sales_import_management)
 
@@ -68,6 +70,7 @@ def edit_temporary_base(request):
 
 def customers_new_to_main_db(request):
     """импорт новых записей из ImportCustomer в  Customer
+    создание групп по умолчанию
     :return количество импортированных записей"""
     customers_old = Customer.objects.filter(new=True)
     customers_old = list(map(lambda customer: customer.__setattr__('new', False), customers_old))
@@ -76,7 +79,14 @@ def customers_new_to_main_db(request):
     customers_new_reformatted = list(map(import_customer_to_customer, customers_new))
     result = len(customers_new_reformatted)
     if result:
+        for customer in customers_new_reformatted:
+            customer_group = CustomerGroupFrigateId.objects.filter(frigate_code=customer.frigate_code).first()
+            if customer_group:
+                customer.customer_group = customer_group
+            else:
+                customer.default_group()
         Customer.objects.bulk_create(customers_new_reformatted)
+        CustomerGroup.objects.filter(customer__isnull=True).delete()
     return JsonResponse({'result': result})
 
 
