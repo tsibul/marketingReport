@@ -106,6 +106,32 @@ def customer_change_to_customer(request):
     return JsonResponse({'result': result})
 
 
+def first_last_sales_dates(request):
+    not_dead_customers = SalesTransactions.objects.all().values_list('customer', flat=True).distinct()
+    for customer_id in not_dead_customers:
+        customer = Customer.objects.get(id=customer_id)
+        customer_group = customer.customer_group
+        customer.active = True
+        customer_group.active = True
+        sales_dates = SalesTransactions.objects.filter(
+            customer=customer
+        ).aggregate(
+            date_max=Max('sales_doc_date'),
+            date_min=Min('sales_doc_date')
+        )
+        customer.date_first = sales_dates['date_min']
+        customer.date_last = sales_dates['date_max']
+        # if customer.date_last + timedelta(days=1100) >= datetime.today():
+        customer.save()
+        if (customer_group.date_first > customer.date_first
+                or customer_group.date_first == datetime(2000, 1, 1).date()):
+            customer_group.date_first = customer.date_first
+        if customer_group.date_last < customer.date_last:
+            customer_group.date_last = customer.date_last
+        customer_group.save()
+    return HttpResponse(status=200)
+
+
 def reassign_report_periods(request):
     begin_year = int(request.POST['start_date'])
     end_year = int(request.POST['end_date'])

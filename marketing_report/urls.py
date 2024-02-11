@@ -30,6 +30,8 @@ urlpatterns = [
     path('edit_temporary_base/', views.edit_temporary_base, name='edit_temporary_base'),
     path('import_new_customers/', views.customers_new_to_main_db, name='import_new_customers'),
     path('import_changed_customers/', views.customer_change_to_customer, name='import_changed_customers'),
+    path('first_last_sales_dates/', views.first_last_sales_dates, name='first_last_sales_dates'),
+
     path('reassign_periods/', views.reassign_report_periods, name='reassign_periods'),
 
     path('admin/', views.admin, name='admin_site'),

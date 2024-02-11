@@ -5,6 +5,7 @@ import {importFileModal} from "./func/import/importFileModal.js";
 import {importCustomers} from "./func/import/importCustomers.js";
 import {editTemporaryBase} from "./func/import/editTemporaryBase.js";
 import {reassignPeriods} from "./func/import/reassignPeriods.js";
+import {customerFirstLastDate} from "./func/import/customerFirstLastDate.js";
 
 const buttonClose = document.querySelector('.modal.close');
 const importModal = document.querySelector('#import-file-modal');
@@ -25,6 +26,10 @@ document.querySelector('#import_changed_customers').nextElementSibling
 
 document.querySelector('#period-end').nextElementSibling
     .addEventListener('click', e => reassignPeriods(e.target));
+
+document.querySelector('#firstLastDate').nextElementSibling
+    .addEventListener('click', e => customerFirstLastDate(e.target));
+
 
 importModal.querySelector('.btn-close')
     .addEventListener('click', e => importFileModalClose(e.target));
