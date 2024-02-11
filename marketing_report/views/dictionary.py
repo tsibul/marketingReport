@@ -91,14 +91,16 @@ def dictionary_json_filter(request, dict_type, filter_dictionary, filter_diction
         filter_model = getattr(models, filter_dictionary)
         filter_item = linking_filter(dict_model, filter_model, filter_dictionary_id)
     else:
-        filter_item = dict_model.objects.all()
+        filter_item = dict_model.objects.filter(deleted=False)
+        if dict_type == 'Customer':
+            filter_item = filter_item.filter(internal=False)
     formatted_dict_items = [{item.id: str(item)} for item in filter_item]
     json_dict = json.dumps(formatted_dict_items, ensure_ascii=False, default=str)
     return JsonResponse(json_dict, safe=False)
 
 
 def dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted):  # костыль
-    border_date = date.today() - timedelta(days=1100)
+    border_date = date.today() - timedelta(days=1096)
     dict_model = getattr(models, dict_type)
     if order == 'default':
         order = dict_model.order_default()
