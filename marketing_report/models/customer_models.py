@@ -47,3 +47,19 @@ class Customer(models.Model):
         #     self.name = self.customer.name
         # super().save(*args, **kwargs)
 
+    def default_group(self):
+        default_group = CustomerGroup(
+            customer_type=self.customer_type,
+            name=self.name,
+            phone=self.phone,
+            mail=self.mail,
+            date_first=self.date_first,
+            date_last=self.date_last,
+            active=self.active,
+            default=True,
+            deleted=False
+        )
+        default_group.save()
+        self.customer_group = default_group
+        # return default_group
+
