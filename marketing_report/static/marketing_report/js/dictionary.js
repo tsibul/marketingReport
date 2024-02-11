@@ -98,7 +98,7 @@ dictBlockContent.forEach(block => {
             if (!searchString) {
                 searchString = '';
             }
-            const nearestCheck = block.querySelector('.unclosed');
+            const nearestCheck = block.closest('details').querySelector('.unclosed');
             const shDeleted = nearestCheck && nearestCheck.checked ? 1 : 0;
 
             await appendNewRows(lastRecord, block, searchString, shDeleted, 0);
