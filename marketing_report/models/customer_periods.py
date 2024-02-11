@@ -65,8 +65,8 @@ def create_customer_period(periods, sales_docs):
         customer=Customer.objects.get(id=item['cst_id']),
 
         quantity=item['quantity'],
-        sale_without_vat=item['sale_without_vat'],
-        sale_with_vat=item['sale_with_vat'],
+        sales_without_vat=item['sale_without_vat'],
+        sales_with_vat=item['sale_with_vat'],
         profit=item['profit'],
         no_sales=item['no_sales'],
         average_check=item['sale_with_vat'] / item['no_sales']
@@ -96,7 +96,7 @@ class CustomerPeriodByUnit(models.Model):
 
 def create_customer_period_business_unit(periods, sales_docs):
     sales_month = sales_docs.values(
-        business_unit_id=F('business_unit'),
+        business_un_id=F('business_unit'),
         period=F('month'),
         cst_id=F('customer')
     ).annotate(
@@ -107,7 +107,7 @@ def create_customer_period_business_unit(periods, sales_docs):
         no_sales=Count('id', distinct=True),
     ).order_by('month__date_begin')
     sales_quarter = sales_docs.values(
-        business_unit_id=F('business_unit'),
+        business_un_id=F('business_unit'),
         period=F('quarter'),
         cst_id=F('customer')
     ).annotate(
@@ -118,7 +118,7 @@ def create_customer_period_business_unit(periods, sales_docs):
         no_sales=Count('id', distinct=True),
     ).order_by('quarter__date_begin')
     sales_year = sales_docs.values(
-        business_unit_id=F('business_unit'),
+        business_un_id=F('business_unit'),
         period=F('year'),
         cst_id=F('customer'),
     ).annotate(
@@ -129,14 +129,14 @@ def create_customer_period_business_unit(periods, sales_docs):
         no_sales=Count('id', distinct=True),
     ).order_by('year__date_begin')
     sales_period = sales_month.union(sales_quarter, sales_year)
-    sales_docs = list(map(lambda item: CustomerPeriod(
-        business_unit=BusinessUnit.objects.get(item['business_unit']),
+    sales_docs = list(map(lambda item: CustomerPeriodByUnit(
+        business_unit=BusinessUnit.objects.get(id=item['business_un_id']),
         period=ReportPeriod.objects.get(id=item['period']),
         customer=Customer.objects.get(id=item['cst_id']),
 
         quantity=item['quantity'],
-        sale_without_vat=item['sale_without_vat'],
-        sale_with_vat=item['sale_with_vat'],
+        sales_without_vat=item['sale_without_vat'],
+        sales_with_vat=item['sale_with_vat'],
         profit=item['profit'],
         no_sales=item['no_sales'],
         average_check=item['sale_with_vat'] / item['no_sales']
