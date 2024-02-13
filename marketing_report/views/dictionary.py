@@ -2,7 +2,7 @@ import json
 from datetime import timedelta, date, datetime
 
 from django.core.serializers import serialize
-from django.db.models import Max
+from django.db.models import Max, Q
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -122,7 +122,21 @@ def dict_additional_filter(dict_type, order, id_no, search_string, sh_deleted): 
         search_string = search_string.replace('_', ' ')
         if dict_type == 'Customer':
             # filter_items = dict_model.objects.filter(internal=False, date_last__gt=border_date).order_by(*order)
-            filter_items = dict_model.objects.filter(internal=False).order_by(*order)
+            filter_items = dict_model.objects.filter(Q(internal=False) & Q(active=True) & (
+                Q(name__icontains=search_string) |
+                Q(mail__icontains=search_string) |
+                Q(phone__icontains=search_string) |
+                Q(address__icontains=search_string) |
+                Q(inn__icontains=search_string) |
+                Q(all_phones__icontains=search_string) |
+                Q(all_mails__icontains=search_string) |
+                Q(our_manager__icontains=search_string) |
+                Q(frigate_code__icontains=search_string) |
+                Q(customer_group__name__icontains=search_string) |
+                Q(customer_type__name__icontains=search_string))
+            ).order_by(*order)[id_no: id_no + 20]
+            return filter_items
+
         elif dict_type == 'CustomerGroup':
             # filter_items = dict_model.objects.filter(date_last__gt=border_date, deleted=False).order_by(*order)
             filter_items = dict_model.objects.filter(date_last__gt=border_date).order_by(*order)
