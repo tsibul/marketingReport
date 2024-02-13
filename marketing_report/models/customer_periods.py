@@ -62,7 +62,7 @@ def create_customer_period(periods, sales_docs):
     sales_period = sales_month.union(sales_quarter, sales_year)
     sales_docs = list(map(lambda item: CustomerPeriod(
         period=ReportPeriod.objects.get(id=item['period']),
-        customer=Customer.objects.get(id=item['cst_id']),
+        customer=Customer.objects.filter(id=item['cst_id']).first(),
 
         quantity=item['quantity'],
         sales_without_vat=item['sale_without_vat'],
@@ -76,7 +76,7 @@ def create_customer_period(periods, sales_docs):
 
 
 class CustomerPeriodByUnit(models.Model):
-    business_unit = models.ForeignKey(BusinessUnit, on_delete=models.CASCADE)
+    business_unit = models.ForeignKey(BusinessUnit, on_delete=models.CASCADE, null=True, blank=True)
     period = models.ForeignKey(ReportPeriod, on_delete=models.CASCADE)
     customer = models.ForeignKey(Customer, models.SET_NULL, null=True)
 
@@ -130,9 +130,9 @@ def create_customer_period_business_unit(periods, sales_docs):
     ).order_by('year__date_begin')
     sales_period = sales_month.union(sales_quarter, sales_year)
     sales_docs = list(map(lambda item: CustomerPeriodByUnit(
-        business_unit=BusinessUnit.objects.get(id=item['business_un_id']),
+        business_unit=BusinessUnit.objects.filter(id=item['business_un_id']).first(),
         period=ReportPeriod.objects.get(id=item['period']),
-        customer=Customer.objects.get(id=item['cst_id']),
+        customer=Customer.objects.filter(id=item['cst_id']).first(),
 
         quantity=item['quantity'],
         sales_without_vat=item['sale_without_vat'],

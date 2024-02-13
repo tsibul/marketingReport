@@ -10,7 +10,7 @@ class GoodsPeriod(models.Model):
     class Meta:
         verbose_name = 'periods where was sales of goods'
 
-    good = models.ForeignKey(Goods, on_delete=models.CASCADE, db_index=True)
+    good = models.ForeignKey(Goods, on_delete=models.CASCADE, db_index=True, null=True, blank=True)
     main_color = models.ForeignKey(Color, on_delete=models.CASCADE, null=True, db_index=True)
     period = models.ForeignKey(ReportPeriod, on_delete=models.CASCADE)
 
@@ -69,7 +69,7 @@ def create_goods_period(periods, sales_transactions):
     sales_period = sales_month.union(sales_quarter, sales_year)
     sales_docs = list(map(lambda item: GoodsPeriod(
         period=ReportPeriod.objects.get(id=item['period']),
-        good=Goods.objects.get(id=item['good_id']),
+        good=Goods.objects.filter(id=item['good_id']).first(),
         main_color=Color.objects.filter(id=item['color_pk']).first(),
 
         quantity=item['quantity'],

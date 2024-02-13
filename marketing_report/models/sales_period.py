@@ -66,7 +66,7 @@ def create_sales_period(periods, sales_docs):
 
 class SalesPeriodBusinessUnit(models.Model):
     period = models.ForeignKey(ReportPeriod, on_delete=models.CASCADE)
-    business_unit = models.ForeignKey(BusinessUnit, on_delete=models.CASCADE)
+    business_unit = models.ForeignKey(BusinessUnit, on_delete=models.CASCADE, null=True, blank=True)
 
     total_quantity = models.IntegerField(default=0, verbose_name='количество')
     total_sales_without_vat = models.FloatField(default=0, null=True)
@@ -115,7 +115,7 @@ def create_sales_period_business_unit(periods, sales_docs):
     ).order_by('year__date_begin')
     sales_period = sales_month.union(sales_quarter, sales_year)
     sales_docs = list(map(lambda item: SalesPeriodBusinessUnit(
-        business_unit=BusinessUnit.objects.get(id=item['business_un']),
+        business_unit=BusinessUnit.objects.get(id=item['business_un']) if item['business_un'] else None,
         period=ReportPeriod.objects.get(id=item['period']),
         total_quantity=item['total_quantity'],
         total_sales_without_vat=item['total_sales_without_vat'],
