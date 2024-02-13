@@ -80,7 +80,7 @@ def sales_to_sales_transactions():
                     no_vat=no_vat,
                     good_no_error=goods_no_error,
                     profit=float(sale_without_vat.replace(',', '.')) - float(purchase_without_vat.replace(',', '.')),
-                    business_unit=goods.crm_type.business_unit
+                    business_unit=goods.crm_type.business_unit if goods else None
                 )
                 sale.set_periods()
                 sales.append(sale)
@@ -107,8 +107,8 @@ def sales_to_sales_doc(min_date, max_date, sales_transactions_query):
     sales_docs = list(map(lambda item: SalesDoc(
         sales_doc_no=item['sales_doc_no'],
         sales_doc_date=item['sales_doc_date'],
-        customer=Customer.objects.get(id=item['customer']),
-        customer_frigate_id=Customer.objects.get(id=item['customer']).frigate_code,
+        customer=Customer.objects.get(id=item['customer']) if item['customer'] else None,
+        customer_frigate_id=Customer.objects.get(id=item['customer']).frigate_code if item['customer'] else None,
         no_vat=item['no_vat'],
         good_no_error=item['good_no_error'],
         month=ReportPeriod.objects.get(id=item['month']),
@@ -120,7 +120,7 @@ def sales_to_sales_doc(min_date, max_date, sales_transactions_query):
         purchase_with_vat=item['purchase_with_vat'],
         purchase_without_vat=item['purchase_without_vat'],
         profit=item['profit'],
-        business_unit=BusinessUnit.objects.get(id=item['business_unit'])
+        business_unit=BusinessUnit.objects.get(id=item['business_unit']) if item['business_unit'] else None
     ), sales_doc_query))
     SalesDoc.objects.filter(sales_doc_date__gte=min_date, sales_doc_date__lte=max_date).delete()
     SalesDoc.objects.bulk_create(sales_docs)
