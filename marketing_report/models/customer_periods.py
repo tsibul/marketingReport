@@ -2,7 +2,6 @@ from django.db import models
 from django.db.models import F, Sum, Count
 
 from marketing_report.models import BusinessUnit
-from marketing_report.models.customer_group_models import CustomerGroup
 from marketing_report.models.customer_models import Customer
 from marketing_report.models.report_period import ReportPeriod
 
