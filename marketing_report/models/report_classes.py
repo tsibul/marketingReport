@@ -1,37 +1,40 @@
 import abc
 import json
 
+from marketing_report.service_functions.report_functions import *
 
-class ReportTypes(abc.ABC):
-    def __init__(self, code, description):
+
+class ReportType(abc.ABC):
+    def __init__(self, code, description, report_function):
         self.code = code
         self.description = description
+        self.report_function = report_function
 
     def to_dict(self):
         return {'code': self.code, 'description': self.description}
 
 
-class CustomerReports(ReportTypes):
+class CustomerReport(ReportType):
     pass
 
 
-class GoodsReports(ReportTypes):
+class GoodsReport(ReportType):
     pass
 
 
 def cst_report_list():
-    return [CustomerReports('ABC', 'ABC - анализ'),
-            CustomerReports('MIG', 'Миграции клиентов'),
-            CustomerReports('GEO', 'Типы и география'),
-            CustomerReports('GRP', 'Группы клиентов')]
+    return [CustomerReport('ABC', 'ABC - анализ', cst_abc),
+            CustomerReport('MIG', 'Миграции клиентов', cst_migrations),
+            CustomerReport('GEO', 'Типы и география', cst_geography),
+            CustomerReport('GRP', 'Группы клиентов', cst_groups)]
 
 
 def goods_report_list():
-    return [GoodsReports('ABC', 'ABC - анализ'),
-            GoodsReports('GRP', 'Группы товара'),
-            GoodsReports('MTR', 'Товарная матрица'),
-            GoodsReports('CLR', 'Миграции цветов'),
-            GoodsReports('MIG', 'Миграции товаров')]
+    return [GoodsReport('ABC', 'ABC - анализ', goods_abc),
+            GoodsReport('GRP', 'Группы товара', goods_groups),
+            GoodsReport('MTR', 'Товарная матрица', goods_matrix),
+            GoodsReport('CLR', 'Миграции цветов', goods_color),
+            GoodsReport('MIG', 'Миграции товаров', goods_migrations)]
 
 
 def money_report_list():
