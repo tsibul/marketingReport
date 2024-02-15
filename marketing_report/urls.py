@@ -39,4 +39,7 @@ urlpatterns = [
     path('goods_export/', views.goods_export, name='goods_export'),
     path('customer_group_json/', views.customer_group_json, name='customer_group_json'),
 
+    path('report/<str:report_class>/<str:report_type>/<str:period>/<str:parameter>/<int:begin>/<int:end>',
+         views.json_report, name='report_json'),
+
 ]
