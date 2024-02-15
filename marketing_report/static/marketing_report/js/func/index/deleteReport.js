@@ -11,7 +11,7 @@ export function deleteReport(btn) {
     let reportList = JSON.parse(localStorage.getItem('reports'));
     for (let i = 0; i < reportList.length; i++) {
         if (reportList[i].id === Number(reportId)) {
-            delete reportList[i];
+            reportList.splice(i, 1);
             break;
         }
     }
