@@ -53,5 +53,6 @@ def json_report(request, report_class, report_type, period, parameter, begin, en
         report_result = None
         report_name = None
     final_report = {'report_name': report_name, 'period': period_name, 'parameter': parameter_name,
-                    'date_begin': date_begin, 'date_end': date_end, 'report_data': report_result}
+                    'date_begin': date_begin, 'date_end': date_end, 'period_data': list(period_query.values('name')),
+                    'report_data': report_result}
     return JsonResponse(final_report, safe=False)
