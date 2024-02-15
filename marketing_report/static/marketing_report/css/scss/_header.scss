@@ -14,10 +14,18 @@
 
   &__left {
     display: flex;
+
+    &_index {
+      flex-direction: column;
+    }
   }
 
   &__right {
     display: flex;
+
+    &_index {
+      flex-direction: column;
+    }
   }
 
   &__mobile {
