@@ -1,9 +1,201 @@
 {% extends 'header.html' %}
 {% load static %}
-{% block title %}Главная{% endblock %}
+{% block title %}Отчеты{% endblock %}
 {% block content %}
+    <script src="{% static 'marketing_report/js/index.js' %}" defer type="module"></script>
     <div class="full-content">
+        <div class="container">
+            <section class="report-content report-content_index">
+                <div class="menu__left menu__left_index">
+                    <div class="report-block report-block-hoverable report-block-hoverable_index" id="customer-report"
+                         data-id="0">
+                        <h4 class="active">Отчет по клиентам</h4>
+                    </div>
+                    <div class="report-block report-block-hoverable report-block-hoverable_index" id="goods-report"
+                         data-id="10000">
+                        <h4 class="active">Отчет по товарам</h4>
+                    </div>
+                </div>
+                <div class="report-list">
 
+                </div>
+            </section>
+            <section class="report-body">
+                
+            </section>
+        </div>
+        <!--Customer modal -->
+        <div class="report-block report-block_modal" id="customerModal">
+            <h4 class="border-title active">Отчет по клиентам</h4>
+            <div class="report-header"></div>
+            <div class="report-block-content">
+                <label for="report-select-0" class="top-label">тип отчета</label>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="report-select-0"
+                           value="{{ cst_reports.0.code }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ cst_reports.0.description }}"
+                               data-value="{{ cst_reports.0.description }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for cst_report in cst_reports %}
+                            <li data-value="{{ cst_report.code }}">{{ cst_report.description }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <label for="period-select-0" class="top-label">период</label>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="period-select-0"
+                           value="{{ periods.0.value }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ periods.0.label }}"
+                               data-value="{{ periods.0.label }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for period in periods %}
+                            <li data-value="{{ period.value }}">{{ period.label }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="date-row date-row_index">
+                    <div class="date-row">
+                        <div class="">с</div>
+                        <input type="number" min="2000" max="2030" step="1" value="{{ year }}"
+                               class="form-input report__form-input_index year-first" required>
+                        <p>года</p>
+                    </div>
+                    <div class="date-row">
+                        <p>по</p>
+                        <input type="number" min="2000" max="2030" step="1" value="{{ year }}"
+                               class="form-input report__form-input_index year-last" required>
+                        <p>год</p>
+                    </div>
+                </div>
+                <label for="parameter-select-0" class="top-label">показатель</label>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="parameter-select-0"
+                           value="{{ money_arguments.0.code }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ money_arguments.0.description }}"
+                               data-value="{{ money_arguments.0.description }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for argument in money_arguments %}
+                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="button-block report_button-block">
+                <button type="button" class="btn btn-close">Закрыть</button>
+                <button type="button" class="btn btn-save">Создать отчет</button>
+            </div>
+        </div>
+        <!-- Goods modal -->
+        <div class="report-block report-block_modal" id="goodsModal">
+            <h4 class="border-title active">Отчет по товарам</h4>
+            <div class="report-header"></div>
+            <div class="report-block-content">
+                <label for="report-select-10000" class="top-label">тип отчета</label>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="report-select-10000"
+                           value="{{ goods_reports.0.code }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ goods_reports.0.description }}"
+                               data-value="{{ goods_reports.0.description }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for goods_report in goods_reports %}
+                            <li data-value="{{ good_report.code }}">{{ good_report.description }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <label for="period-select-10000" class="top-label">период</label>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="period-select-10000"
+                           value="{{ periods.0.value }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ periods.0.label }}"
+                               data-value="{{ periods.0.label }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for period in periods %}
+                            <li data-value="{{ period.value }}">{{ period.label }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="date-row date-row_index">
+                    <div class="date-row">
+                        <div class="">с</div>
+                        <input type="number" min="2000" max="2030" step="1" value="{{ year }}"
+                               class="form-input report__form-input_index year-first" required>
+                        <p>года</p>
+                    </div>
+                    <div class="date-row">
+                        <p>по</p>
+                        <input type="number" min="2000" max="2030" step="1" value="{{ year }}"
+                               class="form-input report__form-input_index year-last" required>
+                        <p>год</p>
+                    </div>
+                </div>
+                <div class="dropdown report_dropdown">
+                    <input name="id" type="text" class="dropdown__hidden" id="parameter-select-10000"
+                           value="{{ money_arguments.0.code }}">
+                    <div class="dropdown__input-block">
+                        <input type="text" class="dropdown__input"
+                               placeholder="Поиск.."
+                               value="{{ money_arguments.0.description }}"
+                               data-value="{{ money_arguments.0.description }}" readonly>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                    </div>
+                    <ul class="dropdown__content">
+                        {% for argument in money_arguments %}
+                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            <div class="button-block report_button-block">
+                <button type="button" class="btn btn-close">Закрыть</button>
+                <button type="button" class="btn btn-save">Создать отчет</button>
+            </div>
+        </div>
     </div>
 
-{%  endblock %}
+
+
+    <div hidden id="technical-data">
+        <div id="periods">{{ json_period }}</div>
+        <div id="json-cst-reports">{{ json_cst_reports }}</div>
+        <div id="json-goods-reports">{{ json_goods_reports }}</div>
+        <div id="json-money-arguments">{{ json_money_arguments }}</div>
+        <div id="json-time-arguments">{{ json_time_arguments }}</div>
+        <input id="money-reports" value="{{ money_reports }}">
+
+        <div id="money-arguments">
+            {% for argument in money_arguments %}
+                <li data-value="{{ argument.code }}">{{ argument.description }} </li>
+            {% endfor %}
+        </div>
+        <div id="time-arguments">
+            {% for argument in time_arguments %}
+                <li data-value="{{ argument.code }}">{{ argument.description }} </li>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
