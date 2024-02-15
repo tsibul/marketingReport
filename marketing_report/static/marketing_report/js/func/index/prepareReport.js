@@ -51,7 +51,7 @@ export async function prepareReport(e) {
     localStorage.setItem('reports', JSON.stringify(reportList));
     localStorage.setItem('reportIndex', lastIndex.toString());
     const reportListElement = document.querySelector('.report-list');
-    reportListElement.insertAdjacentHTML('beforeend',
+    reportListElement.insertAdjacentElement('beforeend',
         reportListRow({
             'id': lastIndex,
             'date': currentDate,
