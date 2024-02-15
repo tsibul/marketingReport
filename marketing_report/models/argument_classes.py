@@ -12,7 +12,9 @@ class ArgumentType(abc.ABC):
 
 
 class MoneyType(ArgumentType):
-    pass
+    def __init__(self, code, description, field):
+        super().__init__(code, description)
+        self.field = field
 
 
 class TimeType(ArgumentType):
@@ -20,18 +22,18 @@ class TimeType(ArgumentType):
 
 
 def money_argument_list():
-    return [MoneyType('SalesVat', 'Продажи с НДС'),
-            MoneyType('SalesNoVat', 'Продажи без НДС'),
-            MoneyType('Profit', 'Прибыль'),
-            MoneyType('SalesQuantity', 'Количество продаж')]
+    return [MoneyType('SalesVat', 'Продажи с НДС', 'sales_with_vat'),
+            MoneyType('SalesNoVat', 'Продажи без НДС', 'sales_without_vat'),
+            MoneyType('Profit', 'Прибыль', 'profit'),
+            MoneyType('SalesQuantity', 'Количество продаж', 'quantity')]
 
 
 def time_argument_list():
-    return [TimeType('1', '1 год'),
-            TimeType('2', '2 года'),
-            TimeType('3', '3 года'),
-            TimeType('4', '4 года'),
-            TimeType('5', '5 лет')]
+    return [TimeType('1', 'за 1 год'),
+            TimeType('2', 'за 2 года'),
+            TimeType('3', 'за 3 года'),
+            TimeType('4', 'за 4 года'),
+            TimeType('5', 'за 5 лет')]
 
 
 def json_money_argument_list():
