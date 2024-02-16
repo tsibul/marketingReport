@@ -32,3 +32,149 @@
     }
   }
 }
+
+.report-body {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid $colorPrimary900;
+  border-radius: 10px;
+
+  &__title {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr 1fr 2fr 1fr;
+    align-items: center;
+    padding: 8px 12px;
+    //font-weight: bold;
+    border-bottom: 1px solid $colorPrimary900;
+    border-radius: 10px;
+    background-color: $colorPrimary600;
+
+    & div {
+      color: $colorSecondary200;
+    }
+
+  }
+
+  &__content-tile {
+
+  }
+}
+
+.abc {
+  padding: 8px;
+
+  &:hover {
+    background-color: $colorPrimary300;
+  }
+
+  &__summary {
+    border-bottom: 1px solid $colorPrimary900;
+    border-top: 1px solid $colorPrimary900;
+    border-radius: 10px;
+  }
+
+  &__params {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__digit {
+    text-align: end;
+  }
+
+  &__1 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(2, 1fr);
+    gap: 4px;
+    padding: 4px;
+  }
+
+  &__2 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(3, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__3 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(4, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__4 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(5, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__8 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(9, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__12 {
+    font-size: 14px;
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(13, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__16 {
+    font-size: 13px;
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(14, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__20 {
+    font-size: 12px;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr repeat(21, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__24 {
+    font-size: 11px;
+    display: grid;
+    grid-template-columns: 1fr 2.5fr repeat(25, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__parameter-row{
+    display: flex;
+    justify-content: space-around;
+    & input{
+      accent-color: $colorPrimary700;
+    }
+  }
+}
+
+.sales {
+  display: none;
+}
+
+.profit {
+  display: none;
+}
+
+.quantity {
+  display: none;
+}
+
+.no-sales {
+  display: none;
+}
+
+.average-check {
+  display: none;
+}
