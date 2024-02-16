@@ -111,7 +111,7 @@ def group_customers_by_abc(customers, letter, customer_names, periods):
         'group': letter,
         'group_quantity': group_quantity,
         'group_sales_without_vat': round(group_sales_without_vat, 2),
-        'group_sales_with_vat': group_sales_with_vat,
+        'group_sales_with_vat': round(group_sales_with_vat, 2),
         'group_profit': round(group_profit, 2),
         'group_no_sales': group_no_sales,
         'group_average_check': group_average_check,

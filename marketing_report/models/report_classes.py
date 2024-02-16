@@ -1,7 +1,7 @@
 import abc
 import json
 
-from marketing_report.service_functions.report_functions import *
+from marketing_report.service_functions.reprt_functions.abc_report import *
 
 
 class ReportType(abc.ABC):
