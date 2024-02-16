@@ -4,7 +4,9 @@
  * Delete report from prepared report list & localStorage
  * @param btn - btn-delete
  */
-export function deleteReport(btn) {
+export function deleteReport(e) {
+    e.stopPropagation();
+    const btn = e.target;
     const row = btn.closest('.report-list__row');
     const reportId = row.querySelector('input').value;
     row.remove()
