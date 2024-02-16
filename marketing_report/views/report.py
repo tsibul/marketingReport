@@ -35,7 +35,7 @@ def json_report(request, report_class, report_type, period, parameter, begin, en
     date_begin = datetime.date(int(begin), 1, 1)
     date_end = datetime.date(int(end), 12, 31)
     period_name = 'помесячно' if period == 'MT' else ('поквартально' if period == 'QT' else 'по годам')
-    period_query = find_all_period_by_date_range(date_end, date_begin).filter(period=period)
+    period_query = find_all_period_by_date_range(date_end, date_begin).filter(period=period).order_by('date_begin')
     try:
         num = int(parameter)
         parameter_name = (next(filter(lambda param: param.code == parameter, time_argument_list()), None)).description
