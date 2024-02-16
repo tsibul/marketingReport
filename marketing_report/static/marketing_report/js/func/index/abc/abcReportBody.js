@@ -26,7 +26,7 @@ export function abcReportBody(report) {
         groupSummary.classList.add('abc', gridClass, 'abc__summary');
         groupDetail.appendChild(groupSummary);
         groupSummary.insertAdjacentHTML('afterbegin',
-            `<div>Группа&nbsp;${group.group}</div>
+            `<div>Группа&nbsp;${group.group}, Клиентов&nbsp;${group.customer_quantity}</div>
                   <div class="abc__params">
                     <div class="sales-vat">продажи с НДС</div>
                     <div class="sales">продажи без НДС</div>
