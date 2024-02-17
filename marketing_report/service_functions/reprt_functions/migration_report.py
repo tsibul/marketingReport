@@ -6,7 +6,7 @@ from marketing_report.models import CustomerGroup
 
 
 def cst_migrations(periods, parameter):
-    date_format = '%d.%m.%Y'
+    date_format = '%d.%m.%y'
     parameter_number = int(parameter)
     res = []
     for period in periods:
