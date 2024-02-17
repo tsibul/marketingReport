@@ -25,6 +25,11 @@
                             <label for="customerType"><i
                                     class="fa fa-solid fa-sack-xmark"></i>&nbsp;Типы клиентов</label>
                         </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="typeGroup">
+                            <label for="typeGroup"><i
+                                    class="fa fa-solid fa-sack-xmark"></i>&nbsp;Группировка типов</label>
+                        </div>
                     </details>
                     <details class="dict-menu__details">
                         <summary class="dict-menu__header">Товары
@@ -67,6 +72,16 @@
                             <input type="checkbox" class="checkbox-out" id="businessUnit">
                             <label for="businessUnit"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Направление
                                 деятельности</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="fedRegion">
+                            <label for="fedRegion"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;Федеральные
+                                округа</label>
+                        </div>
+                        <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="regionToFedRegion">
+                            <label for="regionToFedRegion"><i class="fa fa-solid fa-earth-africa"></i>&nbsp;ИНН по
+                                округам</label>
                         </div>
                     </details>
                 </div>
@@ -253,6 +268,7 @@
                         </summary>
                         <div class="dict-block__row dict-block__active customer-type dict-block__row_right-margin">
                             <div>Тип клиента</div>
+                            <div>Группа</div>
                             <div>Скидка</div>
                             <div>Код</div>
                             <button class="btn btn-save btn_add">добавить</button>
@@ -262,6 +278,8 @@
                                  id="customerType-0">
                                 <input class="id-hidden" name="id" value="0">
                                 <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <div class="dict-block__text foreign-key" data-field="type_group"
+                                     data-name="type_group"></div>
                                 <div class="dict-block__text" data-field="group_discount"
                                      data-name="group_discount"></div>
                                 <div class="dict-block__text" data-field="code" data-name="code"></div>
@@ -269,6 +287,25 @@
                             </div>
                         </div>
                     </details><!-- типы клиентов -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>
+                                Группировка&nbsp;типов&nbsp;клиентов
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict dict-block__row_right-margin">
+                            <div>Тип группы</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="typeGroup-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- группировка типов -->
 
                     <details class="dict-block dict-block__4">
                         <summary class="dict-block__header dict-block__header_block-space">
@@ -384,6 +421,53 @@
                             </div>
                         </div>
                     </details><!-- Направление деятельности -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-earth-africa"></i>Федеральный
+                                округ
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict">
+                            <div>Округ</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="fedRegion-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name"
+                                     data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- Федеральные округа -->
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-earth-africa"></i>ИНН по
+                                округам
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active business-unit">
+                            <div>ИНН</div>
+                            <div>Округ</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row business-unit dict-block__row_hidden" data-id="0"
+                                 id="regionToFedRegion-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name"
+                                     data-name="name"></div>
+                                <div class="dict-block__text foreign-key" data-field="fed_region"
+                                     data-name="fed_region"></div>
+                                <button class="btn btn-close btn_delete" type="button">
+                                    удалить
+                                </button>
+                            </div>
+                        </div>
+                    </details><!-- ИНН по округам -->
                 </div>
             </div>
         </div>

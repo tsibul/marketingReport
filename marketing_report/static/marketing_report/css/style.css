@@ -938,7 +938,7 @@
 }
 
 .customer-type {
-  grid-template-columns: 4fr 1fr 1fr 1fr;
+  grid-template-columns: 4fr 3fr 1fr 1fr 1fr;
 }
 
 .customer-group {
