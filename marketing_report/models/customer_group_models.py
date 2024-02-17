@@ -29,6 +29,7 @@ class CustomerGroup(SettingsDictionary):
     date_last = models.DateField(default=datetime.date(2000, 1, 1))
     active = models.BooleanField(default=True)
     default = models.BooleanField(default=True)
+    fed_region = models.ForeignKey(FedRegion, models.SET_NULL, null=True, blank=True, default=None)
 
 
 class CustomerGroupFrigateId(models.Model):
