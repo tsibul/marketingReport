@@ -9,7 +9,7 @@ export function reportTitle(report) {
                 <div>детализация&nbsp;${report.report.period}</div>
                 <div>c&nbsp;${report.report.date_begin}</div>
                 <div>по&nbsp;${report.report.date_end}</div>
-                <div>сортровка:&nbsp;${report.report.parameter}</div>
+                <div>параметр:&nbsp;${report.report.parameter}</div>
                 <button type="button" class="btn btn-save">закрыть</button>`;
     row.insertAdjacentHTML('afterbegin', rowContent);
     const buttonClose = row.querySelector('.btn');

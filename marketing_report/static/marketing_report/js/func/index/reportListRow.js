@@ -19,7 +19,7 @@ export function reportListRow(report) {
                 <div>${report.report.period}</div>
                 <div>c&nbsp;${report.report.date_begin}</div>
                 <div>по&nbsp;${report.report.date_end}</div>
-                <div>cортировка&nbsp;${report.report.parameter}</div>
+                <div>параметр:&nbsp;${report.report.parameter}</div>
                 <button type="button" class="btn btn-save">удалить</button>`;
     row.insertAdjacentHTML('afterbegin', rowContent);
     row.querySelector('.btn').addEventListener('click', e => deleteReport(e));
