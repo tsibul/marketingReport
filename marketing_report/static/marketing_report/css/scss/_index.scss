@@ -3,10 +3,13 @@
 
 .report-list {
   margin-left: 30px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: calc(100% - 230px);
+  overflow-y: auto;
+  max-height: 300px;
 
   &__row {
     font-size: 14px;
@@ -63,6 +66,10 @@
 
 .abc {
   padding: 8px;
+
+  &__migration-clients {
+    font-size: 10px;
+  }
 
   &:hover {
     background-color: $colorPrimary300;
@@ -150,10 +157,11 @@
     //padding: 4px;
   }
 
-  &__parameter-row{
+  &__parameter-row {
     display: flex;
     justify-content: space-around;
-    & input{
+
+    & input {
       accent-color: $colorPrimary700;
     }
   }

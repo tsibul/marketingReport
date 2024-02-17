@@ -521,7 +521,6 @@
   flex-wrap: wrap;
 }
 .report-content_index {
-  max-height: 400px;
   display: flex;
 }
 .report-block {
@@ -967,10 +966,13 @@
 
 .report-list {
   margin-left: 30px;
+  padding-right: 10px;
   display: flex;
   flex-direction: column;
   gap: 4px;
   width: calc(100% - 230px);
+  overflow-y: auto;
+  max-height: 300px;
 }
 .report-list__row {
   font-size: 14px;
@@ -1014,6 +1016,9 @@
 }
 .abc {
   padding: 8px;
+}
+.abc__migration-clients {
+  font-size: 10px;
 }
 .abc:hover {
   background-color: #A5B8C0;
