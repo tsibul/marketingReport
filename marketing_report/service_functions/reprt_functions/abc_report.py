@@ -123,14 +123,6 @@ def group_customers_by_abc(customers, letter, customer_names, periods):
     return grouped
 
 
-def cst_geography(periods, parameter):
-    return
-
-
-def cst_groups(periods, parameter):
-    return
-
-
 def goods_abc(periods, parameter):
     return
 
