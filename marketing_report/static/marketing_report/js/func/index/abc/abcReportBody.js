@@ -1,23 +1,15 @@
 'use strict'
 
+import {createPeriodRow} from "../createPeriodRow.js";
+
 export function abcReportBody(report) {
     const body = document.createElement('div');
     body.appendChild(createParameterRow());
-    const periodData = report.report.period_data;
-    const periodDataLength = periodData.length;
-    const gridClass = 'abc__' + periodDataLength;
-    const periodRow = document.createElement('div');
-    periodRow.classList.add('abc', gridClass, 'active');
-    periodRow.insertAdjacentHTML('afterbegin',
-        `<div>название</div><div>показатели</div>`);
-    periodData.forEach(per => {
-        let period = document.createElement('div');
-        period.textContent = per.name;
-        period.classList.add('abc__digit');
-        periodRow.appendChild(period);
-    })
-    periodRow.insertAdjacentHTML('beforeend',
-        `<div class="abc__digit">всего</div>`)
+    const perData = createPeriodRow(report);
+
+    const periodData = perData[0];
+    const gridClass = perData[1];
+    const periodRow = perData[2];
     body.appendChild(periodRow)
 
     report.report.report_data.forEach(group => {
