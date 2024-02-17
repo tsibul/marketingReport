@@ -1,6 +1,6 @@
 from django.db import models
 import datetime
-from marketing_report.models import CustomerType, CustomerGroup
+from marketing_report.models import CustomerType, CustomerGroup, FedRegion
 
 
 class Customer(models.Model):
@@ -26,6 +26,7 @@ class Customer(models.Model):
     active = models.BooleanField(default=True)
     internal = models.BooleanField(default=False)
     new = models.BooleanField(default=False)
+    fed_region = models.ForeignKey(FedRegion, models.SET_NULL, null=True, default=None)
 
     def __str__(self):
         return self.name

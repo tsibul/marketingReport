@@ -3,9 +3,22 @@ import datetime
 from marketing_report.models.settings_dictionary import SettingsDictionary
 
 
+class FedRegion(SettingsDictionary):
+    pass
+
+
+class TypeGroup(SettingsDictionary):
+    pass
+
+
+class RegionToFedRegion(SettingsDictionary):
+    fed_region = models.ForeignKey(FedRegion, on_delete=models.CASCADE)
+
+
 class CustomerType(SettingsDictionary):
     group_discount = models.FloatField(default=0)
     code = models.CharField(max_length=2, default='')
+    type_group = models.ForeignKey(TypeGroup, models.SET_NULL, null=True, blank=True, default=None)
 
 
 class CustomerGroup(SettingsDictionary):
