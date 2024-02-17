@@ -37,8 +37,8 @@ def create_goods_period(periods, sales_transactions):
     ).annotate(
         quantity=Sum('quantity'),
         cost_without_vat=Sum('purchase_without_vat'),
-        sale_without_vat=Sum('sales_without_vat'),
-        sale_with_vat=Sum('sales_with_vat'),
+        sale_without_vat=Sum('sale_without_vat'),
+        sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
         sales_no=Count('id', distinct=True),
     ).order_by('month__date_begin')
@@ -49,8 +49,8 @@ def create_goods_period(periods, sales_transactions):
     ).annotate(
         quantity=Sum('quantity'),
         cost_without_vat=Sum('purchase_without_vat'),
-        sale_without_vat=Sum('sales_without_vat'),
-        sale_with_vat=Sum('sales_with_vat'),
+        sale_without_vat=Sum('sale_without_vat'),
+        sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
         sales_no=Count('id', distinct=True),
     ).order_by('quarter__date_begin')
@@ -61,8 +61,8 @@ def create_goods_period(periods, sales_transactions):
     ).annotate(
         quantity=Sum('quantity'),
         cost_without_vat=Sum('purchase_without_vat'),
-        sale_without_vat=Sum('sales_without_vat'),
-        sale_with_vat=Sum('sales_with_vat'),
+        sale_without_vat=Sum('sale_without_vat'),
+        sale_with_vat=Sum('sale_with_vat'),
         profit=Sum('profit'),
         sales_no=Count('id', distinct=True),
     ).order_by('year__date_begin')
@@ -74,8 +74,8 @@ def create_goods_period(periods, sales_transactions):
 
         quantity=item['quantity'],
         cost_without_vat=item['cost_without_vat'],
-        sales_without_vat=item['sales_without_vat'],
-        sales_with_vat=item['sales_with_vat'],
+        sales_without_vat=item['sale_without_vat'],
+        sales_with_vat=item['sale_with_vat'],
         profit=item['profit'],
         sales_no=item['sales_no'],
         price_with_vat=item['sale_with_vat'] / item['quantity']
