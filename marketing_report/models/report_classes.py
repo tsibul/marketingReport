@@ -3,6 +3,8 @@ import json
 
 from marketing_report.service_functions.reprt_functions.abc_report import *
 from marketing_report.service_functions.reprt_functions.migration_report import *
+from marketing_report.service_functions.reprt_functions.geography_report import *
+from marketing_report.service_functions.reprt_functions.business_unit_report import *
 
 
 class ReportType(abc.ABC):
@@ -27,7 +29,7 @@ def cst_report_list():
     return [CustomerReport('ABC', 'ABC - анализ', cst_abc),
             CustomerReport('MIG', 'Миграции клиентов', cst_migrations),
             CustomerReport('GEO', 'Типы и география', cst_geography),
-            CustomerReport('GRP', 'Группы клиентов', cst_groups)]
+            CustomerReport('GRP', 'Направления бизнеса', business_unit)]
 
 
 def goods_report_list():
