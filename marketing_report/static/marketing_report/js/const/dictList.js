@@ -14,6 +14,9 @@ export const dictList = {
     customerGroup: 'CustomerGroup',
     customer: 'Customer',
     businessUnit: 'BusinessUnit',
+    typeGroup: 'TypeGroup',
+    fedRegion: 'FedRegion',
+    regionToFedRegion: 'RegionToFedRegion',
 
     detailName: 'DetailName',
     detailInGoods: 'DetailInGoods',
@@ -28,6 +31,9 @@ export const dictList = {
     customer_type: 'CustomerType',
     customer_group: 'CustomerGroup',
     business_unit: 'BusinessUnit',
+    type_group: 'TypeGroup',
+    fed_region: 'FedRegion',
+    region_to_fed_region: 'RegionToFedRegion',
 
     detail_in_goods: 'DetailInGoods',
     detail_name: 'DetailName',
