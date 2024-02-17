@@ -58,7 +58,8 @@ class Customer(models.Model):
             date_last=self.date_last,
             active=self.active,
             default=True,
-            deleted=False
+            deleted=False,
+            fed_region=self.fed_region
         )
         default_group.save()
         self.customer_group = default_group
