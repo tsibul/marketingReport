@@ -39,7 +39,7 @@
                     <a href="{% url 'marketing_report:imports' %}"
                        class="menu__item {% if navi == 'imports' %}active__menu{% endif %}">Импорт</a>
                 {% else %}
-                    <p class="menu__item">Маркетинг V5.3.0 <strong>Авторизуйтесь</strong></p>
+                    <p class="menu__item">Маркетинг V6.0.0 <strong>Авторизуйтесь</strong></p>
                 {% endif %}
                 {% if request.user.is_superuser %}
                     <a href="{% url 'marketing_report:admin_site' %}" class="menu__item">Админ</a>
@@ -57,7 +57,7 @@
                     </div>
                     <div class="menu__item" hidden> выход</div>
                 {% endif %}
-                <div class="menu__item">ver 5.3.0</div>
+                <div class="menu__item">ver 6.0.0</div>
             </nav>
         </menu>
     </div>
