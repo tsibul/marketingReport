@@ -1113,4 +1113,10 @@
   display: none;
 }
 
+.unit-title {
+  font-weight: bold;
+  padding: 12px 10px;
+  background-color: #C3CFD5;
+}
+
 /*# sourceMappingURL=style.css.map */
