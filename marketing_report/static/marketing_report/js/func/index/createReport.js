@@ -39,7 +39,7 @@ function chooseBody(report) {
         case 'Клиенты Типы и география':
             body = geographyReportBody(report);
             break;
-        case 'Клиенты Группы клиенто':
+        case 'Клиенты Направления бизнеса':
             body = groupReportBody(report);
             break;
 
