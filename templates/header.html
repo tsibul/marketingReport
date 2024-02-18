@@ -30,8 +30,8 @@
                 {% if request.user.is_authenticated %}
                     <a href="{% url 'marketing_report:main' %}"
                        class="menu__item {% if navi == 'main' %}active__menu{% endif %}">Главная</a>
-                    <a href="{% url 'marketing_report:reports' %}"
-                       class="menu__item {% if navi == 'reports' %}active__menu{% endif %}">Отчеты</a>
+{#                    <a href="{% url 'marketing_report:reports' %}"#}
+{#                       class="menu__item {% if navi == 'reports' %}active__menu{% endif %}">Отчеты</a>#}
                     <a href="{% url 'marketing_report:customer' %}"
                        class="menu__item {% if navi == 'customer' %}active__menu{% endif %}">Клиенты</a>
                     <a href="{% url 'marketing_report:dictionary' %}"
