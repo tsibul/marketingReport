@@ -1,4 +1,4 @@
-from django.db.models import F, Sum, ExpressionWrapper, FloatField
+from django.db.models import F, Sum, ExpressionWrapper, FloatField, Count
 from django.db.models.functions import Round, Coalesce
 
 from marketing_report.models import CustomerPeriod, ReportPeriod
@@ -66,13 +66,16 @@ def cst_abc(periods, parameter):
         )
         group['details'] = list(group_query)
     cl = list(customers_total)
+    customers_t_names = [c['group_code'] for c in cl]
     customers_a_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'A', cl)]
     customers_b_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'B', cl)]
     customers_c_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'C', cl)]
+
     customers_a = list(filter(lambda c: c['group'] == 'A', cl))
     customers_b = list(filter(lambda c: c['group'] == 'B', cl))
     customers_c = list(filter(lambda c: c['group'] == 'C', cl))
-    res = [group_customers_by_abc(customers_a, 'A', customers_a_names, periods),
+    res = [group_customers_by_abc(cl, 'T', customers_t_names, periods),
+           group_customers_by_abc(customers_a, 'A', customers_a_names, periods),
            group_customers_by_abc(customers_b, 'B', customers_b_names, periods),
            group_customers_by_abc(customers_c, 'C', customers_c_names, periods)]
     return res
@@ -117,9 +120,9 @@ def group_customers_by_abc(customers, letter, customer_names, periods):
         'group_profit': round(group_profit, 2),
         'group_no_sales': group_no_sales,
         'group_average_check': group_average_check,
-        'group_details': list(group_customers_by_abc_data(customer_names, periods)),
-        'customers': customers,
-    }
+        'group_details': list(group_customers_by_abc_data(customer_names, periods))}
+    if letter != 'T':
+        grouped.update({'customers': customers})
     return grouped
 
 

@@ -74,13 +74,15 @@ def business_unit(periods, parameter):
             )
             group['details'] = list(group_query)
         cl = list(customers_total)
+        customers_t_names = [c['group_code'] for c in cl]
         customers_a_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'A', cl)]
         customers_b_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'B', cl)]
         customers_c_names = [c['group_code'] for c in filter(lambda c: c['group'] == 'C', cl)]
         customers_a = list(filter(lambda c: c['group'] == 'A', cl))
         customers_b = list(filter(lambda c: c['group'] == 'B', cl))
         customers_c = list(filter(lambda c: c['group'] == 'C', cl))
-        res = [group_customers_by_abc(customers_a, 'A', customers_a_names, periods, unit),
+        res = [group_customers_by_abc(cl, 'T', customers_t_names, periods, unit),
+               group_customers_by_abc(customers_a, 'A', customers_a_names, periods, unit),
                group_customers_by_abc(customers_b, 'B', customers_b_names, periods, unit),
                group_customers_by_abc(customers_c, 'C', customers_c_names, periods, unit)]
         unit_dict = {'unit': unit.name, 'unitReport': res}
@@ -118,7 +120,10 @@ def group_customers_by_abc(customers, letter, customer_names, periods, unit):
         group_sales_with_vat += cst['total_sales_with_vat']
         group_profit += cst['total_profit']
         group_no_sales += cst['total_no_sales']
-    group_average_check = round(group_sales_with_vat / group_no_sales, 2)
+    if group_no_sales:
+        group_average_check = round(group_sales_with_vat / group_no_sales, 2)
+    else:
+        group_average_check = 0
     grouped = {
         'group': letter,
         'group_quantity': group_quantity,
@@ -128,7 +133,7 @@ def group_customers_by_abc(customers, letter, customer_names, periods, unit):
         'group_profit': round(group_profit, 2),
         'group_no_sales': group_no_sales,
         'group_average_check': group_average_check,
-        'group_details': list(group_customers_by_abc_data(customer_names, periods, unit)),
-        'customers': customers,
-    }
+        'group_details': list(group_customers_by_abc_data(customer_names, periods, unit)),}
+    if letter != 'T':
+        grouped.update({'customers': customers})
     return grouped
