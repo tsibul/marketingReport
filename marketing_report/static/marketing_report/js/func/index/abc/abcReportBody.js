@@ -12,13 +12,25 @@ export function abcReportBody(report) {
     const periodRow = perData[2];
     body.appendChild(periodRow)
 
+    // const unitTitle = document.createElement('div');
+    // unitTitle.textContent = 'Всего';
+    // unitTitle.classList.add('unit-title');
+    // body.appendChild(unitTitle);
+
     report.report.report_data.forEach(group => {
         let groupDetail = document.createElement('details');
         let groupSummary = document.createElement('summary');
         groupSummary.classList.add('abc', gridClass, 'abc__summary');
         groupDetail.appendChild(groupSummary);
+        let unitTitle;
+        if(group.group === 'T'){
+            groupSummary.classList.add('unit-title');
+            unitTitle = 'Всего';
+        } else {
+            unitTitle = 'Группа ' + group.group;
+        }
         groupSummary.insertAdjacentHTML('afterbegin',
-            `<div>Группа&nbsp;${group.group}, Клиентов&nbsp;${group.customer_quantity}</div>
+            `<div>${unitTitle}, Клиентов&nbsp;${group.customer_quantity}</div>
                   <div class="abc__params">
                     <div class="sales-vat">продажи с НДС</div>
                     <div class="sales">продажи без НДС</div>
@@ -56,11 +68,12 @@ export function abcReportBody(report) {
                     <div class="abc__digit average-check">${group.group_average_check}</div>        
                   </div>`);
         body.appendChild(groupDetail);
-        group.customers.forEach(customer => {
-            const customerRow = document.createElement('div');
-            customerRow.classList.add(gridClass, 'abc');
-            customerRow.insertAdjacentHTML('afterbegin',
-                `<div>${customer.group_code}</div>
+        if (group.customers) {
+            group.customers.forEach(customer => {
+                const customerRow = document.createElement('div');
+                customerRow.classList.add(gridClass, 'abc');
+                customerRow.insertAdjacentHTML('afterbegin',
+                    `<div>${customer.group_code}</div>
                   <div class="abc__params">
                     <div class="sales-vat">продажи с НДС</div>
                     <div class="sales">продажи без НДС</div>
@@ -69,13 +82,13 @@ export function abcReportBody(report) {
                     <div class="average-check">кол-во продаж</divclass>
                     <div>средний чек</div>        
                   </div>`);
-            periodData.forEach(per => {
-                const periodItem = document.createElement('div');
-                periodItem.classList.add('abc__params');
-                customer.details.forEach(detail => {
-                    if (detail.period_code === per.name) {
-                        periodItem.insertAdjacentHTML("beforeend",
-                            `
+                periodData.forEach(per => {
+                    const periodItem = document.createElement('div');
+                    periodItem.classList.add('abc__params');
+                    customer.details.forEach(detail => {
+                        if (detail.period_code === per.name) {
+                            periodItem.insertAdjacentHTML("beforeend",
+                                `
                     <div class="abc__digit sales-vat">${detail.sales_with_vat_s}</div>
                     <div class="abc__digit sales">${detail.sales_without_vat_s}</div>
                     <div class="abc__digit profit">${detail.profit_s}</div>
@@ -83,13 +96,13 @@ export function abcReportBody(report) {
                     <div class="abc__digit no-sales">${detail.no_sales_s}</div>
                     <div class="abc__digit average-check">${detail.average_check_s}</div>        
                         `);
-                        // return;
-                    }
-                    customerRow.appendChild(periodItem);
+                            // return;
+                        }
+                        customerRow.appendChild(periodItem);
+                    });
                 });
-            });
-            customerRow.insertAdjacentHTML('beforeend',
-                `<div class="abc__params">
+                customerRow.insertAdjacentHTML('beforeend',
+                    `<div class="abc__params">
                     <div class="abc__digit sales-vat">${customer.total_sales_with_vat}</div>
                     <div class="abc__digit sales">${customer.total_sales_without_vat}</div>
                     <div class="abc__digit profit">${customer.total_profit}</div>
@@ -97,14 +110,15 @@ export function abcReportBody(report) {
                     <div class="abc__digit no-sales">${customer.total_no_sales}</div>
                     <div class="abc__digit average-check">${customer.average_check}</div>        
                   </div>`);
-            groupDetail.appendChild(customerRow);
-        });
+                groupDetail.appendChild(customerRow);
+            });
+        }
     });
 
     return body;
 }
 
-function createParameterRow() {
+export function createParameterRow() {
     const parameterRow = document.createElement('div');
     parameterRow.classList.add('abc', 'abc__parameter-row');
     const timeNow = Date.now();
@@ -165,7 +179,7 @@ function createParameterRow() {
     return parameterRow;
 }
 
-function toggleDisplay(element, check) {
+export function toggleDisplay(element, check) {
     if (check.checked) {
         element.style.display = 'block';
     } else {
