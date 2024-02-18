@@ -3,6 +3,7 @@ import calendar
 import json
 
 from django.db import models
+from django.db.models import Q
 
 from django.utils.translation import gettext_lazy as _
 
@@ -105,7 +106,7 @@ def json_periods():
 
 
 def find_all_period_by_date_range(date_begin, date_end):
-    return ReportPeriod.objects.filter(date_begin__lte=date_begin, date_end__gte=date_end)
+    return ReportPeriod.objects.filter(Q(date_begin__lte=date_end) & Q(date_end__gte=date_begin)).distinct()
 
 
 def find_period_by_date_range(period, date_begin, date_end):
