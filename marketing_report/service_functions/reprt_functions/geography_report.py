@@ -8,7 +8,8 @@ def cst_geography(periods, parameter):
     data = CustomerPeriodByUnit.objects.filter(
         period__in=periods,
         customer__internal=False,
-        customer__fed_region__isnull=False
+        customer__fed_region__isnull=False,
+        business_unit__isnull=False
     ).values(
         'customer__fed_region__name',
         'business_unit__name',
@@ -23,6 +24,41 @@ def cst_geography(periods, parameter):
         average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
     ).order_by('customer__fed_region__name', 'business_unit__name', 'customer__customer_group__name',
                'period__date_begin')
+
+    data_region_total = CustomerPeriodByUnit.objects.filter(
+        period__in=periods,
+        customer__internal=False,
+        customer__fed_region__isnull=False,
+        business_unit__isnull=False
+    ).values(
+        'customer__fed_region__name',
+        'period__name'
+    ).annotate(
+        quantity_s=Round(Sum('quantity') / 1000, 2),
+        sales_without_vat_s=Round(Sum('sales_without_vat') / 1000, 2),
+        sales_with_vat_s=Round(Sum('sales_with_vat') / 1000, 2),
+        profit_s=Round(Sum('profit') / 1000, 2),
+        no_sales_s=Sum('no_sales'),
+        average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
+    ).order_by('customer__fed_region__name', 'period__date_begin')
+
+    data_unit = CustomerPeriodByUnit.objects.filter(
+        period__in=periods,
+        customer__internal=False,
+        customer__fed_region__isnull=False,
+        business_unit__isnull = False
+    ).values(
+        'customer__fed_region__name',
+        'business_unit__name',
+        'period__name'
+    ).annotate(
+        quantity_s=Round(Sum('quantity') / 1000, 2),
+        sales_without_vat_s=Round(Sum('sales_without_vat') / 1000, 2),
+        sales_with_vat_s=Round(Sum('sales_with_vat') / 1000, 2),
+        profit_s=Round(Sum('profit') / 1000, 2),
+        no_sales_s=Sum('no_sales'),
+        average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
+    ).order_by('customer__fed_region__name', 'business_unit__name', 'period__date_begin')
 
     region_previous = data.first()['customer__fed_region__name']
     regions = {region_previous: []}
@@ -64,5 +100,40 @@ def cst_geography(periods, parameter):
             cst_list.append(cst)
             unit[unit_key] = cst_list
 
+    unit_old = data_unit.first()
+    unit_list = []
+    for unit in data_unit:
+        if unit['customer__fed_region__name'] == unit_old['customer__fed_region__name']:
+            if unit['business_unit__name'] == unit_old['business_unit__name']:
+                unit_list.append(unit)
+            else:
+                item =list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
+                              regions[unit['customer__fed_region__name']]))[0]
+                item['unit_sales'] = unit_list
+                unit_list = []
+                unit_old = unit
+                unit_list.append(unit)
+        else:
+            item = list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
+                          regions[unit['customer__fed_region__name']]))[0]
+            item['unit_sales'] = unit_list
+            unit_list = []
+            unit_old = unit
+            unit_list.append(unit)
+        item = list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
+                           regions[unit['customer__fed_region__name']]))[0]
+        item['unit_sales'] = unit_list
+
+    reg_old = data_region_total.first()
+    regs = []
+    for reg in data_region_total:
+        if reg['customer__fed_region__name'] == reg_old['customer__fed_region__name']:
+            regs.append(reg)
+        else:
+            regions[reg_old['customer__fed_region__name']].append({'region_sales': regs})
+            regs = []
+            reg_old['customer__fed_region__name'] = reg['customer__fed_region__name']
+            regs.append(reg)
+    regions[reg['customer__fed_region__name']].insert(0, {'region_sales': regs})
 
     return regions
