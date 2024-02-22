@@ -163,7 +163,11 @@ def cst_geography(periods, parameter):
             regs.append(reg)
     region_add(regions, reg_old, regs, regions_total)
 
-    return regions
+    regions_to_list = []
+    for reg in list(regions):
+        regions_to_list.append({reg: regions[reg]})
+
+    return regions_to_list
 
 
 def unit_add(unit_old, unit_list, regions, business_unit_total):
