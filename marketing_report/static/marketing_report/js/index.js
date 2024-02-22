@@ -79,5 +79,3 @@ function changeArgumentList(thisObj) {
     });
     parentObj.querySelector('[for^="parameter-select"]');
 }
-
-

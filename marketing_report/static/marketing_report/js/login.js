@@ -1,7 +1,6 @@
 import {closeModal} from "./func/closeModal.js";
 import {openModal} from "./func/openModal.js";
 
-// logout_modal.js
 const authModal = document.getElementById('authModal');
 const closeButtons = document.querySelectorAll('.login__close');
 const loginForm = document.getElementById('login-form');
