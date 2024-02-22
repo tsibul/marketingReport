@@ -92,49 +92,49 @@
 
   &__1 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(2, 1fr);
+    grid-template-columns: 2fr 1fr repeat(2, 1fr);
     gap: 4px;
     padding: 4px;
   }
 
   &__2 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(3, 1fr);
+    grid-template-columns: 2fr 1fr repeat(3, 1fr);
     gap: 4px;
     //padding: 4px;
   }
 
   &__3 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(4, 1fr);
+    grid-template-columns: 2fr 1fr repeat(4, 1fr);
     gap: 4px;
     //padding: 4px;
   }
 
   &__4 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(5, 1fr);
+    grid-template-columns: 2fr 1fr repeat(5, 1fr);
     gap: 4px;
     //padding: 4px;
   }
 
   &__5 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(6, 1fr);
+    grid-template-columns: 2fr 1fr repeat(6, 1fr);
     gap: 4px;
     //padding: 4px;
   }
 
   &__6 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(7, 1fr);
+    grid-template-columns: 2fr 1fr repeat(7, 1fr);
     gap: 4px;
     //padding: 4px;
   }
 
   &__7 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(8, 1fr);
+    grid-template-columns: 2fr 1fr repeat(8, 1fr);
     gap: 4px;
     //padding: 4px;
   }
@@ -142,7 +142,7 @@
 
   &__8 {
     display: grid;
-    grid-template-columns: 2fr 2fr repeat(9, 1fr);
+    grid-template-columns: 2fr 1fr repeat(9, 1fr);
     gap: 4px;
     //padding: 4px;
   }
