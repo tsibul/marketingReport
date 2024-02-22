@@ -46,7 +46,7 @@ def cst_geography(periods, parameter):
         period__in=periods,
         customer__internal=False,
         customer__fed_region__isnull=False,
-        business_unit__isnull = False
+        business_unit__isnull=False
     ).values(
         'customer__fed_region__name',
         'business_unit__name',
@@ -59,6 +59,39 @@ def cst_geography(periods, parameter):
         no_sales_s=Sum('no_sales'),
         average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
     ).order_by('customer__fed_region__name', 'business_unit__name', 'period__date_begin')
+
+    regions_total = CustomerPeriodByUnit.objects.filter(
+        period__in=periods,
+        customer__internal=False,
+        customer__fed_region__isnull=False,
+        business_unit__isnull=False
+    ).values(
+        'customer__fed_region__name',
+    ).annotate(
+        quantity_s=Round(Sum('quantity') / 1000, 2),
+        sales_without_vat_s=Round(Sum('sales_without_vat') / 1000, 2),
+        sales_with_vat_s=Round(Sum('sales_with_vat') / 1000, 2),
+        profit_s=Round(Sum('profit') / 1000, 2),
+        no_sales_s=Sum('no_sales'),
+        average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
+    ).order_by('customer__fed_region__name')
+
+    business_unit_total = CustomerPeriodByUnit.objects.filter(
+        period__in=periods,
+        customer__internal=False,
+        customer__fed_region__isnull=False,
+        business_unit__isnull=False
+    ).values(
+        'customer__fed_region__name',
+        'business_unit__name',
+    ).annotate(
+        quantity_s=Round(Sum('quantity') / 1000, 2),
+        sales_without_vat_s=Round(Sum('sales_without_vat') / 1000, 2),
+        sales_with_vat_s=Round(Sum('sales_with_vat') / 1000, 2),
+        profit_s=Round(Sum('profit') / 1000, 2),
+        no_sales_s=Sum('no_sales'),
+        average_check_s=Round(Sum('sales_with_vat') / Sum('no_sales') / 1000, 2)
+    ).order_by('customer__fed_region__name', 'business_unit__name')
 
     region_previous = data.first()['customer__fed_region__name']
     regions = {region_previous: []}
@@ -107,22 +140,16 @@ def cst_geography(periods, parameter):
             if unit['business_unit__name'] == unit_old['business_unit__name']:
                 unit_list.append(unit)
             else:
-                item =list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
-                              regions[unit['customer__fed_region__name']]))[0]
-                item['unit_sales'] = unit_list
+                unit_add(unit_old, unit_list, regions, business_unit_total)
                 unit_list = []
                 unit_old = unit
                 unit_list.append(unit)
         else:
-            item = list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
-                          regions[unit['customer__fed_region__name']]))[0]
-            item['unit_sales'] = unit_list
+            unit_add(unit_old, unit_list, regions, business_unit_total)
             unit_list = []
             unit_old = unit
             unit_list.append(unit)
-        item = list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
-                           regions[unit['customer__fed_region__name']]))[0]
-        item['unit_sales'] = unit_list
+        unit_add(unit_old, unit_list, regions, business_unit_total)
 
     reg_old = data_region_total.first()
     regs = []
@@ -130,10 +157,27 @@ def cst_geography(periods, parameter):
         if reg['customer__fed_region__name'] == reg_old['customer__fed_region__name']:
             regs.append(reg)
         else:
-            regions[reg_old['customer__fed_region__name']].append({'region_sales': regs})
+            region_add(regions, reg_old, regs, regions_total)
             regs = []
             reg_old['customer__fed_region__name'] = reg['customer__fed_region__name']
             regs.append(reg)
-    regions[reg['customer__fed_region__name']].insert(0, {'region_sales': regs})
+    region_add(regions, reg_old, regs, regions_total)
 
     return regions
+
+
+def unit_add(unit_old, unit_list, regions, business_unit_total):
+    item = list(filter(lambda x: list(x.keys())[0] == unit_old['business_unit__name'],
+                       regions[unit_old['customer__fed_region__name']]))[0]
+    item['unit_sales'] = unit_list
+    total_sales = list(business_unit_total.filter(
+        customer__fed_region__name=unit_old['customer__fed_region__name'],
+        business_unit__name=unit_old['business_unit__name']))
+    item['total_sales'] = total_sales
+
+
+def region_add(regions, reg_old, regs, regions_total):
+    regions[reg_old['customer__fed_region__name']].append({'region_sales': regs})
+    reg_total = list(regions_total.filter(customer__fed_region__name=reg_old['customer__fed_region__name']))
+    regions[reg_old['customer__fed_region__name']].append({'total_sales': reg_total})
+
