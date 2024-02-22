@@ -118,6 +118,28 @@
     //padding: 4px;
   }
 
+  &__5 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(6, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__6 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(7, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+  &__7 {
+    display: grid;
+    grid-template-columns: 2fr 2fr repeat(8, 1fr);
+    gap: 4px;
+    //padding: 4px;
+  }
+
+
   &__8 {
     display: grid;
     grid-template-columns: 2fr 2fr repeat(9, 1fr);
@@ -187,7 +209,7 @@
   display: none;
 }
 
-.unit-title{
+.unit-title {
   font-weight: bold;
   padding: 12px 10px;
   background-color: $colorPrimary200;

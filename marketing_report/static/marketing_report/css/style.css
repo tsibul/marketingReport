@@ -1056,6 +1056,21 @@
   grid-template-columns: 2fr 2fr repeat(5, 1fr);
   gap: 4px;
 }
+.abc__5 {
+  display: grid;
+  grid-template-columns: 2fr 2fr repeat(6, 1fr);
+  gap: 4px;
+}
+.abc__6 {
+  display: grid;
+  grid-template-columns: 2fr 2fr repeat(7, 1fr);
+  gap: 4px;
+}
+.abc__7 {
+  display: grid;
+  grid-template-columns: 2fr 2fr repeat(8, 1fr);
+  gap: 4px;
+}
 .abc__8 {
   display: grid;
   grid-template-columns: 2fr 2fr repeat(9, 1fr);
