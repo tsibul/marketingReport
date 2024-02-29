@@ -52,9 +52,9 @@ customerModal.querySelector('.btn-save').addEventListener('mousedown', e => prep
 customerReport.addEventListener('click', e => {
     customerModal.style.display = 'flex'
 });
-// goodsReport.addEventListener('click', e => {
-//     goodsModal.style.display = 'flex'
-// })
+goodsReport.addEventListener('click', e => {
+    goodsModal.style.display = 'flex'
+})
 
 
 // change argument list
