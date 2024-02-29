@@ -35,10 +35,11 @@ def cst_report_list():
 
 def goods_report_list():
     return [GoodsReport('ABC', 'ABC - анализ', goods_abc),
-            GoodsReport('GRP', 'Группы товара', goods_groups),
-            GoodsReport('MTR', 'Товарная матрица', goods_matrix),
-            GoodsReport('CLR', 'Миграции цветов', goods_color),
-            GoodsReport('MIG', 'Миграции товаров', goods_migrations)]
+            # GoodsReport('GRP', 'Группы товара', goods_groups),
+            # GoodsReport('MTR', 'Товарная матрица', goods_matrix),
+            # GoodsReport('CLR', 'Миграции цветов', goods_color),
+            # GoodsReport('MIG', 'Миграции товаров', goods_migrations)
+            ]
 
 
 def money_report_list():
