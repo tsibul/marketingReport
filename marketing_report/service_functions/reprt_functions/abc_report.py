@@ -1,5 +1,5 @@
-from django.db.models import F, Sum, ExpressionWrapper, FloatField, Count
-from django.db.models.functions import Round, Coalesce
+from django.db.models import F, Sum
+from django.db.models.functions import Round
 
 from marketing_report.models import CustomerPeriod, ReportPeriod
 from marketing_report.models.argument_classes import money_argument_list
@@ -124,10 +124,6 @@ def group_customers_by_abc(customers, letter, customer_names, periods):
     if letter != 'T':
         grouped.update({'customers': customers})
     return grouped
-
-
-def goods_abc(periods, parameter):
-    return
 
 
 def goods_groups(periods, parameter):

@@ -1,6 +1,7 @@
 import abc
 import json
 
+from marketing_report.service_functions.reprt_functions.abc_goods_report import goods_abc
 from marketing_report.service_functions.reprt_functions.abc_report import *
 from marketing_report.service_functions.reprt_functions.migration_report import *
 from marketing_report.service_functions.reprt_functions.geography_report import *
