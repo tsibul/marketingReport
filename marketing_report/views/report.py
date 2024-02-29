@@ -36,11 +36,13 @@ def json_report(request, report_class, report_type, period, parameter, begin, en
     date_end = datetime.date(int(end), 12, 31)
     period_name = 'помесячно' if period == 'MT' else ('поквартально' if period == 'QT' else 'по годам')
     period_query = find_all_period_by_date_range(date_begin, date_end).filter(period=period).order_by('date_begin')
-    try:
-        num = int(parameter)
-        parameter_name = (next(filter(lambda param: param.code == parameter, time_argument_list()), None)).description
-    except:
-        parameter_name = (next(filter(lambda param: param.code == parameter, money_argument_list()), None)).description
+    parameter_name = "по умолчанию"
+    if parameter != 'goods-default':
+        try:
+            num = int(parameter)
+            parameter_name = (next(filter(lambda param: param.code == parameter, time_argument_list()), None)).description
+        except:
+            parameter_name = (next(filter(lambda param: param.code == parameter, money_argument_list()), None)).description
     if report_class == 'customer':
         report_obj = (next(filter(lambda report: report.code == report_type, cst_report_list()), None))
         report_result = report_obj.report_function(period_query, parameter)
