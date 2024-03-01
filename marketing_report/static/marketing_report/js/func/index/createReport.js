@@ -5,6 +5,7 @@ import {abcReportBody} from "./abc/abcReportBody.js";
 import {migrationsReportBody} from "./migrations/migrationsReportBody.js";
 import {geographyReportBody} from "./geography/geographyReportBody.js";
 import {groupReportBody} from "./groups/groupReportBody.js";
+import {abcGoodsReportBody} from "./abcGoods/abcGoodsReportBody.js";
 
 export function createReport(e) {
     const container = document.querySelector('.full-content').querySelector('.container');
@@ -41,6 +42,9 @@ function chooseBody(report) {
             break;
         case 'Клиенты Направления бизнеса':
             body = groupReportBody(report);
+            break;
+        case 'Товары ABC - анализ':
+            body = abcGoodsReportBody(report);
             break;
 
     }
