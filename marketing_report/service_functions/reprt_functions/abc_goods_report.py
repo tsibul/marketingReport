@@ -134,7 +134,10 @@ def single_color_totals(goods_period_filtered, color, good):
     if good:
         color_group = good.color_scheme
         if Color.objects.filter(code=color):
-            color_name = Color.objects.get(code=color, color_scheme=color_group).code
+            try:
+                color_name = Color.objects.get(code=color, color_scheme=color_group).code
+            except:
+                color_name = Color.objects.filter(code=color).first().code
         else:
             color_name = None
     else:
