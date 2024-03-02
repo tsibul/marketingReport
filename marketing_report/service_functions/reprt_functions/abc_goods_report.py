@@ -36,17 +36,17 @@ def goods_abc(periods, parameter):
     totals_b = goods_totals(goods_period_filtered, goods_b, 'Группа B')
     totals_c = goods_totals(goods_period_filtered, goods_c, 'Группа C')
 
-    totals_a.update({'goods': []})
-    totals_b.update({'goods': []})
-    totals_c.update({'goods': []})
+    totals_a.update({'items': []})
+    totals_b.update({'items': []})
+    totals_c.update({'items': []})
     for good in goods_a:
-        totals_a['goods'].append(single_good_totals(goods_period_filtered, good))
+        totals_a['items'].append(single_good_totals(goods_period_filtered, good))
     for good in goods_b:
-        totals_b['goods'].append(single_good_totals(goods_period_filtered, good))
+        totals_b['items'].append(single_good_totals(goods_period_filtered, good))
     for good in goods_c:
-        totals_c['goods'].append(single_good_totals(goods_period_filtered, good))
+        totals_c['items'].append(single_good_totals(goods_period_filtered, good))
 
-    return [totals, totals_a, totals_b, totals_c]
+    return {'items': [totals, totals_a, totals_b, totals_c]}
 
 
 def goods_totals(goods_period_filtered, goods_t, text):
@@ -100,18 +100,18 @@ def single_good_totals(goods_period_filtered, good):
     total_colors_b = color_totals(goods_period_filtered, colors_b, good, 'Цвета B')
     total_colors_c = color_totals(goods_period_filtered, colors_c, good, 'Цвета C')
 
-    total_colors_a.update({'colors': []})
-    total_colors_b.update({'colors': []})
-    total_colors_c.update({'colors': []})
+    total_colors_a.update({'items': []})
+    total_colors_b.update({'items': []})
+    total_colors_c.update({'items': []})
     for color in colors_a:
-        total_colors_a['colors'].append(single_color_totals(goods_period_filtered, color, good))
+        total_colors_a['items'].append(single_color_totals(goods_period_filtered, color, good))
     for color in colors_b:
-        total_colors_b['colors'].append(single_color_totals(goods_period_filtered, color, good))
+        total_colors_b['items'].append(single_color_totals(goods_period_filtered, color, good))
     for color in colors_c:
-        total_colors_c['colors'].append(single_color_totals(goods_period_filtered, color, good))
+        total_colors_c['items'].append(single_color_totals(goods_period_filtered, color, good))
 
     return {'name': good_name, 'periods': list(grand_total_period_sales), 'totals': grand_total_sales,
-            'colors_a': total_colors_a, 'colors_b': total_colors_b, 'colors_c': total_colors_c}
+            'items': [total_colors_a,  total_colors_b,  total_colors_c]}
 
 
 def color_totals(goods_period_filtered, colors_t, good, text):
@@ -162,10 +162,10 @@ def single_color_totals(goods_period_filtered, color, good):
 def standard_annotate(custom_query):
     return custom_query.annotate(
         goods_total_sales=Round(Sum('sales_without_vat') / 1000, 2),
-        goods_total_quantity=Round(Sum('quantity') / 1000, 2),
-        goods_total_no_sales=Round(Sum('sales_no') / 1000, 2),
+        goods_total_quantity=Round(Sum('quantity'), 2),
+        goods_total_no_sales=Round(Sum('sales_no'), 2),
         goods_average_price=Round(Sum('sales_with_vat') / Sum('quantity'), 2),
-        goode_average_sales_quantity=Round(Sum('quantity') / Sum('sales_no') / 1000, 2),
+        goods_average_sales_quantity=Round(Sum('quantity') / Sum('sales_no'), 2),
         goods_minimal_quantity=Min('quantity', filter=~Q(quantity__lte=10))
     )
 
@@ -173,9 +173,9 @@ def standard_annotate(custom_query):
 def standard_aggregate(custom_query):
     return custom_query.aggregate(
         goods_total_sales=Round(Sum('sales_without_vat') / 1000, 2),
-        goods_total_quantity=Round(Sum('quantity') / 1000, 2),
-        goods_total_no_sales=Round(Sum('sales_no') / 1000, 2),
+        goods_total_quantity=Round(Sum('quantity'), 2),
+        goods_total_no_sales=Round(Sum('sales_no'), 2),
         goods_average_price=Round(Sum('sales_with_vat') / Sum('quantity'), 2),
-        goode_average_sales_quantity=Round(Sum('quantity') / Sum('sales_no') / 1000, 2),
+        goods_average_sales_quantity=Round(Sum('quantity') / Sum('sales_no'), 2),
         goods_minimal_quantity=Min('quantity', filter=~Q(quantity__lte=10))
     )
