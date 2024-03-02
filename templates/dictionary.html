@@ -27,6 +27,11 @@
                                     class="fa fa-solid fa-sack-xmark"></i>&nbsp;Типы клиентов</label>
                         </div>
                         <div class="dict-menu__item">
+                            <input type="checkbox" class="checkbox-out" id="customerArea">
+                            <label for="customerArea"><i
+                                    class="fa fa-solid fa-sack-xmark"></i>&nbsp;Клиенты по типам бизнеса</label>
+                        </div>
+                        <div class="dict-menu__item">
                             <input type="checkbox" class="checkbox-out" id="typeGroup">
                             <label for="typeGroup"><i
                                     class="fa fa-solid fa-sack-xmark"></i>&nbsp;Группировка типов</label>
@@ -306,8 +311,26 @@
                                 <button class="btn btn-close btn_delete" type="button">удалить</button>
                             </div>
                         </div>
-                    </details><!-- группировка типов -->
-
+                    </details><!-- группировка типов -->    
+                    <details class="dict-block dict-block__2">
+                        <summary class="dict-block__header">
+                            <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>
+                                Клиенты&nbsp;по типам&nbsp;бизнеса
+                            </div>
+                        </summary>
+                        <div class="dict-block__row dict-block__active service-dict dict-block__row_right-margin">
+                            <div>Направление</div>
+                            <button class="btn btn-save btn_add">добавить</button>
+                        </div>
+                        <div class="dict-block__content ">
+                            <div class="dict-block__row service-dict dict-block__row_hidden" data-id="0"
+                                 id="customerArea-0">
+                                <input class="id-hidden" name="id" value="0">
+                                <div class="dict-block__text" data-field="name" data-name="name"></div>
+                                <button class="btn btn-close btn_delete" type="button">удалить</button>
+                            </div>
+                        </div>
+                    </details><!-- Клиенты по типам бизнеса -->
                     <details class="dict-block dict-block__4">
                         <summary class="dict-block__header dict-block__header_block-space">
                             <div class="dict-block__active"><i class="fa fa-flip fa-solid fa-sack-xmark"></i>Группы&nbsp;клиентов
@@ -367,15 +390,16 @@
                             </div>
                         </summary>
                         <div class="dict-block__row customer  dict-block__active dict-block__row_right-margin">
-                            <div>Название</div>
                             <div></div>
-                            <div>ИНН</div>
-                            <div>Тип</div>
-                            <div>Группа</div>
-                            <div>Адрес</div>
-                            <div>Телефон</div>
-                            <div>Первая продажа</div>
-                            <div>Последняя продажа</div>
+                            <div class="dict-block__text">Название</div>
+                            <div class="dict-block__text">ИНН</div>
+                            <div class="dict-block__text">Тип</div>
+                            <div class="dict-block__text">Тип бизнеса</div>
+                            <div class="dict-block__text">Группа</div>
+                            <div class="dict-block__text">Адрес</div>
+                            <div class="dict-block__text">Телефон</div>
+                            <div class="dict-block__text">Первая продажа</div>
+                            <div class="dict-block__text">Последняя продажа</div>
                             <div></div>
                         </div>
                         <div class="dict-block__content">
@@ -387,6 +411,9 @@
                                 <div class="dict-block__text" data-field="inn"></div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_type" data-field="customer_type"
+                                     data-id=""></div>
+                                <div class="dict-block__text foreign-key"
+                                     data-name="customer_area" data-field="customer_area"
                                      data-id=""></div>
                                 <div class="dict-block__text foreign-key"
                                      data-name="customer_group" data-field="customer_group"

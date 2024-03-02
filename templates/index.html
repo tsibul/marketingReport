@@ -116,7 +116,7 @@
                     </div>
                     <ul class="dropdown__content">
                         {% for goods_report in goods_reports %}
-                            <li data-value="{{ good_report.code }}">{{ good_report.description }}</li>
+                            <li data-value="{{ goods_report.code }}">{{ goods_report.description }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -151,22 +151,24 @@
                         <p>год</p>
                     </div>
                 </div>
-                <div class="dropdown report_dropdown">
-                    <input name="id" type="text" class="dropdown__hidden" id="parameter-select-10000"
-                           value="{{ money_arguments.0.code }}">
-                    <div class="dropdown__input-block">
-                        <input type="text" class="dropdown__input"
-                               placeholder="Поиск.."
-                               value="{{ money_arguments.0.description }}"
-                               data-value="{{ money_arguments.0.description }}" readonly>
-                        <i class="fa fa-solid fa-angle-down"></i>
-                    </div>
-                    <ul class="dropdown__content">
-                        {% for argument in money_arguments %}
-                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+                <input name="id" type="text" class="dropdown__hidden" id="parameter-select-10000"
+                       value="goods-default">
+{#                <div class="dropdown report_dropdown">#}
+{#                    <input name="id" type="text" class="dropdown__hidden" id="parameter-select-10000"#}
+{#                           value="{{ money_arguments.0.code }}">#}
+{#                    <div class="dropdown__input-block">#}
+{#                        <input type="text" class="dropdown__input"#}
+{#                               placeholder="Поиск.."#}
+{#                               value="{{ money_arguments.0.description }}"#}
+{#                               data-value="{{ money_arguments.0.description }}" readonly>#}
+{#                        <i class="fa fa-solid fa-angle-down"></i>#}
+{#                    </div>#}
+{#                    <ul class="dropdown__content">#}
+{#                        {% for argument in money_arguments %}#}
+{#                            <li data-value="{{ argument.code }}">{{ argument.description }} </li>#}
+{#                        {% endfor %}#}
+{#                    </ul>#}
+{#                </div>#}
             </div>
             <div class="button-block report_button-block">
                 <button type="button" class="btn btn-close">Закрыть</button>

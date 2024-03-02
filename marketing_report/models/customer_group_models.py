@@ -21,6 +21,10 @@ class CustomerType(SettingsDictionary):
     type_group = models.ForeignKey(TypeGroup, models.SET_NULL, null=True, blank=True, default=None)
 
 
+class CustomerArea(SettingsDictionary):
+    pass
+
+
 class CustomerGroup(SettingsDictionary):
     customer_type = models.ForeignKey(CustomerType, models.SET_NULL, null=True)
     phone = models.CharField(max_length=255, default='')
