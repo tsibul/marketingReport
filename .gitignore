@@ -3011,6 +3011,3 @@
 /node_modules/wildcard/package.json
 /node_modules/wildcard/README.md
 /node_modules/.package-lock.json
-/webpack.config.js
-/package.json
-/package-lock.json
