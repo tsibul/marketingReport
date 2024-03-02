@@ -17,12 +17,12 @@ export const dictList = {
     typeGroup: 'TypeGroup',
     fedRegion: 'FedRegion',
     regionToFedRegion: 'RegionToFedRegion',
+    customerArea: 'CustomerArea',
 
     detailName: 'DetailName',
     detailInGoods: 'DetailInGoods',
     goods: 'Goods',
     producer: 'Producer',
-
 
     color_scheme: 'ColorScheme',
     print_type: 'PrintType',
@@ -34,6 +34,7 @@ export const dictList = {
     type_group: 'TypeGroup',
     fed_region: 'FedRegion',
     region_to_fed_region: 'RegionToFedRegion',
+    customer_area: 'CustomerArea',
 
     detail_in_goods: 'DetailInGoods',
     detail_name: 'DetailName',

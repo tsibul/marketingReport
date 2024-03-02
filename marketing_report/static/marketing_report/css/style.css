@@ -949,7 +949,7 @@
 
 .customer {
   font-size: 14px;
-  grid-template-columns: 1fr 3fr 2fr 2fr 2fr 3fr 2fr 1.5fr 1.5fr 1.5fr;
+  grid-template-columns: 1fr 3fr 2fr 2fr 2fr 2.5fr 4fr 2fr 2fr 1.5fr 2fr;
 }
 .customer .btn {
   font-size: 14px;
