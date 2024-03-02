@@ -5,7 +5,7 @@ export function createPeriodRow(report) {
     const periodDataLength = periodData.length;
     const gridClass = 'abc__' + periodDataLength;
     const periodRow = document.createElement('div');
-    periodRow.classList.add('abc', gridClass, 'active');
+    periodRow.classList.add('abc', gridClass, 'active', 'abc__period-row');
     periodRow.insertAdjacentHTML('afterbegin',
         `<div>название</div><div>показатели</div>`);
     periodData.forEach(per => {
