@@ -44,6 +44,8 @@
   border-radius: 10px;
 
   &__title {
+    position: sticky;
+    top: 70px;
     display: grid;
     grid-template-columns: 2fr 2fr 2fr 1fr 1fr 2fr 1fr;
     align-items: center;
@@ -180,12 +182,22 @@
   }
 
   &__parameter-row {
+    position: sticky;
+    top: 124px;
     display: flex;
     justify-content: space-around;
+    background-color: $colorSecondary100;
 
     & input {
       accent-color: $colorPrimary700;
     }
+  }
+
+  &__period-row {
+    position: sticky;
+    top: 159px;
+    background-color: $colorSecondary100;
+
   }
 }
 
@@ -209,8 +221,65 @@
   display: none;
 }
 
+.price {
+  display: none;
+}
+
+.average-quantity {
+  display: none;
+}
+
+.min-quantity {
+  display: none;
+}
+
+.small-font {
+  font-size: 14px;
+}
+
 .unit-title {
   font-weight: bold;
   padding: 12px 10px;
   background-color: $colorPrimary200;
+}
+
+.margin {
+
+  &__0 {
+    background-color: $colorPrimary300;
+
+    & > :first-child {
+      padding-left: 0;
+    }
+  }
+
+  &__1 {
+    background-color: $colorPrimary200;
+
+    & > :first-child {
+      padding-left: 20px;
+    }
+  }
+
+  &__2 {
+    background-color: $colorPrimary100;
+
+    & > :first-child {
+      padding-left: 40px;
+    }
+  }
+
+  &__3 {
+    & > :first-child {
+      padding-left: 60px;
+    }
+  }
+
+  &__4 > :first-child {
+    margin-left: 80px;
+  }
+
+  &__5 > :first-child {
+    margin-left: 100px;
+  }
 }
