@@ -42,6 +42,8 @@ document.querySelector('.import-file-modal__body').addEventListener('submit', fu
     }, 300);
     // Создание объекта FormData для отправки данных формы
     const formData = new FormData(this);
+    const fileInput = document.querySelector('input[type="file"]');
+    formData.append('file', fileInput.files[0]);
     // Отправка AJAX-запроса
     fetch(this.action, {
         method: 'POST',

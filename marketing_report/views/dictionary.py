@@ -33,7 +33,8 @@ def dictionary_update(request, dict_type):
         if field in request.POST.keys() and field != 'id':
             model_field = dict_model._meta.get_field(field)
             if model_field.get_internal_type() == 'ForeignKey':
-                setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
+                if request.POST[field] != 'null':
+                    setattr(dict_element, field, model_field.related_model.objects.get(id=request.POST[field]))
             elif model_field.get_internal_type() == 'Boolean':
                 setattr(dict_element, field, False)
                 if request.POST[field]:
