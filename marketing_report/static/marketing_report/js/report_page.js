@@ -21,8 +21,6 @@ customerReport.addEventListener('click', e => {
 });
 goodsReport.addEventListener('click', e => newReport(e.target, 10000))
 
-
-
 // change argument list
 function changeArgumentList(thisObj) {
     const parentObj = thisObj.parentElement;
@@ -45,5 +43,3 @@ function changeArgumentList(thisObj) {
     });
     parentObj.querySelector('[for^="parameter-select"]');
 }
-
-

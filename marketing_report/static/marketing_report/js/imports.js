@@ -30,13 +30,8 @@ document.querySelector('#period-end').nextElementSibling
 document.querySelector('#firstLastDate').nextElementSibling
     .addEventListener('click', e => customerFirstLastDate(e.target));
 
-
 importModal.querySelector('.btn-close')
     .addEventListener('click', e => importFileModalClose(e.target));
-
-// importModal.querySelector('.btn-save')
-//     .addEventListener('click', e => importFileModal(e.target, 'sales'));
-
 
 document.querySelector('.import-file-modal__body').addEventListener('submit', function (e) {
     e.preventDefault();

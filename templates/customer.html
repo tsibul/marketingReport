@@ -2,6 +2,8 @@
 {% load static %}
 {% block title %}Импорт{% endblock %}
 {% block content %}
+{#    <script type="module" src="{%  static 'marketing_report/js/customer.js' %}" defer></script>#}
+    <script type="module" src="{%  static 'marketing_report/js/dist/customer.bundle.js' %}" defer></script>
     <div class="full-content">
         <div class="container">
         </div>
@@ -12,5 +14,4 @@
         <div id="periods">{{ json_period }}</div>
 
     </div>
-    <script src="{%  static 'marketing_report/js/customer.js' %}"></script>
 {% endblock %}

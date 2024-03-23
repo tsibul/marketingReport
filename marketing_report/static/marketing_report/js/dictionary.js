@@ -9,16 +9,13 @@ import {deleteRecord} from "./func/deleteRecord.js";
 import {userRights} from "./func/userRights.js";
 import {normalizeSearchStringValue} from "./func/normalizeSearchStringValue.js";
 import {clearSearch} from "./func/clearSearch.js";
-// import {handleDragEnter, handleDragLeave, handleDragOver} from "./func/dictionary/handlersDnD.js";
 import {hideDict} from "./func/dictionary/hideDict.js";
 import {showDict} from "./func/dictionary/showDict.js";
 import {initDictionary} from "./func/dictionary/initDictionary.js";
 
-
 const addButtons = document.querySelectorAll('.btn_add');
 const searchButtons = document.querySelectorAll('.search_submit');
 const searchClearButtons = document.querySelectorAll('.search_clear')
-// const showDeleted = document.getElementById('showDeleted') ? 1 : 0;
 const dictBlockContent = document.querySelectorAll('.dict-block__content');
 const dictBlockList = document.querySelectorAll('.dict-block');
 const dictStartChecks = document.querySelectorAll('.checkbox-out');
@@ -41,7 +38,6 @@ dictStartChecks.forEach(chck => {
     chck.addEventListener('click', async e => {
         await initDictionary(e.target);
     }, {once: true});
-
 });
 
 /**
@@ -60,18 +56,6 @@ window.onload = function () {
 };
 
 userRights();
-
-/**
- * listener for DnD
- */
-// dictBlockList.forEach(block => {
-//     block.addEventListener('dragstart', handleDragStart, false);
-//     block.addEventListener('dragover', handleDragOver, false);
-//     block.addEventListener('dragenter', handleDragEnter);
-//     block.addEventListener('dragleave', handleDragLeave);
-//     block.addEventListener('drop', handleDrop, false);
-//     block.addEventListener('dragend', handleDragEnd);
-// });
 
 /**
  * listener if your click outside the form — close form

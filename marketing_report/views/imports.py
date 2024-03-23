@@ -73,8 +73,9 @@ def customers_new_to_main_db(request):
     создание групп по умолчанию
     :return количество импортированных записей"""
     customers_old = Customer.objects.filter(new=True)
-    customers_old = list(map(lambda customer: customer.__setattr__('new', False), customers_old))
-    Customer.objects.bulk_update(customers_old, ['new'])
+    for customer in customers_old:
+        customer.new = False
+    Customer.objects.bulk_update(list(customers_old), ['new'])
     customers_new = ImportCustomers.objects.filter(new=True)
     customers_new_reformatted = list(map(import_customer_to_customer, customers_new))
     result = len(customers_new_reformatted)
