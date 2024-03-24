@@ -1017,7 +1017,7 @@
 
 .customers {
   font-size: 14px;
-  grid-template-columns: 5fr 3fr 1.5fr 1.5fr;
+  grid-template-columns: 5fr 3fr 2fr 1.5fr 1.5fr;
 }
 
 .goods {
