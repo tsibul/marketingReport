@@ -56,7 +56,7 @@
     </div>
     <!--- Import file form -->
     <form class="import-file-modal__body" method="post" enctype="multipart/form-data" id="export-form"
-          action="{% url 'marketing_report:customers_export' %}" hidden>
+          action="{% url 'marketing_report:customers_export' %}" style="display: none;">
         {% csrf_token %}
         <input type="number" name="years" id="years" hidden>
         <input type="date" name="date" id="date" hidden>
