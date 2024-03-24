@@ -111,6 +111,7 @@ async function showCustomers(groupId, groupName) {
     let newRow, newItem;
     const modal = document.querySelector('#cust-list');
     const modalContent = modal.querySelector('.cust__list')
+    modalContent.innerHTML = '';
     modal.querySelector('.import-file-modal__header').textContent = groupName;
     const customerData = await fetchJsonData(`/marketing/show_customers_of_group/${groupId}`)
     customerData.forEach(customer => {
@@ -136,7 +137,5 @@ function closeCustomers(){
     setTimeout(() => {
         modal.classList.remove('import-file-modal_open', 'wide');
     }, 0);
-    const modalContent = modal.querySelector('.cust__list');
-    modalContent.innerHTML = '';
     modal.style.display = 'none';
 }
