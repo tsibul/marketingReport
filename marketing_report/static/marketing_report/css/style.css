@@ -469,7 +469,6 @@
   padding: 20px;
   display: flex;
   flex-direction: column;
-  max-width: 400px;
 }
 .import-file-modal__header {
   background-color: #EFE7DC;
@@ -680,10 +679,15 @@
   max-height: calc(100vh - 240px);
   min-height: 160px;
 }
+.cust__list {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
 .cust__years {
   display: flex;
   align-items: center;
-  justify-content: "justify-content-between";
+  justify-content: "space-between";
 }
 
 .btn-export {
@@ -692,6 +696,14 @@
 .btn-export:hover {
   background-color: #EFE7DC;
   color: #242F34;
+}
+
+.import-file-modal__content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 6px 0;
 }
 
 .dict-main {

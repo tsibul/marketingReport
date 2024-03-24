@@ -32,6 +32,7 @@
     padding: 4px 12px;
     border-radius: 10px;
     cursor: pointer;
+
     &:hover {
       background-color: $colorPrimary200;
     }
@@ -41,11 +42,17 @@
     overflow-y: scroll;
     max-height: calc(100vh - 240px);
     min-height: 160px;
-
   }
 
+  &__list {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+
   &__years {
-    @include d-flex-center('justify-content-between');
+    @include d-flex-center('space-between');
   }
 }
 
@@ -56,4 +63,16 @@
     background-color: $colorSecondary100;
     color: $colorPrimary800;
   }
+}
+
+.wide{
+  //min-width: 600px;
+}
+
+.import-file-modal__content{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 6px 0;
 }
