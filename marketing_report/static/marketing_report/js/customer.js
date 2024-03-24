@@ -8,12 +8,13 @@ const reportDate = document.querySelector('.current-date');
 const years = document.querySelector('.years');
 const block = document.querySelector('.cust__content');
 const searchInput = document.querySelector('.dict-block__form-input');
+const closeModalButton = document.querySelector('.modal-close');
 
 reportButton.addEventListener('click', async e => {
     e.preventDefault();
     const rowCurrent = document.querySelector('#customer-0');
-    block.querySelectorAll('.cust__row').forEach(row =>{
-        if(!row.classList.contains('dict-block__row_hidden')){
+    block.querySelectorAll('.cust__row').forEach(row => {
+        if (!row.classList.contains('dict-block__row_hidden')) {
             row.remove();
         }
     });
@@ -35,6 +36,7 @@ block.addEventListener('mouseover', async e => {
 });
 
 exportButton.addEventListener('click', () => exportFile());
+closeModalButton.addEventListener('click', () => closeCustomers());
 
 
 /**
@@ -79,10 +81,12 @@ export async function appendCustomerRows(rowCurrent, searchString, idNo) {
  */
 function fillCustomerRow(record, newRow) {
     const newRowElements = newRow.querySelectorAll('div[data-field]:not([data-field = ""])');
+    newRow.dataset.id = record['id'];
     for (const rowElement of newRowElements) {
         const fieldName = rowElement.dataset.field;
         rowElement.textContent = record[fieldName];
     }
+    newRow.addEventListener('click', () => showCustomers(record['id'], record['name']));
 }
 
 function normalizeSearch() {
@@ -101,4 +105,38 @@ function exportFile() {
     form.querySelector('#years').value = years.value;
     form.querySelector('#date').value = reportDate.value;
     form.submit();
+}
+
+async function showCustomers(groupId, groupName) {
+    let newRow, newItem;
+    const modal = document.querySelector('#cust-list');
+    const modalContent = modal.querySelector('.cust__list')
+    modal.querySelector('.import-file-modal__header').textContent = groupName;
+    const customerData = await fetchJsonData(`/marketing/show_customers_of_group/${groupId}`)
+    customerData.forEach(customer => {
+        newRow = document.createElement('div');
+        newRow.classList.add('import-file-modal__content');
+        newItem = document.createElement('div');
+        newItem.textContent = customer.name;
+        newRow.appendChild(newItem);
+        newItem = document.createElement('div');
+        newItem.textContent = customer.date_last;
+        // newItem.classList.add('dict-block__text');
+        newRow.appendChild(newItem);
+        modalContent.appendChild(newRow);
+    });
+    modal.style.display = 'block';
+    setTimeout(() => {
+        modal.classList.add('import-file-modal_open', 'wide');
+    }, 0);
+}
+
+function closeCustomers(){
+    const modal = document.querySelector('#cust-list');
+    setTimeout(() => {
+        modal.classList.remove('import-file-modal_open', 'wide');
+    }, 0);
+    const modalContent = modal.querySelector('.cust__list');
+    modalContent.innerHTML = '';
+    modal.style.display = 'none';
 }

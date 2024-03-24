@@ -6,7 +6,7 @@ import os
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render
 
-from marketing_report.models import CustomerGroup
+from marketing_report.models import CustomerGroup, Customer
 
 
 def customer(request):
@@ -23,7 +23,8 @@ def customers_current(request, date, years, search_string, id_no):
     if search_string != 'default':
         search_string = search_string.replace('_', ' ')
         customers = customers.filter(name__icontains=search_string)
-    customers = list(customers.values('name', 'customer_type__name', 'date_first', 'date_last')[id_no: id_no + 50])
+    customers = list(customers.values('id', 'name', 'customer_type__name', 'business_unit__name', 'date_first', 'date_last')[
+                     id_no: id_no + 50])
     return JsonResponse(customers, safe=False)
 
 
@@ -44,7 +45,7 @@ def customers_export(request):
                 type_name = None
                 if cst.customer_type:
                     type_name = cst.customer_type.name
-                csv_writer.writerow([cst.name, type_name, cst.date_first, cst.date_last, '', ''])
+                csv_writer.writerow([cst.name, type_name, cst.date_first, cst.date_last, cst.business_unit, ''])
     except Exception as e:
         print(f"Ошибка при записи в файл: {e}")
         return HttpResponse("Ошибка при записи в файл", status=500)
@@ -57,3 +58,9 @@ def customers_export(request):
     except Exception as e:
         print(f"Ошибка при чтении файла: {e}")
         return HttpResponse("Ошибка при чтении файла", status=500)
+
+
+def show_customers_of_group(request, group_id):
+    customers = Customer.objects.filter(customer_group_id=group_id)
+    customers_data = list(customers.values('name', 'date_last'))
+    return JsonResponse(customers_data, safe=False)

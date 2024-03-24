@@ -17,6 +17,7 @@ urlpatterns = [
     path('customers_current/<str:date>/<int:years>/<str:search_string>/<int:id_no>', views.customers_current,
          name='customers_current'),
     path('customers_export/', views.customers_export, name='customers_export'),
+    path('show_customers_of_group/<int:group_id>', views.show_customers_of_group, name='customers_of_group'),
 
     path('dictionary/', views.dictionary, name='dictionary'),
     path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),

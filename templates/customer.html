@@ -61,5 +61,21 @@
         <input type="number" name="years" id="years" hidden>
         <input type="date" name="date" id="date" hidden>
     </form>
+    <!--- Customers List in Group -->
+    <div class="import-file-modal" id="cust-list">
+        <div class="import-file-modal__body">
+            {% csrf_token %}
+            <div class="border-title active import-file-modal__header"></div>
+            <div class="cust__list">
+                <div class="import-file-modal__content">
+                    <div data-field="name"></div>
+                    <div class="dict-block__text" data-field="date_last"></div>
+                </div>
+            </div>
+            <div class="import-file-modal__buttons">
+                <button type="button" class="btn btn-close modal-close">закрыть</button>
+            </div>
+        </div>
+    </div>
 
 {% endblock %}
