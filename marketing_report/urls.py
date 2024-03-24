@@ -14,13 +14,16 @@ urlpatterns = [
          views.json_periods, name='json_report'),
 
     path('customer/', views.customer, name='customer'),
-
+    path('customers_current/<str:date>/<int:years>/<str:search_string>/<int:id_no>', views.customers_current,
+         name='customers_current'),
+    path('customers_export/', views.customers_export, name='customers_export'),
 
     path('dictionary/', views.dictionary, name='dictionary'),
     path('dictionary_last_id/<str:dict_type>', views.dictionary_last_id, name='dictionary_last_id'),
     path('dict_update/<str:dict_type>', views.dictionary_update, name='dictionary_update'),
     path('dict_delete/<str:dict_type>/<int:id_no>', views.dictionary_delete, name='dictionary_delete'),
-    path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>/<int:sh_deleted>', views.dictionary_json,
+    path('json_dict_next_20/<str:dict_type>/<int:id_no>/<str:order>/<str:search_string>/<int:sh_deleted>',
+         views.dictionary_json,
          name='dictionary_json'),
     path('dictionary_json_filter/<str:dict_type>/<str:filter_dictionary>/<int:filter_dictionary_id>',
          views.dictionary_json_filter, name='dictionary_json_filter'),

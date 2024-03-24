@@ -2,16 +2,62 @@
 {% load static %}
 {% block title %}Импорт{% endblock %}
 {% block content %}
-{#    <script type="module" src="{%  static 'marketing_report/js/customer.js' %}" defer></script>#}
-    <script type="module" src="{%  static 'marketing_report/js/dist/customer.bundle.js' %}" defer></script>
+    <script type="module" src="{% static 'marketing_report/js/customer.js' %}" defer></script>
+    {#    <script type="module" src="{% static 'marketing_report/js/dist/customer.bundle.js' %}" defer></script>#}
     <div class="full-content">
         <div class="container">
+            <div class="dict-main">
+                <form class="dict-menu dict-menu__customers">
+                    <div class="dict-menu__item active">Клиенты на дату</div>
+                    <input type="date" class="form-input current-date" name="current-date" required
+                           value="{{ date_now|date:'Y-m-d' }}">
+                    <div class="cust__years"> за&nbsp;<input type="number" class="form-input years" name="years"
+                                                             value="1">&nbsp;лет
+                    </div>
+                    <button class="btn btn-save report-button" type="submit">показать</button>
+                </form>
+                <div class="dict-right">
+                    <div class="cust">
+                        <div class="cust__header ">
+                            <div class="dict-block__active"><i class="fa fa-solid fa-sack-xmark"></i>Клиенты
+                            </div>
+                            <div class="cust__search">
+                                <i class="fa fa-solid fa-magnifying-glass"></i>
+                                <input type="search" class="form-input dict-block__form-input"
+                                       placeholder="искать...">
+                                <button class="btn btn-save search_submit" type="button">поиск</button>
+                                <button class="btn btn-close search_clear" type="button">очистить</button>
+                                <button class="btn  btn-export" type="button">экспорт</button>
+                            </div>
+                        </div>
+                        <div class="dict-block__row customers  active dict-block__row_right-margin">
+                            <div class="dict-block__text">Название</div>
+                            <div class="dict-block__text">Тип</div>
+                            <div class="dict-block__text">Первая продажа</div>
+                            <div class="dict-block__text">Последняя&nbsp;продажа</div>
+                            <div></div>
+                        </div>
+                        <div class="cust__content">
+                            <div class="cust__row customers dict-block__row_hidden" data-id="0"
+                                 id="customer-0">
+                                <div class="dict-block__text" data-field="name"></div>
+                                <div data-field="customer_type__name"></div>
+                                <div class="dict-block__text" data-field="date_first"></div>
+                                <div class="dict-block__text" data-field="date_last"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>
+    <!--- Import file form -->
+    <form class="import-file-modal__body" method="post" enctype="multipart/form-data" id="export-form"
+          action="{% url 'marketing_report:customers_export' %}" hidden>
+        {% csrf_token %}
+        <input type="number" name="years" id="years" hidden>
+        <input type="date" name="date" id="date" hidden>
+    </form>
 
-    <div hidden id="technical-data">
-        <div id="periods">{{ json_period }}</div>
-
-    </div>
 {% endblock %}
