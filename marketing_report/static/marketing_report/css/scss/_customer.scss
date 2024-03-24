@@ -1,0 +1,59 @@
+@import "vars";
+@import "mixins";
+
+.cust {
+  @include brd-standard;
+  display: flex;
+  flex-direction: column;
+  transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
+  overflow: hidden;
+  box-shadow: 6px 6px 12px $colorPrimary800;
+  max-width: 1600px;
+  grid-column: 1 / 5;
+
+  &__header {
+    padding: 20px;
+    background-color: $colorPrimary600;
+    border-radius: 10px;
+    @include d-flex-center(center);
+    cursor: pointer;
+    justify-content: space-between;
+  }
+
+  &__search {
+    @include d-flex-center('flex-end');
+    gap: 10px;
+  }
+
+  &__row {
+    display: grid;
+    align-items: center;
+    //gap: 10px;
+    padding: 4px 12px;
+    border-radius: 10px;
+    cursor: pointer;
+    &:hover {
+      background-color: $colorPrimary200;
+    }
+  }
+
+  &__content {
+    overflow-y: scroll;
+    max-height: calc(100vh - 240px);
+    min-height: 160px;
+
+  }
+
+  &__years {
+    @include d-flex-center('justify-content-between');
+  }
+}
+
+.btn-export {
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: $colorSecondary100;
+    color: $colorPrimary800;
+  }
+}
