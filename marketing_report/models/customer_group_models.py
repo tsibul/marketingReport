@@ -1,5 +1,7 @@
 from django.db import models
 import datetime
+
+from marketing_report.models import BusinessUnit
 from marketing_report.models.settings_dictionary import SettingsDictionary
 
 
@@ -34,6 +36,7 @@ class CustomerGroup(SettingsDictionary):
     active = models.BooleanField(default=True)
     default = models.BooleanField(default=True)
     fed_region = models.ForeignKey(FedRegion, models.SET_NULL, null=True, blank=True, default=None)
+    business_unit = models.ForeignKey(BusinessUnit, models.SET_NULL, null=True, blank=True, default=None)
 
 
 class CustomerGroupFrigateId(models.Model):
