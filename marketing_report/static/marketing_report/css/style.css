@@ -638,6 +638,62 @@
   width: 0;
 }
 
+.cust {
+  border: 1px solid #242F34;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  transition: scale 0.3s ease, height 0.3s ease-in-out, max-width 0.3s ease-in-out;
+  overflow: hidden;
+  box-shadow: 6px 6px 12px #242F34;
+  max-width: 1600px;
+  grid-column: 1/5;
+}
+.cust__header {
+  padding: 20px;
+  background-color: #3F525A;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  justify-content: space-between;
+}
+.cust__search {
+  display: flex;
+  align-items: center;
+  justify-content: "flex-end";
+  gap: 10px;
+}
+.cust__row {
+  display: grid;
+  align-items: center;
+  padding: 4px 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.cust__row:hover {
+  background-color: #C3CFD5;
+}
+.cust__content {
+  overflow-y: scroll;
+  max-height: calc(100vh - 240px);
+  min-height: 160px;
+}
+.cust__years {
+  display: flex;
+  align-items: center;
+  justify-content: "justify-content-between";
+}
+
+.btn-export {
+  transition: all 0.3s ease;
+}
+.btn-export:hover {
+  background-color: #EFE7DC;
+  color: #242F34;
+}
+
 .dict-main {
   display: flex;
 }
@@ -650,6 +706,10 @@
   width: 240px;
   margin-right: 20px;
   height: fit-content;
+}
+.dict-menu__customers {
+  padding: 12px;
+  gap: 12px;
 }
 .dict-menu__details {
   max-height: 64px;
@@ -953,6 +1013,11 @@
 }
 .customer .btn {
   font-size: 14px;
+}
+
+.customers {
+  font-size: 14px;
+  grid-template-columns: 5fr 3fr 1.5fr 1.5fr;
 }
 
 .goods {

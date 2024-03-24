@@ -14,6 +14,11 @@
   margin-right: 20px;
   height: fit-content;
 
+  &__customers{
+    padding: 12px;
+    gap: 12px;
+  }
+
   &__details {
     max-height: 64px;
     transition: max-height 0.3s ease-in-out;
